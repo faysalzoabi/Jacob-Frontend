@@ -18,15 +18,9 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN mkdir -p /app
 WORKDIR /app
 COPY ./app/package.json /app
-COPY ./app/yarn.lock /app
 
 RUN apt-get update && apt-get install -y apt-transport-https
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install yarn
 
-
-RUN yarn install
 COPY ./app /app
 RUN npm run build
 
