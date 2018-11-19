@@ -1,0 +1,8 @@
+version: '3'
+services:
+  frontend:
+    image: registry.gitlab.propulsion-home.ch/full-stack/batch-2018-09/personal-projects/jacob-project/frontend:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/app
