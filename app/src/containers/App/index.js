@@ -7,6 +7,7 @@ class App extends Component {
     if (localStorage.getItem('token')) {
       return (
         <div className="App">
+          <Header/>
           Token is in localstorage.
         </div>
       )
