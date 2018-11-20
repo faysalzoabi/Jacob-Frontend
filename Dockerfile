@@ -18,19 +18,19 @@ RUN npm install -g n
 RUN n 9.11.1
 
 RUN mkdir -p /frontend
-#RUN mkdir -p /app
+RUN mkdir -p /app
 
 RUN export NODE_ENV=production
 
 RUN npm i
-WORKDIR /frontend
-COPY ./app/package.json /frontend/
+WORKDIR /app
+COPY ./app/package.json /app/
 RUN npm install
-COPY ./app /frontend
+COPY ./app /app
 RUN npm run build
 
 
-WORKDIR /frontend
+WORKDIR /app
 
 EXPOSE 8000
 EXPOSE 22
