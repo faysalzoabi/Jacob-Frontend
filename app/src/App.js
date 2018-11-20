@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Route, Switch} from "react-router-dom";
 import Header from "./components/header"
 
 class App extends Component {
@@ -14,7 +13,7 @@ class App extends Component {
     }
     else {
       return (
-        < div className="App">
+        <div className="App">
           <Header/>
 
           <h1>PLACEHOLDER FOR COMPONENTS no TOKEN</h1>
