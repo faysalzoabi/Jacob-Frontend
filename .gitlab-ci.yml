@@ -21,16 +21,6 @@ build:
   script:
     - docker build --tag="$CI_PIPELINE_ID":"$CI_COMMIT_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest .
 
-lint:
-  stage: lint
-  script:
-    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.test.yml run frontend npm run lint
-
-test:
-  stage: test
-  script:
-    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.test.yml run frontend npm run test-automated
-
 push image:
   stage: push
   only:

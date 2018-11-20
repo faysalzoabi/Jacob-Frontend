@@ -1,26 +1,34 @@
-FROM node:9.10.0
+FROM ubuntu:16.04
 
-# SSH Server
-RUN apt-get update && apt-get upgrade -y && apt-get install -qqy \
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+RUN apt-get update && apt-get install -qqy \
+    wget \
+    bzip2 \
     libssl-dev \
-    openssh-server
+    openssh-server \
+    nodejs \
+    npm \
+    graphviz
 
-RUN mkdir /var/run/sshd
-RUN echo 'root:screencast' | chpasswd
-RUN sed -i '/PermitRootLogin/c\PermitRootLogin yes' /etc/ssh/sshd_config
+RUN apt-get autoremove -y
 
-# SSH login fix. Otherwise user is kicked off after login
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+# NodeJS
+RUN npm install -g n
+RUN n 9.11.1
 
-ENV NOTVISIBLE "in users profile"
-RUN echo "export VISIBLE=now" >> /etc/profile
+RUN mkdir -p /frontend
+#RUN mkdir -p /app
 
-RUN mkdir -p /app
-WORKDIR /app
-COPY ./app/package.json /app
-
-RUN apt-get update && apt-get install -y apt-transport-https
-
-COPY ./app /app
+RUN npm i
+WORKDIR /frontend
+COPY ./app/package.json /frontend/
+RUN npm install
+COPY ./app /frontend
 RUN npm run build
 
+
+WORKDIR /frontend
+
+EXPOSE 8000
+EXPOSE 22
