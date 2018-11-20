@@ -18,10 +18,10 @@ RUN npm install -g n
 RUN n 9.11.1
 
 RUN mkdir -p /frontend
-RUN mkdir -p /frontend/build
+#RUN mkdir -p /frontend/build
 RUN mkdir -p /app
 
-RUN export NODE_ENV=production
+#RUN export NODE_ENV=production
 
 RUN npm i
 WORKDIR /app
