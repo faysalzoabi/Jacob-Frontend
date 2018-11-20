@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
-import { Route, Switch } from "react-router-dom";
+import React, {Component} from 'react';
+import {Route, Switch} from "react-router-dom";
 import Header from "./components/header"
-import Homepage from "./components/Homepage"
+
 class App extends Component {
-  render() {
+  render () {
     console.log("token in app render", localStorage.getItem('token'))
     if (localStorage.getItem('token')) {
       return (
         <div className="App">
-          <Switch>
-            <Route exact path='/' component={Homepage} />
-          </Switch>
+          <Header/>
         </div>
       )
     }
     else {
       return (
-        < div className="App" >
-          <Switch>
-            <Route exact path='/' component={Homepage} />
-          </Switch>
-        </div >
+        < div className="App">
+          <Header/>
+
+          <h1>PLACEHOLDER FOR COMPONENTS no TOKEN</h1>
+
+        </div>
       )
     }
   };
