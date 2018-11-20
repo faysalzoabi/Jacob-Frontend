@@ -43,6 +43,15 @@ cleanup:
     - docker rmi -f "$CI_PIPELINE_ID":"$CI_COMMIT_REF_NAME"
     - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.test.yml down --remove-orphans
 
+deploy master auto:
+  only:
+    - master
+  stage: deploy
+  script:
+    - export CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE
+    - docker-compose -f docker-compose.prod.yml pull
+    - docker-compose -f docker-compose.prod.yml down
+    - docker-compose -f docker-compose.prod.yml up -d
 
 deploy master:
   except:
@@ -55,3 +64,13 @@ deploy master:
     - docker-compose -f docker-compose.prod.yml down
     - docker-compose -f docker-compose.prod.yml up -d
 
+deploy latest:
+  except:
+    - master
+  stage: deploy
+  when: manual
+  script:
+    - export CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE
+    - docker-compose -f docker-compose.latest.yml pull
+    - docker-compose -f docker-compose.latest.yml down
+    - docker-compose -f docker-compose.latest.yml up -d
