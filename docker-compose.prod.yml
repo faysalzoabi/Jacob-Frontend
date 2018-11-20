@@ -1,8 +1,8 @@
 version: '3'
 services:
   frontend:
-    image: registry.gitlab.propulsion-home.ch/full-stack/batch-2018-09/personal-projects/jacob-project/frontend:master
-#    command: "bash -c 'rm -rf /frontend/build/* && cp -r /app/build/* /frontend/build/'"
+    image: registry.gitlab.propulsion-home.ch/full-stack/batch-2018-09/personal-projects/jacob-project/frontend:latest
+    command: "bash -c 'rm -rf /frontend/build/* && cp -r /app/build/* /frontend/build/'"
     volumes:
       - frontend:/frontend
 
