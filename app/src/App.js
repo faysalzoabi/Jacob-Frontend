@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
-
+import Header from "./components/header"
 class App extends Component {
   render() {
     console.log("token in app render", localStorage.getItem('token'))
@@ -8,8 +8,8 @@ class App extends Component {
       return (
         <div className="App">
           <Switch>
-
-           PLACEHOLDER FOR COMPONENTS WITH TOKEN
+            <Header />
+            <h1>PLACEHOLDER FOR COMPONENTS WITH TOKEN</h1>
 
           </Switch>
         </div>
@@ -19,9 +19,10 @@ class App extends Component {
       return (
         < div className="App" >
           <Switch>
+            <Header />
 
-          PLACEHOLDER FOR COMPONENTS WITHOUT 
-          
+            <h1>PLACEHOLDER FOR COMPONENTS no TOKEN</h1>
+
           </Switch>
         </div >
       )
