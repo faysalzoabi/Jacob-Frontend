@@ -1,0 +1,10 @@
+.leftPanel {
+    background-color: #ff9e2c;
+  flex: 1;
+  padding: 1rem;
+}
+.container {
+display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

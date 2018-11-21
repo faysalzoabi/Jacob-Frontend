@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Header from "../header"
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-
+import { AwesomeButtonProgress } from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
+import Header from "../../containers/Header"
 
 const styles = theme => ({
     container: {
@@ -27,7 +26,7 @@ const styles = theme => ({
 
 class Homepage extends Component {
     state = {
-        multiline: 'Controlled',
+        multiline: '',
     }
     render() {
         this.handleChange = name => event => {
@@ -35,6 +34,15 @@ class Homepage extends Component {
                 [name]: event.target.value,
             });
         };
+
+        this.handleDrawerOpen = () => {
+            this.setState({ drawerIsOpen: true });
+          };
+        
+        this.handleDrawerClose = () => {
+            this.setState({ drawerIsOpen: false });
+          };
+
         const { classes } = this.props;
 
         return (
@@ -55,10 +63,14 @@ class Homepage extends Component {
                     />
 
                 </div>
-                <Button variant="contained" color="secondary" className={classes.button}>
-                    Jacob, Search!
-        <Icon className={classes.rightIcon}>search</Icon>
-                </Button>
+                    <AwesomeButtonProgress
+                        type="secondary"
+                        size="large"
+                        action={this.submitHandler}
+                    >
+                        Search!
+    
+                </AwesomeButtonProgress>
             </div>
         );
     }
