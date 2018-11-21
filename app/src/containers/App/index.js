@@ -4,12 +4,14 @@ import Homepage from "../../components/Homepage";
 import Login from "../../components/login"
 import { Route, Switch } from 'react-router-dom';
 import Datapoints from "../../components/Datapoints";
+import Header from "../Header";
 
 class App extends Component {
   render () {
     if (localStorage.getItem('token')) {
       return (
         <div className="App">
+                            <Header/>
                 <Switch>
             <Route exact path="/" component={ Homepage } />
                     <Route exact path="/datapoints" component={ Datapoints } />
@@ -21,6 +23,7 @@ class App extends Component {
     else {
       return (
         < div className="App">
+                            <Header/>
            <Switch>
                                    <Route exact path="/datapoints" component={ Datapoints } />
             <Route exact path="/login" component={ Login } />
