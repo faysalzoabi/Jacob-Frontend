@@ -37,11 +37,11 @@ class Homepage extends Component {
 
         this.handleDrawerOpen = () => {
             this.setState({ drawerIsOpen: true });
-          };
-        
+        };
+
         this.handleDrawerClose = () => {
             this.setState({ drawerIsOpen: false });
-          };
+        };
 
         const { classes } = this.props;
 
@@ -63,13 +63,12 @@ class Homepage extends Component {
                     />
 
                 </div>
-                    <AwesomeButtonProgress
-                        type="secondary"
-                        size="large"
-                        action={this.submitHandler}
-                    >
-                        Search!
-    
+                <AwesomeButtonProgress
+                    type="secondary"
+                    size="large"
+                    action={this.submitHandler}
+                >
+                    Search!
                 </AwesomeButtonProgress>
             </div>
         );
