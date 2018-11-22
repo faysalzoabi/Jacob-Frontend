@@ -25,7 +25,7 @@ export const loginUser = credentials => dispatch => {
     password: credentials.password
   };
 
-  return axios.post('token/', data)
+  return axios.post('auth/token/', data)
     .then(res => {
       if (res.data.non_field_errors === undefined) {
         localStorage.setItem('token', JSON.stringify(res.data.access));
