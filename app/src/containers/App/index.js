@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
 import Header from './../Header'
-import Results from './../Results'
 import Login from './../Login'
 import Logout from './../Logout'
 import Redirect from '../Redirect';
+import Datapoints from './../../components/Datapoints';
+import Homepage from './../../components/Homepage';
 
 import './index.css';
 
@@ -16,9 +17,10 @@ class App extends Component {
         <div className="App">
           <Header/>
           <Switch>
-            <Route exact path="/results" component={Results}/>
+            <Route exact path="/datapoints" component={Datapoints}/>
             <Route exact path="/logout" component={Logout}/>
-            <Route exact path="/login" render={() => <Redirect path="/results"/>}/>
+            <Route exact path="/" component={Homepage}/>
+            <Route exact path="/login" render={() => <Redirect path="/datapoints"/>}/>
             <Route render={() => <p>404 - Page not found!</p>}/>
           </Switch>
         </div>

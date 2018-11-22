@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "./index.css"
-import CardDatapoints from "./components/dropdown";
-import KeyPhrase from "./components/keyphrases"
+import CardDatapoints from "../../containers/Dropdown";
+import KeyPhrase from "../Keyphrases"
+import Results from './../../containers/Results';
 
 class Datapoints extends Component {
 
@@ -12,9 +13,10 @@ class Datapoints extends Component {
                     <CardDatapoints />
                    <KeyPhrase/>
                 </div>
+              <Results/>
             </div>
         );
     }
 }
 
-export default (Datapoints);
+export default Datapoints;

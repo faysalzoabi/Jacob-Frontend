@@ -47,7 +47,6 @@ class Homepage extends Component {
 
         return (
             <div>
-                <Header />
                 <div className="Container">
                     <TextField
                         id="outlined-multiline-flexible"
