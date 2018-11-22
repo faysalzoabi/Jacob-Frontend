@@ -1,20 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import "./index.css"
-import CardDatapoints from "./components/index"
-
+import CardDatapoints from "./components/dropdown";
+import KeyPhrase from "./components/keyphrases"
 
 class Datapoints extends Component {
 
-
-
     render() {
-      const { classes } = this.props;
-
         return (
             <div className="container">
                 <div className="leftPanel" >
-                    <br></br>
-                <CardDatapoints/>
+                    <CardDatapoints />
+                   <KeyPhrase/>
                 </div>
             </div>
         );
