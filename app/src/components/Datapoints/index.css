@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+}
+
+.leftPanel {
+    flex-direction: column;
+    width: 20%;
+
+}

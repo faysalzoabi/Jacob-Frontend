@@ -1,19 +1,14 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
+import blue from '@material-ui/core/colors/blue';
+import indigo from "@material-ui/core/colors/indigo";
 
 const theme = createMuiTheme(
   {
     palette: {
-      primary: green,
+      primary: blue,
+        secondary: indigo,
     },
-    shadows: Array(25).fill('none'),
-    overrides: {
-      MuiButton: {
-        raisedPrimary: {
-          color: 'white',
-        },
-      },
-    }
+
   },
 );
 
