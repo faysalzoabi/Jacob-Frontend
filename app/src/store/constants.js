@@ -18,7 +18,7 @@ let baseUrl;
 if (process.env.NODE_ENV === 'development') {
   baseUrl = 'http://localhost:8875';
 } else {
-  baseUrl = 'https://koispace.propulsion-learn.ch';
+  baseUrl = 'https://jacob.propulsion-learn.ch';
 }
 export {
   baseUrl
@@ -28,7 +28,7 @@ let baseAPIUrl;
 if (process.env.NODE_ENV === 'development') {
   baseAPIUrl = 'http://localhost:8875/backend/';
 } else {
-  baseAPIUrl = 'https://koispace.propulsion-learn.ch/backend/api/';
+  baseAPIUrl = 'https://jacob.propulsion-learn.ch/backend/';
 }
 export {
   baseAPIUrl
