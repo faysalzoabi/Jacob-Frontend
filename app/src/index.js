@@ -14,11 +14,12 @@ const used_theme = theme;
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
       <MuiThemeProvider theme={used_theme}>
+              <BrowserRouter>
         <App/>
+                      </BrowserRouter>
+
       </MuiThemeProvider>
-    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

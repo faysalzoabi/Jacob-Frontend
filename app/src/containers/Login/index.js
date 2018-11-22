@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {loginUser} from '../../store/actions/authActions';
 import Error from '../Error/';
+import {AwesomeButton} from 'react-awesome-button';
+import 'react-awesome-button/dist/styles.css';
 
 const styles = theme => ({
   button: {
@@ -15,7 +17,7 @@ const styles = theme => ({
 });
 
 class Login extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       username: 'user01',
@@ -41,7 +43,7 @@ class Login extends Component {
     const action = loginUser(this.state);
     this.props.dispatch(action).then((data) => {
       if (data.non_field_errors === undefined) {
-        this.props.history.push('/results');
+        this.props.history.push('/datapoints');
       } else {
         this.setState({error: data.non_field_errors[0]});
       }
@@ -60,7 +62,7 @@ class Login extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <form className="Contact-Form" onSubmit={this.userLogin}>
         <Error error={this.state.error}/>
@@ -77,9 +79,12 @@ class Login extends Component {
           onChange={this.handlePasswordInput}
           onKeyPress={this.handleKeyPress}
         /><br/>
-        <Button onClick={this.userLogin} variant="outlined" size="medium" color="primary" className={this.classes.button}>
+        <AwesomeButton
+          type="secondary"
+          size="large"
+          onClick={this.userLogin}>
           Login
-        </Button>
+        </AwesomeButton>
       </form>
     );
   }
