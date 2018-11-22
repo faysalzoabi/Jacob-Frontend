@@ -1,18 +1,11 @@
-const initialState = {
-    restaurants: [],
-    curr_user: {},
-    token: {},
-    reviews: [],
-    searchIsFinished: false,
-}
+import { combineReducers } from 'redux';
+import tokenReducer from './tokenReducer';
+import userReducer from './userReducer';
 
-const reducer = (state = initialState, action) => {
-    const newState = { ...state };
 
-    switch (action.type) {
-        // PlaceHolder
-        default:
-            return state;
-    }
-}
-export default reducer;
+const reducers = combineReducers({
+  token: tokenReducer,
+  currentUser: userReducer,
+});
+
+export default reducers;
