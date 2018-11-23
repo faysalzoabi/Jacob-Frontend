@@ -7,7 +7,7 @@ import Logout from './../Logout'
 import Redirect from '../Redirect';
 import Datapoints from './../../components/Datapoints';
 import Homepage from './../../components/Homepage';
-import Upload from "../Upload_files"
+import Upload from "../Upload"
 import './index.css';
 
 class App extends Component {
