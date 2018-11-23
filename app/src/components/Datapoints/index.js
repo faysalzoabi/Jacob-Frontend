@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import "./index.css"
 import CardDatapoints from "../../containers/Dropdown";
 import KeyPhrase from "../Keyphrases"
 import Results from './../../containers/Results';
+import "./index.css"
 
 class Datapoints extends Component {
 
@@ -11,9 +11,11 @@ class Datapoints extends Component {
             <div className="container">
                 <div className="leftPanel" >
                     <CardDatapoints />
-                   <KeyPhrase/>
+                    <KeyPhrase />
                 </div>
-              <Results/>
+                <div className="rightPanel">
+                    <Results />
+                </div>
             </div>
         );
     }
