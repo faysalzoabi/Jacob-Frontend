@@ -8,10 +8,16 @@ import {loginUser} from '../../store/actions/authActions';
 import Error from '../Error/';
 import {AwesomeButton} from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+import InputLabel from '@material-ui/core/InputLabel';
+import './index.css'
 
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -63,15 +69,22 @@ class Login extends Component {
 
   render () {
     return (
-      <form className="Contact-Form" onSubmit={this.userLogin}>
+
+      <form className="Login-Form" onSubmit={this.userLogin}>
         <Error error={this.state.error}/>
         <TextField
+          id="outlined-helperText"
+          label="Username"
+          className={this.classes.textField}
           placeholder="Enter your Username"
           value={this.state.username}
           onChange={this.handleUsernameInput}
           onKeyPress={this.handleKeyPress}
         /><br/>
         <TextField
+          id="outlined-helperText"
+          label="Password"
+          className={this.classes.textField}
           type="password"
           placeholder="Enter your Password"
           value={this.state.password}
@@ -85,6 +98,7 @@ class Login extends Component {
           Login
         </AwesomeButton>
       </form>
+
     );
   }
 }

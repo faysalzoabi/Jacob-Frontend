@@ -21,7 +21,7 @@ class Results extends Component {
     return (
       <div className="main-results">
         <div onMouseUp={(e) => this.handler(e)}>
-          Hello World
+          <p>Hello</p>World
         </div>
       </div>)
   }

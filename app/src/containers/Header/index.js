@@ -24,9 +24,7 @@ const styles = theme => ({
 })
 
 class Header extends Component {
-  loginHandler = () => {
-    this.props.history.push('/login')
-  }
+
 
   render () {
     const {classes} = this.props;
@@ -35,17 +33,18 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="static" color="primary">
           <Toolbar variant="dense">
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon/>
-            </IconButton>
-            {/* the ternary operator checks if the user is logged in (if not it shows the login button) */}
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Jacob
             </Typography>
             {localStorage.getItem("token") ?
-              <Logout/>
+              <div>
+                <Button color="inherit" onClick={() => this.props.history.push('/')}>Search</Button>
+                <Button color="inherit" onClick={() => this.props.history.push('/upload')}>Upload</Button>
+                <Button color="inherit" onClick={() => this.props.history.push('/datapoints')}>Datapoints</Button>
+                <Logout/>
+              </div>
               :
-              <Button color="inherit" onClick={this.loginHandler}>Login</Button>
+              <Button color="inherit" onClick={() => this.props.history.push('/login')}>Login</Button>
             }
           </Toolbar>
         </AppBar>

@@ -35,9 +35,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <Button onClick={this.onLogout} variant="contained" color="primary" size="medium">
-        Logout
-      </Button>
+      <Button onClick={this.onLogout} color="inherit">Logout</Button>
     );
   }
 }

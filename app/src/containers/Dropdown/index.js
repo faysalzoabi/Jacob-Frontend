@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Card from "@material-ui/core/Card/Card";
 import CardContent from "@material-ui/core/CardContent/CardContent";
 import FormControl from "@material-ui/core/FormControl/FormControl";
@@ -6,7 +6,7 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Grid from "@material-ui/core/Grid/Grid";
-import { withStyles } from "@material-ui/core";
+import {withStyles} from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -26,18 +26,19 @@ const styles = theme => ({
   },
 
 });
+
 class CardDatapoints extends Component {
   state = {
     age: '',
     name: '',
     labelWidth: 0,
   };
-  render() {
-    const { classes } = this.props;
+
+  render () {
+    const {classes} = this.props;
 
     return (
-      <Grid container spacing={12}
-      >
+      <Grid container spacing={12}>
         <Card className={classes.card}>
           <CardContent>
             <form className={classes.root} autoComplete="off">
