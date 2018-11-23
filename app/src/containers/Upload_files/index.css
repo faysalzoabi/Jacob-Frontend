@@ -1,0 +1,11 @@
+/* use a hand cursor intead of arrow for the action buttons */
+.filepond--file-action-button {
+    cursor: pointer;
+}
+.filepond--root {
+    height: 300px;
+    width: 400px;
+}
+.filepond{
+    margin-top: 15%;
+}
