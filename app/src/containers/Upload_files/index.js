@@ -6,10 +6,11 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import "./index.css"
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-
+const token = localStorage.getItem("token").slice(1, -1)
 
 class Upload extends Component {
     state = {
@@ -27,17 +28,31 @@ class Upload extends Component {
 
                 {/* Pass FilePond properties as attributes */}
                 <FilePond ref={ref => this.pond = ref}
-                    allowMultiple={true}
-                    maxFiles={3}
+                    allowMultiple={false}
+                    server=
+                    {
+
+                        {
+                            url: 'http://0.0.0.0:8875/backend/file/upload/',
+                            process: {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+
+                                },
+
+                            },
+                        }
+                    }
+
                     className="filepond"
-                    server="http://192.168.33.10"
                     oninit={() => this.handleInit()}
                     onupdatefiles={(fileItems) => {
                         // Set current file objects to this.state
                         this.setState({
                             files: fileItems.map(fileItem => fileItem.file)
                         });
-                    }}>
+                    }}
+                >
 
                     {/* Update current files  */}
                     {this.state.files.map(file => (
