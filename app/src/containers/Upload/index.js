@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { FilePond, File, registerPlugin } from 'react-filepond';
+import React, {Component} from 'react';
+import {FilePond, File, registerPlugin} from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -10,60 +10,60 @@ import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const token = localStorage.getItem("token").slice(1, -1)
+const token = localStorage.getItem("token").slice(1,-1)
 
 class Upload extends Component {
-    state = {
-        files: []
-    }
+  state = {
+    files: []
+  }
 
-    handleInit() {
-        console.log('FilePond instance has initialised', this.pond);
-    }
+  handleInit () {
+    console.log('FilePond instance has initialised', this.pond);
+  }
 
-    render() {
+  render () {
+    console.log(token)
+    return (
+      <div className="App">
 
-        return (
-            <div className="App">
-
-                {/* Pass FilePond properties as attributes */}
-                <FilePond ref={ref => this.pond = ref}
-                    allowMultiple={false}
-                    server=
+        {/* Pass FilePond properties as attributes */}
+        <FilePond ref={ref => this.pond = ref}
+                  allowMultiple={false}
+                  server=
                     {
 
-                        {
-                            url: 'http://0.0.0.0:8875/backend/file/upload/',
-                            process: {
-                                headers: {
-                                    Authorization: `Bearer ${token}`
+                      {
+                        url: 'http://0.0.0.0:8875/backend/file/upload/',
+                        process: {
+                          headers: {
+                            Authorization: `Bearer ${token}`
 
-                                },
+                          },
 
-                            },
-                        }
+                        },
+                      }
                     }
 
-                    className="filepond"
-                    oninit={() => this.handleInit()}
-                    onupdatefiles={(fileItems) => {
-                        // Set current file objects to this.state
-                        this.setState({
-                            files: fileItems.map(fileItem => fileItem.file)
-                        });
-                    }}
-                >
+                  className="filepond"
+                  oninit={() => this.handleInit()}
+                  onupdatefiles={(fileItems) => {
+                    // Set current file objects to this.state
+                    this.setState({
+                      files: fileItems.map(fileItem => fileItem.file)
+                    });
+                  }}
+        >
 
-                    {/* Update current files  */}
-                    {this.state.files.map(file => (
-                        <File key={file} src={file} origin="local" />
-                    ))}
+          {/* Update current files  */}
+          {this.state.files.map(file => (
+            <File key={file} src={file} origin="local"/>
+          ))}
 
-                </FilePond>
+        </FilePond>
 
-            </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 export default Upload;
