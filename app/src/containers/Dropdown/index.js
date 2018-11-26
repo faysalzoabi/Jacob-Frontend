@@ -7,6 +7,9 @@ import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Grid from "@material-ui/core/Grid/Grid";
 import {withStyles} from "@material-ui/core";
+import {connect} from 'react-redux';
+
+import {fetchTagsAndDocRefs} from './../../store/actions/tagsActions';
 
 const styles = theme => ({
   root: {
@@ -34,9 +37,12 @@ class CardDatapoints extends Component {
     labelWidth: 0,
   };
 
+  componentDidMount = () => {
+    this.props.dispatch(fetchTagsAndDocRefs())
+  }
+
   render () {
     const {classes} = this.props;
-
     return (
       <Grid container spacing={12}>
         <Card className={classes.card}>
@@ -52,12 +58,12 @@ class CardDatapoints extends Component {
                     id: 'age-simple',
                   }}
                 >
-                  <MenuItem value="Datapoints">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+
+                  {
+                    this.props.tags.map(tag => {
+                      return <MenuItem>{tag.name}</MenuItem>
+                    })
+                  }
                 </Select>
               </FormControl>
             </form>
@@ -68,4 +74,11 @@ class CardDatapoints extends Component {
   }
 }
 
-export default withStyles(styles)(CardDatapoints);
+
+const mapStateToProps = state => {
+  return {
+    tags: state.tags,
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(CardDatapoints));

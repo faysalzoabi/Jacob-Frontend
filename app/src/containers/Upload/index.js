@@ -10,7 +10,6 @@ import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const token = localStorage.getItem("token").slice(1,-1)
 
 class Upload extends Component {
   state = {
@@ -22,6 +21,7 @@ class Upload extends Component {
   }
 
   render () {
+    const token = localStorage.getItem("token").slice(1,-1)
     console.log(token)
     return (
       <div className="App">

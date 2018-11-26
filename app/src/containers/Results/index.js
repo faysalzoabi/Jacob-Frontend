@@ -11,16 +11,52 @@ class Results extends Component {
   }
 
 
-  handler = (event) => {
-    console.log("dfdfd",window.getSelection().toString())
-    this.setState({textareaVal: window.getSelection().toString()})
+  getHTMLOfSelection = () => {
+    let range;
+    if (document.selection && document.selection.createRange) {
+      range = document.selection.createRange();
+      return range.htmlText;
+    }
+    else if (window.getSelection) {
+      let selection = window.getSelection();
+      if (selection.rangeCount > 0) {
+        range = selection.getRangeAt(0);
+        let clonedSelection = range.cloneContents();
+        let div = document.createElement('div');
+        div.appendChild(clonedSelection);
+        return div.innerHTML;
+      }
+      else {
+        return '';
+      }
+    }
+    else {
+      return '';
+    }
+  }
+
+  breakIntoTags = (html) => {
+
+  }
+
+  highlightSelected = () => {
+    let html = this.getHTMLOfSelection()
+    console.log(html)
+    let htmlTags = []
+  }
+
+
+  handler = () => {
+    // console.log("dfdfd",window.getSelection().toString())
+    // this.setState({textareaVal: window.getSelection().toString()})
+    this.highlightSelected()
+
   }
 
   render () {
-    console.log("text ", this.state.textareaVal)
     return (
       <div className="main-results">
-        <div onMouseUp={(e) => this.handler(e)}>
+        <div onMouseUp={this.handler}>
           <p>Hello</p>World
         </div>
       </div>)
