@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
-import CardDatapoints from "../../containers/Dropdown";
-import KeyPhrase from "../Keyphrases"
+import Dropdown from "../../containers/Dropdown";
+import KeyPhrase from "../../containers/Keyphrases"
 import Results from './../../containers/Results';
 import "./index.css"
+import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
+import {connect} from "react-redux";
+
 
 class Datapoints extends Component {
+
+  componentDidMount = () => {
+    this.props.dispatch(fetchTagsAndDocRefs())
+  }
+
 
   render () {
     return (
       <div className="container">
         <div className="leftPanel">
-          <CardDatapoints/>
+          <Dropdown/>
           <KeyPhrase/>
         </div>
         <div className="rightPanel">
@@ -21,4 +29,10 @@ class Datapoints extends Component {
   }
 }
 
-export default Datapoints;
+
+const mapStateToProps = state => {
+  return {
+    tags: state.tags,
+  };
+};
+export default connect(mapStateToProps)(Datapoints);

@@ -9,7 +9,8 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {withStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 
-import {fetchTagsAndDocRefs} from './../../store/actions/tagsActions';
+import {fetchPdfs} from './../../store/actions/pdfActions';
+
 
 const styles = theme => ({
   root: {
@@ -30,38 +31,39 @@ const styles = theme => ({
 
 });
 
-class CardDatapoints extends Component {
+class Dropdown extends Component {
   state = {
-    age: '',
-    name: '',
-    labelWidth: 0,
+    tag: '',
   };
 
-  componentDidMount = () => {
-    this.props.dispatch(fetchTagsAndDocRefs())
+
+  handleChange = (event) => {
+    this.setState({tag: event.target.value})
+    let pdfIndexes = this.props.tags.filter(tag => tag.name === event.target.value)[0]['pdf_documents']
+    this.props.dispatch(fetchPdfs(pdfIndexes))
   }
 
   render () {
+    console.log(this.state)
     const {classes} = this.props;
     return (
-      <Grid container spacing={12}>
+      <Grid container spacing={16}>
         <Card className={classes.card}>
           <CardContent>
             <form className={classes.root} autoComplete="off">
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Datapoints</InputLabel>
+                <InputLabel htmlFor="age-simple">Tags</InputLabel>
                 <Select
-                  value={this.state.age}
+                  value={this.state.tag}
                   onChange={this.handleChange}
                   inputProps={{
-                    name: 'age',
-                    id: 'age-simple',
+                    name: 'tag',
                   }}
                 >
 
                   {
-                    this.props.tags.map(tag => {
-                      return <MenuItem>{tag.name}</MenuItem>
+                    this.props.tags.map((tag, index) => {
+                      return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>
                     })
                   }
                 </Select>
@@ -81,4 +83,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(CardDatapoints));
+export default connect(mapStateToProps)(withStyles(styles)(Dropdown));

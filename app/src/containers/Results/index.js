@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import './index.css';
+
 class Results extends Component {
 
   constructor (props) {
@@ -41,7 +44,7 @@ class Results extends Component {
   highlightSelected = () => {
     let html = this.getHTMLOfSelection()
     console.log(html)
-    let htmlTags = []
+    // let htmlTags = []
   }
 
 
@@ -56,10 +59,21 @@ class Results extends Component {
     return (
       <div className="main-results">
         <div onMouseUp={this.handler}>
-          <p>Hello</p>World
+          {
+            this.props.pdfs.map(pdf =>{
+              return <div>{pdf.report}</div>
+            })
+          }
         </div>
       </div>)
   }
 }
 
-export default Results;
+
+const mapStateToProps = state => {
+  return {
+    pdfs: state.pdfs,
+  };
+};
+
+export default connect(mapStateToProps)(Results);

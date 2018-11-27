@@ -6,7 +6,6 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import "./index.css"
-import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -21,7 +20,7 @@ class Upload extends Component {
   }
 
   render () {
-    const token = localStorage.getItem("token").slice(1,-1)
+    const token = localStorage.getItem("token").slice(1, -1)
     console.log(token)
     return (
       <div className="App">

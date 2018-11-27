@@ -8,7 +8,6 @@ import {loginUser} from '../../store/actions/authActions';
 import Error from '../Error/';
 import {AwesomeButton} from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
-import InputLabel from '@material-ui/core/InputLabel';
 import './index.css'
 
 const styles = theme => ({
@@ -73,7 +72,7 @@ class Login extends Component {
       <form className="Login-Form" onSubmit={this.userLogin}>
         <Error error={this.state.error}/>
         <TextField
-          id="outlined-helperText"
+          id="username"
           label="Username"
           className={this.classes.textField}
           placeholder="Enter your Username"
@@ -82,7 +81,7 @@ class Login extends Component {
           onKeyPress={this.handleKeyPress}
         /><br/>
         <TextField
-          id="outlined-helperText"
+          id="password"
           label="Password"
           className={this.classes.textField}
           type="password"

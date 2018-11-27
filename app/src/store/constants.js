@@ -3,6 +3,7 @@ export const UNSET_TOKEN = 'UNSET_TOKEN';
 export const SET_USER = 'SET_USER';
 export const UNSET_USER = 'UNSET_USER';
 export const SET_TAGS = 'SET_TAGS';
+export const SET_PDFS = 'SET_PDFS';
 
 let baseUrl;
 if (process.env.NODE_ENV === 'development') {
