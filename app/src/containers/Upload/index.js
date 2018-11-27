@@ -33,7 +33,7 @@ class Upload extends Component {
                     {
 
                       {
-                        url: `${baseAPIUrl}/file/upload/`,
+                        url: `${baseAPIUrl}file/upload/`,
                         process: {
                           headers: {
                             Authorization: `Bearer ${token}`
