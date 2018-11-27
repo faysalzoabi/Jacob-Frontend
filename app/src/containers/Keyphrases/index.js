@@ -5,8 +5,6 @@ import Card from "@material-ui/core/Card/Card";
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 
-import {fetchKeyPhrasesOfTag} from './../../store/actions/tagsActions'
-
 const styles = {
   card: {
     width: 265,

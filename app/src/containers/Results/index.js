@@ -60,8 +60,8 @@ class Results extends Component {
       <div className="main-results">
         <div onMouseUp={this.handler}>
           {
-            this.props.pdfs.map(pdf =>{
-              return <div>{pdf.report}</div>
+            this.props.pdfs.map((pdf, index) => {
+              return <div key={index}>{pdf.pdf}</div>
             })
           }
         </div>

@@ -39,7 +39,6 @@ class Dropdown extends Component {
 
 
   handleChange = (event) => {
-    console.log("evnt", event)
     this.setState({tag: event.target.value})
     let pdfIndexes = this.props.tags.filter(tag => tag.name === event.target.value)[0]['pdf_documents']
     this.props.dispatch(fetchPdfs(pdfIndexes))
@@ -50,7 +49,6 @@ class Dropdown extends Component {
 
 
   render () {
-    console.log(this.state)
     const {classes} = this.props;
     return (
       <Grid container spacing={16}>
