@@ -6,6 +6,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import "./index.css"
+import baseAPIUrl from './../../store/constants';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -32,7 +33,7 @@ class Upload extends Component {
                     {
 
                       {
-                        url: 'http://0.0.0.0:8875/backend/file/upload/',
+                        url: `${baseAPIUrl}/file/upload/`,
                         process: {
                           headers: {
                             Authorization: `Bearer ${token}`
