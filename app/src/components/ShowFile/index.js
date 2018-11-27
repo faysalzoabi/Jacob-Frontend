@@ -26,8 +26,7 @@ class ShowFile extends Component {
                     <CardActions>
                         <Button size="small" color="primary">
                             open
-        </Button>
-
+                        </Button>
                     </CardActions>
                 </Card>
                 <br></br>
