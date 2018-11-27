@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
-import {withStyles} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -24,8 +24,8 @@ const styles = theme => ({
 class Header extends Component {
 
 
-  render () {
-    const {classes} = this.props;
+  render() {
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -39,7 +39,9 @@ class Header extends Component {
                 <Button color="inherit" onClick={() => this.props.history.push('/')}>Search</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/upload')}>Upload</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/datapoints')}>Datapoints</Button>
-                <Logout/>
+                <Button color="inherit" onClick={() => this.props.history.push('/docs')}>Documents</Button>
+
+                <Logout />
               </div>
               :
               <Button color="inherit" onClick={() => this.props.history.push('/login')}>Login</Button>

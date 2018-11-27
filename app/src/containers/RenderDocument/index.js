@@ -32,12 +32,16 @@ const styles = theme => ({
     },
 });
 
-class Render_document extends Component {
+class RenderDocument extends Component {
 
     state = {
         highlighted_text: "",
         tag: {},
         documentID: "",
+    }
+
+    componentDidMount = () => {
+        this.props.dispatch(fetchTagsAndDocRefs())
     }
 
     getHTMLOfSelection = () => {
@@ -126,8 +130,6 @@ class Render_document extends Component {
                 </Paper>
             </div>
         );
-    } componentDidMount = () => {
-        this.props.dispatch(fetchTagsAndDocRefs())
     }
 }
 const mapStateToProps = state => {
@@ -136,4 +138,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Render_document));
+export default connect(mapStateToProps)(withStyles(styles)(RenderDocument));

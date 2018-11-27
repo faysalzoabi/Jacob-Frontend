@@ -1,6 +1,6 @@
-import {isAxiosAuthorized} from "../../helper";
+import { isAxiosAuthorized } from "../../helper";
 import axios from "../../axios_config";
-import {SET_PDFS} from "../constants";
+import { SET_PDFS } from "../constants";
 
 export const fetchPdfs = (indexes) => dispatch => {
   if (!isAxiosAuthorized())
@@ -28,3 +28,30 @@ export const setPdfs = (payload) => {
     data: payload
   }
 }
+
+export const fetchAllPdfs = () => dispatch => {
+
+  if (!isAxiosAuthorized()) {
+    console.log("not autho")
+    return;
+  }
+
+
+  return axios.get(`file/get/all`)
+    .then(res => {
+
+
+      dispatch(setAllPdfs(res.data))
+      return res;
+    })
+    .catch(err => err.response);
+};
+
+
+export const setAllPdfs = (payload) => {
+  return {
+    type: SET_PDFS,
+    data: payload
+  }
+}
+
