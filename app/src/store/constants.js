@@ -4,6 +4,7 @@ export const SET_USER = 'SET_USER';
 export const UNSET_USER = 'UNSET_USER';
 export const SET_TAGS = 'SET_TAGS';
 export const SET_PDFS = 'SET_PDFS';
+export const SET_PHRASES = 'SET_PHRASES';
 
 let baseUrl;
 if (process.env.NODE_ENV === 'development') {

@@ -10,6 +10,7 @@ import {withStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 
 import {fetchPdfs} from './../../store/actions/pdfActions';
+import {fetchKeyPhrasesOfTag} from "../../store/actions/tagsActions";
 
 
 const styles = theme => ({
@@ -38,10 +39,15 @@ class Dropdown extends Component {
 
 
   handleChange = (event) => {
+    console.log("evnt", event)
     this.setState({tag: event.target.value})
     let pdfIndexes = this.props.tags.filter(tag => tag.name === event.target.value)[0]['pdf_documents']
     this.props.dispatch(fetchPdfs(pdfIndexes))
+
+    let tag_id = this.props.tags.filter(tag=>tag.name===event.target.value)[0].id
+    this.props.dispatch(fetchKeyPhrasesOfTag(tag_id))
   }
+
 
   render () {
     console.log(this.state)

@@ -5,6 +5,8 @@ import Card from "@material-ui/core/Card/Card";
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 
+import {fetchKeyPhrasesOfTag} from './../../store/actions/tagsActions'
+
 const styles = {
   card: {
     width: 265,
@@ -15,6 +17,7 @@ const styles = {
 
 class KeyPhrase extends Component {
 
+
   render () {
     const {classes} = this.props;
     return (
@@ -24,7 +27,7 @@ class KeyPhrase extends Component {
             <Typography className={classes.title} color="textPrimary" gutterBottom>
 
               {
-                this.props.tags.map((tag, index) => <li key={index}>{tag.name}</li>)
+                this.props.phrases.map((phrase, index) => <li key={index}>{phrase.selected_text}</li>)
               }
 
             </Typography>
@@ -38,6 +41,7 @@ class KeyPhrase extends Component {
 const mapStateToProps = state => {
   return {
     tags: state.tags,
+    phrases: state.phrases
   };
 };
 export default connect(mapStateToProps)(withStyles(styles)(KeyPhrase));
