@@ -9,6 +9,7 @@ import Datapoints from './../../components/Datapoints';
 import Homepage from './../../components/Homepage';
 import Upload from "../Upload"
 import './index.css';
+import Render_document from '../render_document';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <div className="App">
           <Header />
           <Switch>
+            <Route exact path="/doc" component={Render_document} />
             <Route exact path="/datapoints" component={Datapoints} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/" component={Homepage} />
