@@ -18,7 +18,7 @@ class App extends Component {
         <div className="App">
           <Header />
           <Switch>
-            <Route exact path="/render" component={Render_document} />
+            <Route exact path="/doc" component={Render_document} />
             <Route exact path="/datapoints" component={Datapoints} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/" component={Homepage} />

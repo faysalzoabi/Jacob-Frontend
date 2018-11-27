@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import { connect } from 'react-redux';
 import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
+import Paper from '@material-ui/core/Paper';
 
 
 const styles = theme => ({
@@ -80,7 +81,7 @@ class Render_document extends Component {
         const { classes } = this.props;
         return (
             <div className="container">
-                <div className="leftPanel"
+                <Paper className="leftPanel"
                 >
                     <p onMouseUp={this.handler}>
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -89,14 +90,17 @@ class Render_document extends Component {
                             dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                             deserunt mollit anim id est laborum."
                     </p>
-                </div>
-                <div className="rightPanel">
+                </Paper>
+                <Paper className="rightPanel">
+
                     <Button variant="outlined" color="secondary" className={classes.button} onClick={this.allDocumentHandler}
                     >
                         Select all text of the Document
                     </Button>
+                    <h3>or</h3>
                     <h1>Selected text:</h1>
                     <p>{this.state.highlighted_text}</p>
+
                     <form className={classes.root} autoComplete="off">
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="age-simple">Tags</InputLabel>
@@ -119,7 +123,7 @@ class Render_document extends Component {
                         <SaveIcon />
                         Save
                 </Button>
-                </div>
+                </Paper>
             </div>
         );
     } componentDidMount = () => {
