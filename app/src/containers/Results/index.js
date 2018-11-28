@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ShowFile from "../../components/ShowFile"
+import DocumentPreview from "../../components/DocumentPreview"
 import './index.css';
 
 class Results extends Component {
@@ -61,7 +61,7 @@ class Results extends Component {
         <div onMouseUp={this.handler}>
           {
             this.props.pdfs.map((pdf, index) => {
-              return <ShowFile key={index} pdf={pdf} />
+              return <DocumentPreview key={index} pdf={pdf} />
             })
           }
         </div>
