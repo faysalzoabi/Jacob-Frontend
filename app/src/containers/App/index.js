@@ -20,6 +20,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/docs" component={FileManager} />
+            <Route exact path="/annotate/:pdfId" component={RenderDocument} />
             <Route exact path="/datapoints" component={Datapoints} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/" component={Homepage} />

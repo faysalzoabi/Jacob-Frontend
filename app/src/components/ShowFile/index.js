@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
 const styles = {
     card: {
@@ -13,8 +14,15 @@ const styles = {
 };
 
 class ShowFile extends Component {
+
+    buttonHandler = () => {
+        this.props.history.push(`/annotate/${this.props.pdf.id}`)
+    }
+
     render() {
         const { classes } = this.props;
+        console.log(this.props.pdf.id);
+
         return (
             <div>
                 <Card className={classes.card}>
@@ -24,9 +32,9 @@ class ShowFile extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={this.buttonHandler}>
                             open
-                        </Button>
+                        </Button >
                     </CardActions>
                 </Card>
                 <br></br>
@@ -37,4 +45,4 @@ class ShowFile extends Component {
 
 
 
-export default withStyles(styles)(ShowFile);
+export default withRouter(withStyles(styles)(ShowFile))

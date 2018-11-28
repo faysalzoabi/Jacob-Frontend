@@ -39,8 +39,7 @@ export const fetchAllPdfs = () => dispatch => {
 
   return axios.get(`file/get/all`)
     .then(res => {
-
-
+      console.log("it is auth");
       dispatch(setAllPdfs(res.data))
       return res;
     })

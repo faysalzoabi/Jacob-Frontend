@@ -5,16 +5,13 @@ import PropTypes from 'prop-types';
 import ShowFile from "../../components/ShowFile"
 
 class FileManager extends Component {
-    state = {
-        pdfs: []
-    }
+
     render() {
         return (
             <div>
                 {
                     Object.values(this.props.pdfs).map((pdf, index) => {
                         console.log(pdf);
-                        <br></br>
                         return <ShowFile key={index} pdf={pdf} />;
 
                     }
