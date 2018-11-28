@@ -134,6 +134,7 @@ class RenderDocument extends Component {
         );
     }
 }
+
 const mapStateToProps = state => {
     return {
         tags: state.tags,
