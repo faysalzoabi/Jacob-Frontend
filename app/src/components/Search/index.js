@@ -23,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-class Homepage extends Component {
+class Search extends Component {
   state = {
     multiline: '',
   }
@@ -74,4 +74,4 @@ class Homepage extends Component {
   }
 }
 
-export default withStyles(styles)(Homepage);
+export default withStyles(styles)(Search);

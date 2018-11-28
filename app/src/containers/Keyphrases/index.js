@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 
 const styles = {
   card: {
-    width: 265,
     marginTop: 10,
   },
 
@@ -19,19 +18,15 @@ class KeyPhrase extends Component {
   render () {
     const {classes} = this.props;
     return (
-      <div>
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textPrimary" gutterBottom>
-
               {
                 this.props.phrases.map((phrase, index) => <li key={index}>{phrase.selected_text}</li>)
               }
-
             </Typography>
           </CardContent>
         </Card>
-      </div>
     );
   }
 }

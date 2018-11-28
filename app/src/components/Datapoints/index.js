@@ -16,12 +16,12 @@ class Datapoints extends Component {
 
   render () {
     return (
-      <div className="container">
-        <div className="leftPanel">
+      <div className="container-datapoints">
+        <div className="leftPanel-datapoints">
           <Dropdown/>
           <KeyPhrase/>
         </div>
-        <div className="rightPanel">
+        <div className="rightPanel-datapoints">
           <Results/>
         </div>
       </div>

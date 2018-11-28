@@ -36,11 +36,10 @@ class Header extends Component {
             </Typography>
             {localStorage.getItem("token") ?
               <div>
-                <Button color="inherit" onClick={() => this.props.history.push('/')}>Search</Button>
+                <Button color="inherit" onClick={() => this.props.history.push('/search')}>Search</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/upload')}>Upload</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/datapoints')}>Datapoints</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/docs')}>Documents</Button>
-
                 <Logout />
               </div>
               :

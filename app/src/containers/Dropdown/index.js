@@ -17,6 +17,7 @@ const styles = theme => ({
   root: {
     card: {
       minWidth: 400,
+      width: '100%'
 
     },
     flexGrow: 1,
@@ -51,7 +52,7 @@ class Dropdown extends Component {
   render () {
     const {classes} = this.props;
     return (
-      <Grid container spacing={16}>
+      <Grid style={{display: 'initial'}} container>
         <Card className={classes.card}>
           <CardContent>
             <form className={classes.root} autoComplete="off">
