@@ -6,25 +6,31 @@
 }
 
 .leftPanel {
-    width: 78%;
+    width: 65%;
     border: 1px solid white;
     box-sizing: border-box;
     padding: 1em;
     align-items: center;
     justify-content: center;
+    margin-right: 15%;
+    padding: 2% 6%;
 }
 
 .rightPanel {
+    position: -webkit-sticky;
+    position: fixed;
+    right: 0;
     width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    height: 85%;
     border: 1px solid white;
-    box-sizing: border-box;
     padding: 1em;
 }
 
 .textDoc {
     white-space: pre-wrap;
+}
+.highlightedText {
+    overflow-y: auto;
+    max-height: 70%;
 }

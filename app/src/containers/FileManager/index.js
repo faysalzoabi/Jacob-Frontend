@@ -13,7 +13,6 @@ class FileManager extends Component {
                     Object.values(this.props.pdfs).map((pdf, index) => {
                         console.log(pdf);
                         return <ShowFile key={index} pdf={pdf} />;
-
                     }
                     )}
 
