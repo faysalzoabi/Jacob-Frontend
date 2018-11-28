@@ -10,7 +10,8 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import { connect } from 'react-redux';
 import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
 import Paper from '@material-ui/core/Paper';
-import { fetchPdfs } from "../../store/actions/pdfActions"
+import { fetchPdfs } from "../../store/actions/pdfActions";
+import Typography from '@material-ui/core/Typography';
 
 
 const styles = theme => ({
@@ -103,10 +104,15 @@ class RenderDocument extends Component {
                     >
                         Select all text of the Document
                     </Button>
-                    <h3>or</h3>
-                    <h1>Selected text:</h1>
-                    <p>{this.state.highlighted_text}</p>
-
+                    <Typography variant="subtitle1" gutterBottom>
+                        or
+      </Typography>
+                    <Typography component="h2" variant="h1" gutterBottom>
+                        Selected Text:
+                        </Typography>
+                    <div className="highlightedText">
+                        {this.state.highlighted_text}
+                    </div>
                     <form className={classes.root} autoComplete="off">
                         <FormControl className={classes.formControl}>
                             <InputLabel htmlFor="age-simple">Tags</InputLabel>
