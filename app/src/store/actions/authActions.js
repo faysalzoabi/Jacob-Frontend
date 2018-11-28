@@ -1,7 +1,8 @@
 import {SET_TOKEN, UNSET_TOKEN} from '../constants';
 import {fetchUser} from './userActions';
-
 import axios from './../../axios_config';
+import {fetchTagsAndDocRefs} from "./tagsActions";
+import {fetchAllPdfs} from "./pdfActions";
 
 export const setToken = () => {
   const token = JSON.parse(localStorage.getItem('token'));
@@ -33,6 +34,9 @@ export const loginUser = credentials => dispatch => {
         dispatch(tokenAction);
         const action = fetchUser();
         dispatch(action);
+
+        dispatch(fetchTagsAndDocRefs())
+        dispatch(fetchAllPdfs())
       }
       return res.data;
     }).catch(error => {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import Header from './../Header'
 import Login from './../Login'
-import Redirect from '../Redirect';
+// import Redirect from '../Redirect';
 import Datapoints from './../../components/Datapoints';
 import Search from './../../components/Search';
 import Upload from "../Upload"
@@ -13,15 +13,13 @@ import Annotate from "../Annotate"
 import {setToken, unsetToken} from '../../store/actions/authActions';
 import {fetchUser, unsetUser} from '../../store/actions/userActions';
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
+import {fetchAllPdfs} from "../../store/actions/pdfActions";
 
 class App extends Component {
 
-  state = {
-    loading: true,
-  }
 
-  componentDidMount () {
-    this.setState({loading: false});
+  componentDidMount = () => {
+    let plannedRoute = this.props.location.pathname;
     if (!this.props.token) {
       let isTokenInLocalStorage = false;
       try {
@@ -40,7 +38,8 @@ class App extends Component {
               this.props.history.push('/login');
             } else {
               this.props.dispatch(fetchTagsAndDocRefs())
-              this.props.history.push('/datapoints');
+              this.props.dispatch(fetchAllPdfs())
+              this.props.history.push(plannedRoute);
             }
           });
       }
@@ -54,6 +53,7 @@ class App extends Component {
             this.props.history.push('/login');
           } else {
             this.props.dispatch(fetchTagsAndDocRefs())
+            this.props.dispatch(fetchAllPdfs())
           }
         });
     }
@@ -70,7 +70,6 @@ class App extends Component {
             <Route exact path="/datapoints" component={Datapoints}/>
             <Route exact path="/annotate" component={Annotate}/>
             <Route exact path="/annotate/:pdfId" component={RenderDocument}/>
-            <Route exact path="/login" render={() => <Redirect path="/search"/>}/>
             <Route render={() => <p>404 - Page not found!</p>}/>
           </Switch>
         </div>
@@ -81,8 +80,7 @@ class App extends Component {
         <div className="App">
           <Header/>
           <Switch>
-            <Route exact path="/login" component={Login}/>
-            <Route render={() => <Redirect path="/login"/>}/>
+            <Route path="/login" component={Login}/>
           </Switch>
         </div>
       )

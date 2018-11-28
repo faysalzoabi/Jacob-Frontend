@@ -3,7 +3,9 @@ export const UNSET_TOKEN = 'UNSET_TOKEN';
 export const SET_USER = 'SET_USER';
 export const UNSET_USER = 'UNSET_USER';
 export const SET_TAGS = 'SET_TAGS';
-export const SET_PDFS = 'SET_PDFS';
+export const SET_DATAPOINTS_PDFS = 'SET_DATAPOINTS_PDFS';
+export const SET_ANNOTATION_PDF = 'SET_ANNOTATION_PDF';
+export const SET_ALL_PDFS = 'SET_ALL_PDFS';
 export const SET_PHRASES = 'SET_PHRASES';
 
 let baseUrl;

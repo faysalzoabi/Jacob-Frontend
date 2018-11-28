@@ -1,8 +1,34 @@
-import { isAxiosAuthorized } from "../../helper";
+import {isAxiosAuthorized} from "../../helper";
 import axios from "../../axios_config";
-import { SET_PDFS } from "../constants";
+import {SET_DATAPOINTS_PDFS, SET_ALL_PDFS, SET_ANNOTATION_PDF} from "../constants";
 
-export const fetchPdfs = (indexes) => dispatch => {
+// Pdfs for Annotation section
+export const fetchAllPdfs = () => dispatch => {
+  console.log("fetching all pdfs")
+  if (!isAxiosAuthorized()) {
+    return;
+  }
+
+
+  return axios.get(`file/get/all`)
+    .then(res => {
+      dispatch(setAllPdfs(res.data))
+      return res;
+    })
+    .catch(err => err.response);
+};
+
+
+export const setAllPdfs = (payload) => {
+  return {
+    type: SET_ALL_PDFS,
+    data: payload
+  }
+}
+
+
+// Pdfs for Datapoins section
+export const fetchDatapointsPdfs = (indexes) => dispatch => {
   if (!isAxiosAuthorized())
     return;
 
@@ -15,42 +41,25 @@ export const fetchPdfs = (indexes) => dispatch => {
 
   return axios.get(`file/get/?${query_param}`)
     .then(res => {
-      dispatch(setPdfs(res.data))
+      dispatch(setDatapointsPdfs(res.data))
       return res;
     })
     .catch(err => err.response);
 };
 
 
-export const setPdfs = (payload) => {
+export const setDatapointsPdfs = (pdfs_indexes) => {
   return {
-    type: SET_PDFS,
-    data: payload
+    type: SET_DATAPOINTS_PDFS,
+    data: pdfs_indexes
   }
 }
 
-export const fetchAllPdfs = () => dispatch => {
 
-  if (!isAxiosAuthorized()) {
-    console.log("not autho")
-    return;
-  }
-
-
-  return axios.get(`file/get/all`)
-    .then(res => {
-      console.log("it is auth");
-      dispatch(setAllPdfs(res.data))
-      return res;
-    })
-    .catch(err => err.response);
-};
-
-
-export const setAllPdfs = (payload) => {
+// Pdf for Annotaion section
+export const setAnnotationPdf = (pdf) => {
   return {
-    type: SET_PDFS,
-    data: payload
+    type: SET_ANNOTATION_PDF,
+    data: pdf
   }
 }
-

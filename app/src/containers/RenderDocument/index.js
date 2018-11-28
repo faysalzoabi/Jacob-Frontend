@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import {connect} from 'react-redux';
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import Paper from '@material-ui/core/Paper';
-import {fetchPdfs} from "../../store/actions/pdfActions";
+// import {fetchPdfs} from "../../store/actions/pdfActions";
 import Typography from '@material-ui/core/Typography';
 
 
@@ -45,7 +45,7 @@ class RenderDocument extends Component {
   componentDidMount = () => {
     const pdfId = this.props.match.params.pdfId
     this.props.dispatch(fetchTagsAndDocRefs())
-    this.props.dispatch(fetchPdfs([pdfId]))
+    // this.props.dispatch(fetchPdfs([pdfId]))
   }
 
 

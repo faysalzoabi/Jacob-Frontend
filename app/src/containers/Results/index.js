@@ -49,8 +49,6 @@ class Results extends Component {
 
 
   handler = () => {
-    // console.log("dfdfd",window.getSelection().toString())
-    // this.setState({textareaVal: window.getSelection().toString()})
     this.highlightSelected()
 
   }
@@ -60,8 +58,8 @@ class Results extends Component {
       <div className="main-results">
         <div onMouseUp={this.handler}>
           {
-            this.props.pdfs.map((pdf, index) => {
-              return <DocumentPreview key={index} pdf={pdf} />
+            this.props.datapoint_pdfs.map((pdf, index) => {
+              return <li key={index}>{pdf.pdf}</li>
             })
           }
         </div>
@@ -72,7 +70,7 @@ class Results extends Component {
 
 const mapStateToProps = state => {
   return {
-    pdfs: state.pdfs,
+    datapoint_pdfs: state.pdfs.datapoint_pdfs,
   };
 };
 

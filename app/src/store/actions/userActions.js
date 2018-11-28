@@ -23,7 +23,6 @@ export const fetchUser = () => dispatch => {
 
   return axios.get('user/info/')
     .then(res => {
-      console.log("res", res)
       const action = setUser(res.data);
       dispatch(action);
       return res;
