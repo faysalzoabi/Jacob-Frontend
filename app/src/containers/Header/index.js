@@ -39,7 +39,7 @@ class Header extends Component {
                 <Button color="inherit" onClick={() => this.props.history.push('/search')}>Search</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/upload')}>Upload</Button>
                 <Button color="inherit" onClick={() => this.props.history.push('/datapoints')}>Datapoints</Button>
-                <Button color="inherit" onClick={() => this.props.history.push('/docs')}>Documents</Button>
+                <Button color="inherit" onClick={() => this.props.history.push('/annotate')}>Annotate</Button>
                 <Logout />
               </div>
               :

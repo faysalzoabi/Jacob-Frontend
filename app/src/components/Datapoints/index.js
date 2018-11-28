@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 
 class Datapoints extends Component {
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.props.dispatch(fetchTagsAndDocRefs())
   }
 

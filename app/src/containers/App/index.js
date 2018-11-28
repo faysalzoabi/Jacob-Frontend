@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {withRouter, Route, Switch} from 'react-router-dom';
 import Header from './../Header'
 import Login from './../Login'
 import Redirect from '../Redirect';
@@ -8,11 +9,58 @@ import Search from './../../components/Search';
 import Upload from "../Upload"
 import './index.css';
 import RenderDocument from '../RenderDocument';
-import FileManager from "../FileManager"
+import Annotate from "../Annotate"
+import {setToken, unsetToken} from '../../store/actions/authActions';
+import {fetchUser, unsetUser} from '../../store/actions/userActions';
+import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
 
 class App extends Component {
+
+  state = {
+    loading: true,
+  }
+
+  componentDidMount () {
+    this.setState({loading: false});
+    if (!this.props.token) {
+      let isTokenInLocalStorage = false;
+      try {
+        isTokenInLocalStorage = localStorage.getItem('token');
+      }
+      catch (e) {
+        isTokenInLocalStorage = false;
+      }
+      if (isTokenInLocalStorage) {
+        this.props.dispatch(setToken());
+        this.props.dispatch(fetchUser())
+          .then(response => {
+            if (response.status === 401) {
+              this.props.dispatch(unsetUser());
+              this.props.dispatch(unsetToken());
+              this.props.history.push('/login');
+            } else {
+              this.props.dispatch(fetchTagsAndDocRefs())
+              this.props.history.push('/datapoints');
+            }
+          });
+      }
+    }
+    else {
+      this.props.dispatch(fetchUser())
+        .then(response => {
+          if (response.status === 401) {
+            this.props.dispatch(unsetUser());
+            this.props.dispatch(unsetToken());
+            this.props.history.push('/login');
+          } else {
+            this.props.dispatch(fetchTagsAndDocRefs())
+          }
+        });
+    }
+  }
+
   render () {
-    if (localStorage.getItem('token')) {
+    if (this.props.token) {
       return (
         <div className="App">
           <Header/>
@@ -20,7 +68,7 @@ class App extends Component {
             <Route exact path="/search" component={Search}/>
             <Route exact path="/upload" component={Upload}/>
             <Route exact path="/datapoints" component={Datapoints}/>
-            <Route exact path="/docs" component={FileManager}/>
+            <Route exact path="/annotate" component={Annotate}/>
             <Route exact path="/annotate/:pdfId" component={RenderDocument}/>
             <Route exact path="/login" render={() => <Redirect path="/search"/>}/>
             <Route render={() => <p>404 - Page not found!</p>}/>
@@ -43,4 +91,10 @@ class App extends Component {
 
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    token: state.token
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(App));
