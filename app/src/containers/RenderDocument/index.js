@@ -45,9 +45,10 @@ class RenderDocument extends Component {
 
 
     resetSelection = () => {
-            this.setState({
+        this.setState({
             selected_text: ""
         });
+        window.getSelection().empty()
 
     }
 
