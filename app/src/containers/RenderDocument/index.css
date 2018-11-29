@@ -31,3 +31,9 @@
     white-space: pre-wrap;
     text-align: justify;
 }
+.highlightedText {
+    overflow-y: auto;
+    max-height: 70%;
+    border: 1px solid magenta;
+    padding: 1em;
+}
