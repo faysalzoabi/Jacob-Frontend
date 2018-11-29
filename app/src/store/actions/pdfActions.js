@@ -4,7 +4,6 @@ import {SET_DATAPOINTS_PDFS, SET_ALL_PDFS, SET_ANNOTATION_PDF} from "../constant
 
 // Pdfs for Annotation section
 export const fetchAllPdfs = () => dispatch => {
-  console.log("fetching all pdfs")
   if (!isAxiosAuthorized()) {
     return;
   }
