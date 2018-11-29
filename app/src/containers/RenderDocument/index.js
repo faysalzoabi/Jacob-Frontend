@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import "./index.css"
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import {postAnnotations} from "../../store/actions/annotateActions";
-import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
 
 const styles = theme => ({
   button: {
