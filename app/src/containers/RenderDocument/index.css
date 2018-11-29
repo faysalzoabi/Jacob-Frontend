@@ -6,7 +6,7 @@
 }
 
 .leftPanel {
-    width: 65%;
+    width: 55%;
     border: 1px solid white;
     box-sizing: border-box;
     padding: 1em;
@@ -29,8 +29,5 @@
 
 .textDoc {
     white-space: pre-wrap;
-}
-.highlightedText {
-    overflow-y: auto;
-    max-height: 70%;
+    text-align: justify;
 }
