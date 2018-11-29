@@ -39,7 +39,7 @@ class RenderDocument extends Component {
   state = {
     selected_text: "",
     document_tags: "",
-    pdf_document: "",
+    pdf_documents: "",
   }
 
   componentDidMount = () => {
@@ -71,7 +71,10 @@ class RenderDocument extends Component {
   }
 
   dropdownHandleChange = (event) => {
+    console.log(this.props.tags)
+    console.log(event)
     let tag_id = this.props.tags.filter(tag => tag.name === event.target.value)[0].id
+    console.log(tag_id)
     this.setState({document_tags: tag_id});
   };
 
@@ -88,10 +91,19 @@ class RenderDocument extends Component {
   };
 
   saveHandler = () => {
+    let data = {
+      selected_text: this.state.selected_text,
+      document_tags: this.state.document_tags,
+      pdf_documents: this.props.pdf.id,
+    }
+    this.props.dispatch(postAnnotations(data))
+
     this.setState({
-      pdf_document: this.props.pdf.id
+      pdf_documents: this.props.pdf.id,
+      selected_text: '',
     });
-    this.props.dispatch(postAnnotations(this.state))
+
+    window.getSelection().empty()
   };
 
   render () {
@@ -124,7 +136,7 @@ class RenderDocument extends Component {
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="tag_dropdown">Tags</InputLabel>
               <Select
-                value={this.props.tags.filter(tag => tag.id === this.state.document_tag).length === 0 ? 'Select' : this.props.tags.filter(tag => tag.id === this.state.document_tag)[0].name}
+                value={this.props.tags.filter(tag => tag.id === this.state.document_tags).length === 0 ? 'Select' : this.props.tags.filter(tag => tag.id === this.state.document_tags)[0].name}
                 onChange={this.dropdownHandleChange}
                 inputProps={{
                   name: 'tag',

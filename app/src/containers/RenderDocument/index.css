@@ -25,6 +25,7 @@
     height: 85%;
     border: 1px solid white;
     padding: 1em;
+
 }
 
 .textDoc {
@@ -33,4 +34,6 @@
 .highlightedText {
     overflow-y: auto;
     max-height: 70%;
+    border: 1px solid magenta;
+    padding: 1em;
 }
