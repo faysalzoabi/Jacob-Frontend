@@ -1,0 +1,21 @@
+.dropdown {
+    display: flex;
+    flex-direction: row;
+}
+
+.dropdown-colum {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-cell{
+    box-sizing: border-box;
+    padding: 4px;
+    margin: 1px;
+    border-radius: 3px;
+}
+
+.dropdown-cell:hover {
+    background-color: white;
+    cursor: pointer;
+}

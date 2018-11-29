@@ -15,6 +15,7 @@
     "filepond-plugin-file-encode": "^2.0.0",
     "filepond-plugin-image-exif-orientation": "^1.0.3",
     "filepond-plugin-image-preview": "^3.1.4",
+    "rc-cascader": "^0.16.2",
     "react": "^16.4.1",
     "react-awesome-button": "^5.0.0",
     "react-dom": "^16.4.1",

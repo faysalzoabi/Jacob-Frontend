@@ -75,10 +75,10 @@ class Sidebar extends Component {
                           onClick={this.allDocumentHandler}>
                       Select all text of the Document
                   </Button>
-                  <Typography variant="display1" gutterBottom>
+                  <Typography variant="subheading" gutterBottom>
                       or
                   </Typography>
-                  <Typography variant="h3" gutterBottom>
+                  <Typography variant="display1" gutterBottom>
                       Selected Text:
                   </Typography>
                   <div className="highlightedText" onChange={this.textHandler}>

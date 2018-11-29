@@ -45,7 +45,7 @@ const styles = theme => ({
 class Header extends Component {
 
   state = {
-    value: 0,
+    value: -1,
   };
 
   render() {
@@ -57,7 +57,7 @@ class Header extends Component {
 
         <AppBar position="static" color="primary" className={classes.toolbar}  >
           <Toolbar variant="dense">
-            <Typography variant="h1" color="inherit" className={classes.grow}>
+            <Typography variant="headline" color="inherit" className={classes.grow}>
               Jacob
           </Typography>
             {localStorage.getItem("token") ? <Logout /> : <Button color="inherit" onClick={() => this.props.history.push('/login')}>Login</Button>}

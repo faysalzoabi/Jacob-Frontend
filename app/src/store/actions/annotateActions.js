@@ -2,13 +2,15 @@ import {isAxiosAuthorized} from "../../helper";
 import axios from "../../axios_config";
 
 export const postAnnotations = (state) => dispatch => {
-  if (!isAxiosAuthorized())
-    return;
+    if (!isAxiosAuthorized())
+        return;
 
-  return axios.post('annotate/', {...state})
-    .then(res => {
-    })
-    .catch(err => {
-      return err.response
-    });
+    console.log("state", state)
+
+    return axios.post('annotate/', {...state})
+      .then(res => {
+      })
+      .catch(err => {
+          return err.response
+      });
 }
