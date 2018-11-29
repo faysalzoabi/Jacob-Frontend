@@ -12,131 +12,145 @@ import Typography from '@material-ui/core/Typography';
 
 import "./index.css"
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
+import { postAnnotations } from "../../store/actions/annotateActions";
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 200,
+    button: {
+        margin: theme.spacing.unit,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+        fontSize: 20,
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 200,
 
-  },
+    },
 });
 
 class RenderDocument extends Component {
 
-  state = {
-    highlighted_text: "",
-    tag: {},
-    documentID: "",
-  }
-
-  componentDidMount = () => {
-    this.props.dispatch(fetchTagsAndDocRefs())
-  }
-
-
-  getHTMLOfSelection = () => {
-    let range;
-    if (document.selection && document.selection.createRange) {
-      range = document.selection.createRange();
-      return range.htmlText;
+    state = {
+        selected_text: "",
+        document_tags: "",
+        pdf_documents: "",
     }
-    else if (window.getSelection) {
-      let selection = window.getSelection();
-      if (selection.rangeCount > 0) {
-        range = selection.getRangeAt(0);
-        let clonedSelection = range.cloneContents();
-        let div = document.createElement('div');
-        div.appendChild(clonedSelection);
-        return div.innerHTML;
-      }
-      else {
-        return '';
-      }
+
+    componentDidMount = () => {
+        const pdfId = this.props.match.params.pdfId
+        this.props.dispatch(fetchTagsAndDocRefs())
+        this.props.dispatch(fetchPdfs([pdfId]))
     }
-    else {
-      return '';
+
+    getHTMLOfSelection = () => {
+        let range;
+        if (document.selection && document.selection.createRange) {
+            range = document.selection.createRange();
+            return range.htmlText;
+        }
+        else if (window.getSelection) {
+            let selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                range = selection.getRangeAt(0);
+                let clonedSelection = range.cloneContents();
+                let div = document.createElement('div');
+                div.appendChild(clonedSelection);
+                return div.innerHTML;
+            }
+            else {
+                return '';
+            }
+        }
+        else {
+            return '';
+        }
     }
-  }
+    handleChange = (event) => {
+        console.log(event)
+        this.setState({ document_tags: event.target });
+    };
 
-  highlightSelected = () => {
-    let html = this.getHTMLOfSelection()
-    console.log(html)
-    this.setState({
-      highlighted_text: html,
-    })
-  }
+    highlightSelected = () => {
+        let html = this.getHTMLOfSelection()
+        console.log(html)
+        this.setState({
+            selected_text: html,
+        })
+    }
+    handler = () => {
+        this.highlightSelected()
+    }
+    allDocumentHandler = () => {
+        //  console.log(document.getElementById("text").focus())
+    }
+    saveHandler = () => {
+        const pdfId = this.props.match.params.pdfId
+        this.setState({
+            pdf_documents: Number(pdfId)
+        })
+        this.props.dispatch(postAnnotations(this.state))
 
-  handler = () => {
-    this.highlightSelected()
-  }
+    }
+    render() {
+        console.log(this.state);
 
-  allDocumentHandler = () => {
-    //  console.log(document.getElementById("text").focus())
-  }
+        const { classes } = this.props;
+        console.log(this.props.pdfs[0].text);
+        return (
+            <div className="container">
+                <Paper className="leftPanel"
+                >
+                    <div className="textDoc" onMouseUp={this.handler}>
+                        {this.props.pdfs[0].text}
+                    </div>
+                </Paper>
+                <Paper className="rightPanel">
 
-  render () {
-    const {classes} = this.props;
-    return (
-      <div className="container">
-        <Paper className="leftPanel">
-            <h6>{this.props.pdf.pdf}</h6>
-          <div className="textDoc" onMouseUp={this.handler}>
-            {this.props.pdf.text}
-          </div>
-        </Paper>
-        <Paper className="rightPanel">
-          <Button variant="outlined" color="secondary" className={classes.button} onClick={this.allDocumentHandler}>
-            Select all text of the Document
-          </Button>
-          <Typography variant="subtitle1" gutterBottom>
-            or
-          </Typography>
-          <Typography component="h2" variant="h1" gutterBottom>
-            Selected Text:
-          </Typography>
-          <div className="highlightedText">
-            {this.state.highlighted_text}
-          </div>
-
-          <form className={classes.root} autoComplete="off">
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Tags</InputLabel>
-              <Select
-                value={this.state.tag}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'tag',
-                }}>
-                {
-                  this.props.tags.map((tag, index) => {
-                    return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>
-                  })
-                }
-              </Select>
-            </FormControl>
-          </form>
-
-          <Button variant="contained" size="small" className={classes.button}>
-            <SaveIcon/>
-            Save
-          </Button>
-
-        </Paper>
-      </div>
-    );
-  }
+                    <Button variant="outlined" color="secondary" className={classes.button} onClick={this.allDocumentHandler}
+                    >
+                        Select all text of the Document
+                    </Button>
+                    <Typography variant="subtitle1" gutterBottom>
+                        or
+      </Typography>
+                    <Typography component="h2" variant="h1" gutterBottom>
+                        Selected Text:
+                        </Typography>
+                    <div className="highlightedText">
+                        {this.state.highlighted_text}
+                    </div>
+                    <form className={classes.root} autoComplete="off">
+                        <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="tag_dropdown">Tags</InputLabel>
+                            <Select
+                                value={this.state.tag}
+                                onChange={this.handleChange}
+                                inputProps={{
+                                    name: 'document_tags',
+                                }}
+                            >
+                                {
+                                    this.props.tags.map((tag, index) => {
+                                        return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </form>
+                    <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
+                        <SaveIcon />
+                        Save
+                </Button>
+                </Paper>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => {
