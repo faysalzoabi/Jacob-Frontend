@@ -7,12 +7,17 @@
 
 .leftPanel {
     width: 55%;
-    border: 1px solid white;
     box-sizing: border-box;
-    padding: 1em;
     align-items: center;
     justify-content: center;
     margin-right: 15%;
+    padding: 2% 6%;
+}
+.datapoints {
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
     padding: 2% 6%;
 }
 
@@ -22,18 +27,11 @@
     right: 0;
     width: 20%;
     text-align: center;
-    height: 85%;
-    border: 1px solid white;
+    height: 65%;
     padding: 1em;
 }
 
 .textDoc {
     white-space: pre-wrap;
     text-align: justify;
-}
-.highlightedText {
-    overflow-y: auto;
-    max-height: 70%;
-    border: 1px solid magenta;
-    padding: 1em;
 }

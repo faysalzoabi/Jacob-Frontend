@@ -1,22 +1,21 @@
 .container-datapoints {
-    margin-top: 5%;
+    margin-top: 3%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     width: 80%;
 }
 
 .leftPanel-datapoints {
     width: 30%;
-    border: 1px solid black;
+    border: 1px solid aliceblue;
+    padding: 1em;
     box-sizing: border-box;
     overflow: hidden;
 }
 
 .rightPanel-datapoints {
     width: 70%;
-    border: 1px solid black;
-
     box-sizing: border-box;
     padding: 1em;
 }

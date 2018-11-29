@@ -57,7 +57,7 @@ class Results extends Component {
         <div onMouseUp={this.handler}>
           {
             this.props.datapoint_pdfs.map((pdf, index) => {
-              return <RenderDocument key={index} pdf={pdf}/>
+              return <RenderDocument key={index} pdf={pdf} isDisplayedinDatapoints={true}/>
             })
           }
         </div>

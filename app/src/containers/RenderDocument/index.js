@@ -1,50 +1,14 @@
 import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
-import {withStyles} from '@material-ui/core/styles';
-import SaveIcon from '@material-ui/icons/Save';
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-
 import Sidebar from '../Sidebar'
 import "./index.css"
-import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
-import {postAnnotations} from "../../store/actions/annotateActions";
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 200,
-
-  },
-});
+import Typography from '@material-ui/core/Typography';
 
 class RenderDocument extends Component {
 
   state = {
     selected_text: "",
-    document_tags: "",
     pdf_documents: "",
-  }
-
-  componentDidMount = () => {
-    this.props.dispatch(fetchTagsAndDocRefs())
   }
 
   getHTMLOfSelection = () => {
@@ -71,11 +35,6 @@ class RenderDocument extends Component {
     }
   }
 
-  dropdownHandleChange = (event) => {
-    let tag_id = this.props.tags.filter(tag => tag.name === event.target.value)[0].id
-    this.setState({document_tags: tag_id});
-  };
-
   onSelectText = () => {
     let html = this.getHTMLOfSelection();
     this.setState({
@@ -85,21 +44,40 @@ class RenderDocument extends Component {
 
 
   render () {
-    const {classes} = this.props;
-    return (
-      <div className="container">
-        <Paper className="leftPanel">
-          <div className="textDoc" onMouseUp={this.onSelectText}>
-            <Typography variant="body1" gutterBottom>
-              {this.props.pdf.text}
-            </Typography>
-          </div>
-        </Paper>
-        <div className="rightPanel">
-          <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document} id={this.props.pdf.id} />
+    if (this.props.isDisplayedinDatapoints) {
+      return (
+        <div className="container">
+          <Paper className="datapoints">
+            <div className="textDoc" onMouseUp={this.onSelectText}>
+              <Typography variant="body1" gutterBottom>
+                {this.props.pdf.text}
+              </Typography>
+            </div>
+          </Paper>
         </div>
-      </div>
-    );
+      );
+
+    } else {
+      return (
+        <div className="container">
+          <Paper className="leftPanel">
+            <div className="textDoc" onMouseUp={this.onSelectText}>
+              <Typography variant="body1" gutterBottom>
+                {this.props.pdf.text}
+              </Typography>
+            </div>
+          </Paper>
+
+          <div className="rightPanel">
+            <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document}
+                     id={this.props.pdf.id}/>
+          </div>
+
+        </div>
+      );
+
+    }
+
   }
 }
 

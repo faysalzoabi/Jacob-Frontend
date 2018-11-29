@@ -1,6 +1,6 @@
 .highlightedText {
     overflow-y: auto;
-    max-height: 500px;
+    max-height: 250px;
     padding: 10%;
     text-align: justify;
 }
