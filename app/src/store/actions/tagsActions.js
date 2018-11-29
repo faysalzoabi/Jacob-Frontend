@@ -1,6 +1,6 @@
-import {isAxiosAuthorized} from "../../helper";
+import { isAxiosAuthorized } from "../../helper";
 import axios from "../../axios_config";
-import {SET_TAGS, SET_PHRASES} from "./../constants";
+import { SET_TAGS, SET_PHRASES } from "./../constants";
 
 
 export const fetchTagsAndDocRefs = () => dispatch => {
@@ -45,3 +45,4 @@ export const setPhrases = (payload) => {
     data: payload
   }
 }
+

@@ -12,7 +12,7 @@ import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
 import Paper from '@material-ui/core/Paper';
 import { fetchPdfs } from "../../store/actions/pdfActions";
 import Typography from '@material-ui/core/Typography';
-
+import { postAnnotations } from "../../store/actions/annotateActions";
 
 const styles = theme => ({
     button: {
@@ -37,9 +37,9 @@ const styles = theme => ({
 class RenderDocument extends Component {
 
     state = {
-        highlighted_text: "",
-        tag: {},
-        documentID: "",
+        selected_text: "",
+        document_tags: "",
+        pdf_documents: "",
     }
 
     componentDidMount = () => {
@@ -47,8 +47,6 @@ class RenderDocument extends Component {
         this.props.dispatch(fetchTagsAndDocRefs())
         this.props.dispatch(fetchPdfs([pdfId]))
     }
-
-
 
     getHTMLOfSelection = () => {
         let range;
@@ -73,12 +71,16 @@ class RenderDocument extends Component {
             return '';
         }
     }
+    handleChange = (event) => {
+        console.log(event)
+        this.setState({ document_tags: event.target });
+    };
 
     highlightSelected = () => {
         let html = this.getHTMLOfSelection()
         console.log(html)
         this.setState({
-            highlighted_text: html,
+            selected_text: html,
         })
     }
     handler = () => {
@@ -87,7 +89,17 @@ class RenderDocument extends Component {
     allDocumentHandler = () => {
         //  console.log(document.getElementById("text").focus())
     }
+    saveHandler = () => {
+        const pdfId = this.props.match.params.pdfId
+        this.setState({
+            pdf_documents: Number(pdfId)
+        })
+        this.props.dispatch(postAnnotations(this.state))
+
+    }
     render() {
+        console.log(this.state);
+
         const { classes } = this.props;
         console.log(this.props.pdfs[0].text);
         return (
@@ -115,12 +127,12 @@ class RenderDocument extends Component {
                     </div>
                     <form className={classes.root} autoComplete="off">
                         <FormControl className={classes.formControl}>
-                            <InputLabel htmlFor="age-simple">Tags</InputLabel>
+                            <InputLabel htmlFor="tag_dropdown">Tags</InputLabel>
                             <Select
                                 value={this.state.tag}
                                 onChange={this.handleChange}
                                 inputProps={{
-                                    name: 'tag',
+                                    name: 'document_tags',
                                 }}
                             >
                                 {
@@ -131,7 +143,7 @@ class RenderDocument extends Component {
                             </Select>
                         </FormControl>
                     </form>
-                    <Button variant="contained" size="small" className={classes.button}>
+                    <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
                         <SaveIcon />
                         Save
                 </Button>
