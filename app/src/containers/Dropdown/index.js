@@ -41,8 +41,9 @@ class Dropdown extends Component {
 
   handleChange = (event) => {
     this.setState({tag: event.target.value})
+    console.log(this.props.tags)
     let pdfIndexes = this.props.tags.filter(tag => tag.name === event.target.value)[0]['pdf_documents']
-    // this.props.dispatch(fetchPdfs(pdfIndexes))
+    console.log("pdfindexes", pdfIndexes)
     this.props.dispatch(setDatapointsPdfs(pdfIndexes))
 
     let tag_id = this.props.tags.filter(tag=>tag.name===event.target.value)[0].id

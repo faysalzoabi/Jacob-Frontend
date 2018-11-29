@@ -3,16 +3,10 @@ import Dropdown from "../../containers/Dropdown";
 import KeyPhrase from "../../containers/Keyphrases"
 import Results from './../../containers/Results';
 import "./index.css"
-import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
 import {connect} from "react-redux";
 
 
 class Datapoints extends Component {
-
-  // componentWillMount = () => {
-  //   this.props.dispatch(fetchTagsAndDocRefs())
-  // }
-  //
 
   render () {
     return (

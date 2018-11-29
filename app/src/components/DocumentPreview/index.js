@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
+import {connect} from "react-redux"
+
+import {setAnnotationPdf} from './../../store/actions/pdfActions';
 
 const styles = {
   card: {
@@ -17,15 +20,14 @@ const styles = {
 class DocumentPreview extends Component {
 
   buttonHandler = () => {
+    this.props.dispatch(setAnnotationPdf(this.props.pdf))
     this.props.history.push(`/annotate/${this.props.pdf.id}`)
   }
 
   render () {
     const {classes} = this.props;
-    console.log(this.props.pdf.id);
 
     return (
-
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="body1" gutterBottom>
@@ -44,4 +46,4 @@ class DocumentPreview extends Component {
 }
 
 
-export default withRouter(withStyles(styles)(DocumentPreview))
+export default withRouter(withStyles(styles)(connect()(DocumentPreview)))

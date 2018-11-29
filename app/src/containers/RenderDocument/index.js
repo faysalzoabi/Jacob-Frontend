@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import "./index.css"
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import SaveIcon from '@material-ui/icons/Save';
@@ -8,11 +7,11 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import {connect} from 'react-redux';
-import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import Paper from '@material-ui/core/Paper';
-// import {fetchPdfs} from "../../store/actions/pdfActions";
 import Typography from '@material-ui/core/Typography';
 
+import "./index.css"
+import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 
 const styles = theme => ({
   button: {
@@ -43,9 +42,7 @@ class RenderDocument extends Component {
   }
 
   componentDidMount = () => {
-    const pdfId = this.props.match.params.pdfId
     this.props.dispatch(fetchTagsAndDocRefs())
-    // this.props.dispatch(fetchPdfs([pdfId]))
   }
 
 
@@ -91,12 +88,12 @@ class RenderDocument extends Component {
 
   render () {
     const {classes} = this.props;
-    console.log(this.props.pdfs[0].text);
     return (
       <div className="container">
         <Paper className="leftPanel">
+            <h6>{this.props.pdf.pdf}</h6>
           <div className="textDoc" onMouseUp={this.handler}>
-            {this.props.pdfs[0].text}
+            {this.props.pdf.text}
           </div>
         </Paper>
         <Paper className="rightPanel">
@@ -145,7 +142,6 @@ class RenderDocument extends Component {
 const mapStateToProps = state => {
   return {
     tags: state.tags,
-    pdfs: state.pdfs
   };
 };
 

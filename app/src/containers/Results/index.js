@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import DocumentPreview from "../../components/DocumentPreview"
+
+import RenderDocument from '../RenderDocument';
 import './index.css';
 
 class Results extends Component {
@@ -35,35 +36,33 @@ class Results extends Component {
     else {
       return '';
     }
-  }
+  };
 
-  breakIntoTags = (html) => {
-
-  }
 
   highlightSelected = () => {
     let html = this.getHTMLOfSelection()
     console.log(html)
     // let htmlTags = []
-  }
+  };
 
 
   handler = () => {
     this.highlightSelected()
 
-  }
+  };
 
   render () {
     return (
-      <div className="main-results">
+
         <div onMouseUp={this.handler}>
           {
             this.props.datapoint_pdfs.map((pdf, index) => {
-              return <li key={index}>{pdf.pdf}</li>
+              return <RenderDocument key={index} pdf={pdf}/>
             })
           }
         </div>
-      </div>)
+
+    )
   }
 }
 

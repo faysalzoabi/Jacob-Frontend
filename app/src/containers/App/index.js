@@ -69,7 +69,7 @@ class App extends Component {
             <Route exact path="/upload" component={Upload}/>
             <Route exact path="/datapoints" component={Datapoints}/>
             <Route exact path="/annotate" component={Annotate}/>
-            <Route exact path="/annotate/:pdfId" component={RenderDocument}/>
+            <Route exact path="/annotate/:pdfId" render={() => <RenderDocument pdf={this.props.annotation_pdf}/>}/>
             <Route render={() => <p>404 - Page not found!</p>}/>
           </Switch>
         </div>
@@ -91,7 +91,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    token: state.token,
+    annotation_pdf: state.pdfs.annotation_pdf
   };
 };
 
