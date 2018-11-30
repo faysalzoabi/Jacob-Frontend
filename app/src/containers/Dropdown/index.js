@@ -1,11 +1,4 @@
 import React, {Component} from 'react';
-import Card from "@material-ui/core/Card/Card";
-import CardContent from "@material-ui/core/CardContent/CardContent";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import Grid from "@material-ui/core/Grid/Grid";
 import {withStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 import {setDatapointsPdfs} from './../../store/actions/pdfActions';
@@ -51,7 +44,7 @@ class Dropdown extends Component {
 
     onLevel1Selected = (option) => {
         let level2Options = this.props.tags.filter(tag => tag.parent_tag === option.id)
-        this.setState({currentTag: option, level1Selected: option, level2Options: level2Options})
+        this.setState({currentTag: option, level1Selected: option, level2Options: level2Options, level3Options: {}})
         this.handleChange(option)
     }
 
@@ -62,7 +55,7 @@ class Dropdown extends Component {
     }
 
     onLevel3Selected = (option) => {
-        this.setState({currentTag: option, level3Selected: option })
+        this.setState({currentTag: option, level3Selected: option})
         this.handleChange(option)
     }
 
@@ -78,7 +71,7 @@ class Dropdown extends Component {
               {
                   level1Tags.map(option => {
                       return <div onClick={() => this.onLevel1Selected(option)}
-                                  className="dropdown-cell"
+                                  className={this.state.level1Selected.id === option.id ? "dropdown-cell-selected" : "dropdown-cell"}
                                   style={{backgroundColor: option.color}}>{option.name}</div>
                   })
               }
@@ -98,7 +91,7 @@ class Dropdown extends Component {
                 {
                     this.state.level2Options.map(option => {
                         return <div onClick={() => this.onLevel2Selected(option)}
-                                    className="dropdown-cell"
+                                    className={this.state.level2Selected.id === option.id ? "dropdown-cell-selected" : "dropdown-cell"}
                                     style={{backgroundColor: option.color}}>{option.name}</div>
                     })
                 }
@@ -120,7 +113,7 @@ class Dropdown extends Component {
                 {
                     this.state.level3Options.map(option => {
                         return <div onClick={() => this.onLevel3Selected(option)}
-                                    className="dropdown-cell"
+                                    className={this.state.level3Selected.id === option.id ? "dropdown-cell-selected" : "dropdown-cell"}
                                     style={{backgroundColor: option.color}}>{option.name}</div>
                     })
                 }
@@ -146,7 +139,8 @@ class Dropdown extends Component {
                           this.renderLevel3()
                       }
                   </div>
-                  <div style={{backgroundColor: this.state.currentTag.color}}><h4>Current Tag:</h4> {this.state.currentTag.name}</div>
+                  <div style={{backgroundColor: this.state.currentTag.color, borderRadius: '4px', padding: '4px'}}>
+                      <h4>Current Tag:</h4> {this.state.currentTag.name}</div>
               </div>
             )
         } else {
