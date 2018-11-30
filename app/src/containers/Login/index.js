@@ -47,7 +47,7 @@ class Login extends Component {
     const action = loginUser(this.state);
     this.props.dispatch(action).then((data) => {
       if (data.non_field_errors === undefined) {
-        this.props.history.push('/search');
+        this.props.history.push('/');
       } else {
         this.setState({error: data.non_field_errors[0]});
       }

@@ -1,22 +1,22 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Dropdown from "../../containers/Dropdown";
 import KeyPhrase from "../../containers/Keyphrases"
 import Results from './../../containers/Results';
 import "./index.css"
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 
 class Datapoints extends Component {
 
-  render () {
+  render() {
     return (
       <div className="container-datapoints">
         <div className="leftPanel-datapoints">
-          <Dropdown/>
-          <KeyPhrase/>
+          <Dropdown />
+          <KeyPhrase />
         </div>
         <div className="rightPanel-datapoints">
-          <Results/>
+          <Results />
         </div>
       </div>
     );

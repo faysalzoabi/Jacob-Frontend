@@ -73,6 +73,7 @@ class Header extends Component {
               textColor="primary"
               centered
             >
+              <Tab label="Homepage" onClick={() => this.props.history.push('/')} />
               <Tab label="Search" onClick={() => this.props.history.push('/search')} />
               <Tab label="Upload" onClick={() => this.props.history.push('/upload')} />
               <Tab label="Datapoints" onClick={() => this.props.history.push('/datapoints')} />
