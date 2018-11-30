@@ -4,6 +4,8 @@ import CardContent from "@material-ui/core/CardContent/CardContent";
 import Card from "@material-ui/core/Card/Card";
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   card: {
@@ -27,13 +29,18 @@ class KeyPhrase extends Component {
           <Typography variant="body2" gutterBottom>
             Keyphrases:
                 </Typography>
-          <CardContent>
-            <Typography className={classes.title} color="textPrimary" gutterBottom>
-              {
-                this.props.phrases.map((phrase, index) => <li key={index}>{phrase.selected_text}</li>)
-              }
-            </Typography>
-          </CardContent>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="flex-start"
+          >            {/* <Typography className={classes.title} color="textPrimary" gutterBottom> */}
+            {
+              this.props.phrases.map((phrase, index) =>
+                <Paper key={index}>{phrase.selected_text}</Paper>)
+            }
+            {/* </Typography> */}
+          </Grid>
         </Card>
       )
     }

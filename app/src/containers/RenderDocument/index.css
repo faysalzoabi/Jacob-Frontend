@@ -3,6 +3,7 @@
     justify-content: space-evenly;
     width: 100%;
     background-color: #f2f2f2;
+    max-height: 80%;
 }
 
 .leftPanel {
@@ -31,10 +32,12 @@
     width: 30%;
     text-align: center;
     height: 80%;
-    padding: 1em;
+    padding: 20px;
 }
 
 .textDoc {
     white-space: pre-wrap;
     text-align: justify;
+    padding: 3% 17%;
+
 }

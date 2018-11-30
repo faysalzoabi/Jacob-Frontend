@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import RenderDocument from '../RenderDocument';
 import './index.css';
 
 class Results extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       textareaVal: ''
@@ -51,16 +51,16 @@ class Results extends Component {
 
   };
 
-  render () {
+  render() {
     return (
 
-        <div onMouseUp={this.handler}>
-          {
-            this.props.datapoint_pdfs.map((pdf, index) => {
-              return <RenderDocument key={index} pdf={pdf} isDisplayedinDatapoints={true}/>
-            })
-          }
-        </div>
+      <div classname="textWrap" onMouseUp={this.handler}>
+        {
+          this.props.datapoint_pdfs.map((pdf, index) => {
+            return <RenderDocument key={index} pdf={pdf} isDisplayedinDatapoints={true} />
+          })
+        }
+      </div>
 
     )
   }
