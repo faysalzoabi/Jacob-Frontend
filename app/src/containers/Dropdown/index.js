@@ -1,11 +1,4 @@
 import React, {Component} from 'react';
-import Card from "@material-ui/core/Card/Card";
-import CardContent from "@material-ui/core/CardContent/CardContent";
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import Grid from "@material-ui/core/Grid/Grid";
 import {withStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 import {setDatapointsPdfs} from './../../store/actions/pdfActions';

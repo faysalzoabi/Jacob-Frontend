@@ -64,7 +64,7 @@ class Header extends Component {
 
           </Toolbar>
         </AppBar>
-        <Paper>
+        <Paper >
           {localStorage.getItem("token") ?
             <Tabs
               value={value}
