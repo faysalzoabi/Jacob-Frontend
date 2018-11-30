@@ -3,6 +3,11 @@ import { withStyles } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { setDatapointsPdfs } from './../../store/actions/pdfActions';
 import { fetchKeyPhrasesOfTag } from "../../store/actions/tagsActions";
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+
+
 import "./index.css";
 
 const styles = theme => ({
@@ -131,7 +136,6 @@ class Dropdown extends Component {
         if (this.props.tags.length > 0) {
 
             return (
-<<<<<<< HEAD
                 <div>
                     <h3>Tags</h3>
                     <div className="dropdown">
@@ -145,41 +149,33 @@ class Dropdown extends Component {
                             this.renderLevel3()
                         }
                     </div>
-                    <div style={{ backgroundColor: this.state.currentTag.color, borderRadius: '4px', padding: '4px' }}>
-                        <h4>Current Tag:</h4> {this.state.currentTag.name}</div>
-                </div>
-=======
-              <div>
-                  <h3>Tags</h3>
-                  <div className="dropdown">
-                      {
-                          this.renderLevel1()
-                      }
-                      {
-                          this.renderLevel2()
-                      }
-                      {
-                          this.renderLevel3()
-                      }
-                  </div>
-                  <div style={{backgroundColor: this.state.currentTag.color, borderRadius: '4px'}}>
-                      <h5>Current Tag:</h5> {this.state.currentTag.name}
-                  </div>
-              </div>
->>>>>>> origin/master
-            )
+                    <br>
+                    </br>
+                    <Divider variant="middle" />
+                    <br>
+                    </br>
+                    <Typography variant="subtitle" color="inherit">
+                            Selected Tag:
+                    </Typography >
+                    <div marginTop="5px" style={{ backgroundColor: this.state.currentTag.color, borderRadius: '4px' }}>
+                            <Paper style={{ backgroundColor: this.state.currentTag.color }}>
+                                {this.state.currentTag.name}
+                            </Paper>
+                    </div>
+                    </div >
+                    )
         } else {
             return <div>Loading...</div>
-        }
-
-    }
-}
-
-
+                    }
+            
+                }
+            }
+            
+            
 const mapStateToProps = state => {
     return {
-        tags: state.tags,
-    };
-};
-
+                        tags: state.tags,
+                };
+            };
+            
 export default connect(mapStateToProps)(withStyles(styles)(Dropdown));

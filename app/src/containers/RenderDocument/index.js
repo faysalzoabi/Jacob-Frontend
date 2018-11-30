@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Sidebar from '../Sidebar'
 import Typography from '@material-ui/core/Typography';
@@ -62,37 +62,39 @@ class RenderDocument extends Component {
     }
 
 
-    render () {
+
+    render() {
+
         if (this.props.isDisplayedinDatapoints) {
             return (
-              <div className="container">
-                  <Paper className="datapoints">
-                      <div className="textDoc" onMouseUp={this.onSelectText}>
-                          <Typography variant="body1" gutterBottom>
-                              {this.props.pdf.text}
-                          </Typography>
-                      </div>
-                  </Paper>
-              </div>
+                <div className="container">
+                    <Paper className="datapoints">
+                        <div className="textDoc" onMouseUp={this.onSelectText}>
+                            <Typography variant="body1" gutterBottom>
+                                {this.props.pdf.text}
+                            </Typography>
+                        </div>
+                    </Paper>
+                </div>
             );
 
         } else {
             return (
-              <div className="container">
-                  <Paper className="leftPanel">
-                      <div className="textDoc" onMouseUp={this.onSelectText}>
-                          <Typography variant="body1" gutterBottom>
-                              {this.props.pdf.text}
-                          </Typography>
-                      </div>
-                  </Paper>
+                <div className="container">
+                    <Paper className="leftPanel">
+                        <div className="textDoc" onMouseUp={this.onSelectText}>
+                            <Typography variant="body1" gutterBottom>
+                                {this.props.pdf.text}
+                            </Typography>
+                        </div>
+                    </Paper>
 
-                  <div className="rightPanel">
-                      <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document}
-                               id={this.props.pdf.id} resetSelection={this.resetSelection}/>
-                  </div>
+                    <div className="rightPanel">
+                        <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document}
+                            id={this.props.pdf.id} resetSelection={this.resetSelection} fulltext={this.props.pdf.text} />
+                    </div>
 
-              </div>
+                </div>
             );
 
         }
