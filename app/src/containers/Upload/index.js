@@ -7,6 +7,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import "./index.css"
 import { baseAPIUrl } from './../../store/constants';
+import Button from '@material-ui/core/Button';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -19,6 +20,7 @@ class Upload extends Component {
   handleInit() {
     console.log('FilePond instance has initialised', this.pond);
   }
+
 
   render() {
     const token = localStorage.getItem("token").slice(1, -1)
@@ -47,7 +49,9 @@ class Upload extends Component {
             this.setState({
               files: fileItems.map(fileItem => fileItem.file)
             });
-          }}
+          }
+          }
+
         >
 
           {/* Update current files  */}
@@ -57,6 +61,9 @@ class Upload extends Component {
 
         </FilePond>
 
+        <Button variant="contained" color="primary" onClick={() => this.props.history.push('/annotate')} >
+          Go to the File Explorer
+      </Button>
       </div>
     );
   }
