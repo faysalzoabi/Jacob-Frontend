@@ -50,7 +50,7 @@ class Sidebar extends Component {
 
     saveHandler = () => {
         if (this.props.selected_text || this.state.alltext) {
-            if (!this.document_tags) {
+            if (!this.state.document_tags) {
                 alert("Please select a tag.")
             }
             else if (this.state.alltext) {
