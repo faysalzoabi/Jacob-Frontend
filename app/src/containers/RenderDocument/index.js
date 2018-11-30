@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Sidebar from '../Sidebar'
-import "./index.css"
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
+
+import "./index.css"
 
 class RenderDocument extends Component {
 
@@ -10,6 +12,13 @@ class RenderDocument extends Component {
         selected_text: "",
         pdf_documents: "",
     }
+
+    componentDidMount = () => {
+        if (this.props.pdf.pdf === undefined) {
+            this.props.history.push('/annotate')
+        }
+    }
+
 
     getHTMLOfSelection = () => {
         let range;
@@ -92,4 +101,4 @@ class RenderDocument extends Component {
 }
 
 
-export default (RenderDocument);
+export default withRouter(RenderDocument);
