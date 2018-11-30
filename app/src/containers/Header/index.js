@@ -45,7 +45,7 @@ const styles = theme => ({
 class Header extends Component {
 
   state = {
-    value: -1,
+    value: 0,
   };
 
   render() {
