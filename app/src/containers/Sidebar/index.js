@@ -12,6 +12,8 @@ import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import "./index.css"
+import Dropdown from './../../containers/Dropdown'
+
 
 
 const styles = theme => ({
@@ -41,9 +43,8 @@ class Sidebar extends Component {
         pdf_document: "",
     }
 
-    dropdownHandleChange = (event) => {
-        let tag_id = this.props.tags.filter(tag => tag.name === event.target.value)[0].id
-        this.setState({document_tags: tag_id});
+    dropdownHandleChange = (tag) => {
+        this.setState({document_tags: tag.id});
     };
 
     saveHandler = () => {
@@ -69,36 +70,27 @@ class Sidebar extends Component {
     render () {
         const {classes} = this.props;
         return (
-          <div>
+          <div className="scrollable">
               <Paper>
-                  <Button variant="outlined" color="secondary" className={classes.button}
-                          onClick={this.allDocumentHandler}>
-                      Select all text of the Document
-                  </Button>
-                  <Typography variant="subheading" gutterBottom>
-                      or
-                  </Typography>
-                  <Typography variant="display1" gutterBottom>
-                      Selected Text:
-                  </Typography>
                   <div className="highlightedText" onChange={this.textHandler}>
-                      <Typography variant="body1" gutterBottom>{this.props.selected_text}</Typography>
+                      <Typography variant="body1" gutterBottom>{this.props.selected_text ? this.props.selected_text: "Selected text..." }</Typography>
                   </div>
-                  <form className={classes.root} autoComplete="off">
-                      <FormControl className={classes.formControl}>
-                          <InputLabel htmlFor="tag_dropdown">Tags</InputLabel>
-                          <Select
-                            value={this.props.tags.filter(tag => tag.id === this.state.document_tags).length === 0 ? 'Select' : this.props.tags.filter(tag => tag.id === this.state.document_tags)[0].name}
-                            onChange={this.dropdownHandleChange}
-                            inputProps={{name: 'tag'}}>
-                              {
-                                  this.props.tags.map((tag, index) => {
-                                      return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>
-                                  })
-                              }
-                          </Select>
-                      </FormControl>
-                  </form>
+                  {/*<form className={classes.root} autoComplete="off">*/}
+                      {/*<FormControl className={classes.formControl}>*/}
+                          {/*<InputLabel htmlFor="tag_dropdown">Tags</InputLabel>*/}
+                          {/*<Select*/}
+                            {/*value={this.props.tags.filter(tag => tag.id === this.state.document_tags).length === 0 ? 'Select' : this.props.tags.filter(tag => tag.id === this.state.document_tags)[0].name}*/}
+                            {/*onChange={this.dropdownHandleChange}*/}
+                            {/*inputProps={{name: 'tag'}}>*/}
+                              {/*{*/}
+                                  {/*this.props.tags.map((tag, index) => {*/}
+                                      {/*return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>*/}
+                                  {/*})*/}
+                              {/*}*/}
+                          {/*</Select>*/}
+                      {/*</FormControl>*/}
+                  {/*</form>*/}
+                  <Dropdown dropdownHandleChange={this.dropdownHandleChange}/>
                   <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
                       <SaveIcon/>
                       Save

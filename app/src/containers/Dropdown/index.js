@@ -37,9 +37,13 @@ class Dropdown extends Component {
     };
 
     handleChange = (option) => {
-        let pdfIndexes = this.props.tags.filter(tag => tag.name === option.name)[0]['pdf_documents']
-        this.props.dispatch(setDatapointsPdfs(pdfIndexes))
-        this.props.dispatch(fetchKeyPhrasesOfTag(this.state.currentTag.id))
+        if (this.props.dropdownHandleChange) {
+            this.props.dropdownHandleChange(option)
+        } else {
+            let pdfIndexes = this.props.tags.filter(tag => tag.name === option.name)[0]['pdf_documents']
+            this.props.dispatch(setDatapointsPdfs(pdfIndexes))
+            this.props.dispatch(fetchKeyPhrasesOfTag(this.state.currentTag.id))
+        }
     }
 
     onLevel1Selected = (option) => {
@@ -127,6 +131,7 @@ class Dropdown extends Component {
         if (this.props.tags.length > 0) {
 
             return (
+<<<<<<< HEAD
                 <div>
                     <h3>Tags</h3>
                     <div className="dropdown">
@@ -143,6 +148,25 @@ class Dropdown extends Component {
                     <div style={{ backgroundColor: this.state.currentTag.color, borderRadius: '4px', padding: '4px' }}>
                         <h4>Current Tag:</h4> {this.state.currentTag.name}</div>
                 </div>
+=======
+              <div>
+                  <h3>Tags</h3>
+                  <div className="dropdown">
+                      {
+                          this.renderLevel1()
+                      }
+                      {
+                          this.renderLevel2()
+                      }
+                      {
+                          this.renderLevel3()
+                      }
+                  </div>
+                  <div style={{backgroundColor: this.state.currentTag.color, borderRadius: '4px'}}>
+                      <h5>Current Tag:</h5> {this.state.currentTag.name}
+                  </div>
+              </div>
+>>>>>>> origin/master
             )
         } else {
             return <div>Loading...</div>

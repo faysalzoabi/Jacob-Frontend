@@ -27,7 +27,6 @@ class Homepage extends Component {
                     <Typography variant="display2" gutterBottom>
                         Welcome to Jacob
                     </Typography>
-
                 </div>
             </div>
         );
