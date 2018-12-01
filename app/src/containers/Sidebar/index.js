@@ -6,10 +6,11 @@ import {postAnnotations} from "../../store/actions/annotateActions";
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom'
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import "./index.css"
 import Dropdown from './../../containers/Dropdown'
-import {fetchAllPdfs, setAnnotationPdf} from "../../store/actions/pdfActions";
+import {fetchAllPdfs} from "../../store/actions/pdfActions";
 
 
 const styles = theme => ({
@@ -35,63 +36,41 @@ const styles = theme => ({
 class Sidebar extends Component {
 
     state = {
-        document_tags: "",
-        pdf_document: "",
-        alltext: false,
+        selectedTag: {},
+        allText: false,
     }
 
     dropdownHandleChange = (tag) => {
-        this.setState({document_tags: tag.id});
+        this.setState({selectedTag: tag});
     };
 
     saveHandler = () => {
-        if (this.props.selected_text || this.state.alltext) {
-            if (!this.state.document_tags) {
+        if (this.state.allText || this.props.selectedText) {
+            if (Object.keys(this.state.selectedTag).length < 1) {
                 alert("Please select a tag.")
-            }
-            else if (this.state.alltext) {
-                this.props.dispatch(postAnnotations({
-                    selected_text: this.props.fulltext,
-                    document_tags: this.state.document_tags,
-                    pdf_documents: this.props.id,
-                })).then(() => {
-                    this.props.dispatch(fetchAllPdfs())
-                      .then(() => {
-                          this.props.dispatch(setAnnotationPdf(this.props.pdfs.filter(pdf => pdf.id === this.props.id)[0]))
-                      })
-
-                })
             }
             else {
                 this.props.dispatch(postAnnotations({
-                    selected_text: this.props.selected_text,
-                    document_tags: this.state.document_tags,
-                    pdf_documents: this.props.id,
+                    selected_text: this.state.allText ? this.props.pdf.text : this.props.selectedText,
+                    document_tags: this.state.selectedTag.id,
+                    pdf_documents: this.props.pdf.id,
                 })).then(() => {
                     this.props.dispatch(fetchAllPdfs())
-                      .then(() => {
-                          this.props.dispatch(setAnnotationPdf(this.props.pdfs.filter(pdf => pdf.id === this.props.id)[0]))
-                      })
-
                 })
             }
+
         }
         else {
             alert("The selected text is empty.")
         }
 
-
-        this.setState({
-            pdf_document: this.props.pdf
-        });
-
         this.props.resetSelection()
     };
 
     allDocumentHandler = () => {
-        let newAllText = !this.state.alltext
+        let newAllText = !this.state.allText
         this.setState({
-            alltext: newAllText
+            allText: newAllText
         })
     };
 
@@ -104,20 +83,20 @@ class Sidebar extends Component {
                   Select All Text
               </Button>
               <Paper>
-                  <div className="highlightedText" onChange={this.textHandler}>
+                  <div className="highlightedText">
 
                       {
 
-                          this.state.alltext
+                          this.state.allText
                             ?
                             <Typography variant="subheading" gutterBottom>
                                 All text selected.
                             </Typography>
                             :
-                            this.props.selected_text
+                            this.props.selectedText
                               ?
                               <Typography variant="body1" gutterBottom>
-                                  {this.props.selected_text}
+                                  {this.props.selectedText}
                               </Typography>
                               :
                               <Typography variant="subheading" gutterBottom>
@@ -149,4 +128,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Sidebar));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Sidebar)));

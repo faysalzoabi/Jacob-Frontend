@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import RenderDocument from '../RenderDocument';
+import RenderDatapointsDoc from '../RenderDatapointsDoc';
 import './index.css';
 
 class Results extends Component {
@@ -12,7 +12,7 @@ class Results extends Component {
           <div className="textWrap">
               {
                   this.props.datapoint_pdfs.map((pdf, index) => {
-                      return <RenderDocument key={index} pdf={pdf} isDisplayedinDatapoints={true}/>
+                      return <RenderDatapointsDoc key={index} pdf={pdf}/>
                   })
               }
           </div>
