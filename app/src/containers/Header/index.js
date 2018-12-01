@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
-import {withStyles} from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,11 +12,11 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 
 
-function TabContainer (props) {
+function TabContainer(props) {
     return (
-      <Typography component="div" style={{padding: 8 * 3}}>
-          {props.children}
-      </Typography>
+        <Typography component="div" style={{ padding: 8 * 3 }}>
+            {props.children}
+        </Typography>
     );
 }
 
@@ -47,52 +47,54 @@ const styles = theme => ({
 class Header extends Component {
 
     state = {
-        value: 0,
+        url: this.props.location.pathname,
     };
 
-    render () {
-        const {classes} = this.props;
-        const {value} = this.state;
+    render() {
+        console.log(typeof this.props.location.pathname);
+
+        const { classes } = this.props;
+        const { url } = this.state;
 
         return (
-          <div className={classes.root}>
+            <div className={classes.root}>
 
-              <AppBar position="static" color="primary" className={classes.toolbar}>
-                  <Toolbar variant="dense">
-                      <Typography variant="headline" color="inherit" className={classes.grow}>
-                          Jacob
+                <AppBar position="static" color="primary" className={classes.toolbar}>
+                    <Toolbar variant="dense">
+                        <Typography variant="headline" color="inherit" className={classes.grow}>
+                            Jacob
                       </Typography>
-                      {localStorage.getItem("token") ? <Logout/> :
-                        <Button color="inherit" onClick={() => this.props.history.push('/login')}>Login</Button>}
+                        {localStorage.getItem("token") ? <Logout /> :
+                            <Button color="inherit" onClick={() => this.props.history.push('/login')}>Login</Button>}
 
-                  </Toolbar>
-              </AppBar>
-              <Paper>
-                  {localStorage.getItem("token") ?
-                    <Tabs
-                      value={value}
-                      onChange={this.handleChange}
-                      indicatorColor="primary"
-                      textColor="primary"
-                      centered
-                    >
-                        <Tab label="Homepage" onClick={() => this.props.history.push('/')}/>
-                        <Tab label="Search" onClick={() => this.props.history.push('/search')}/>
-                        <Tab label="Upload" onClick={() => this.props.history.push('/upload')}/>
-                        <Tab label="Datapoints" onClick={() => this.props.history.push('/datapoints')}/>
-                        <Tab label="Annotate" onClick={() => this.props.history.push('/annotate')}/>
-                    </Tabs>
-                    : null}
-              </Paper>
+                    </Toolbar>
+                </AppBar>
+                <Paper>
+                    {localStorage.getItem("token") ?
+                        <Tabs
+                            value={url}
+                            onChange={this.handleChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            centered
+                        >
+                            <Tab label="Homepage" value="/" />
+                            <Tab label="Search" value="/search" />
+                            <Tab label="Upload" value="/upload" />
+                            <Tab label="Datapoints" value="/datapoints" />
+                            <Tab label="Annotate" value="/annotate" />
+                        </Tabs>
+                        : null}
+                </Paper>
 
-          </div>
+            </div>
         );
     }
 
-    handleChange = (event, value) => {
-        this.setState({value});
+    handleChange = (event, value, state) => {
+        this.props.history.push(value)
+        this.setState({ url: value })
     };
-
 }
 
 Header.propTypes = {
