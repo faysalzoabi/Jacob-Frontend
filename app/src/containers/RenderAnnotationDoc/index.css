@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: #f2f2f2;
+}
+
+.leftPanel {
+    margin-top: 1%;
+    width: 55%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15%;
+    padding: 2% 6%;
+}
+
+.rightPanel {
+    margin-top: 0.2%;
+    position: -webkit-sticky;
+    position: fixed;
+    right: 0;
+    width: 20%;
+    text-align: center;
+    height: 65%;
+    padding: 1em;
+}
+
+.textDoc {
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
