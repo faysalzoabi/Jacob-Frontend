@@ -8,8 +8,6 @@ import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom';
 import {connect} from "react-redux"
 
-import {setAnnotationPdf} from './../../store/actions/pdfActions';
-
 const styles = {
   card: {
     width: "100%",
@@ -20,7 +18,6 @@ const styles = {
 class DocumentPreview extends Component {
 
   buttonHandler = () => {
-    this.props.dispatch(setAnnotationPdf(this.props.pdf))
     this.props.history.push(`/annotate/${this.props.pdf.id}`)
   }
 
