@@ -1,15 +1,40 @@
-.main-results{
-    border: 1px solid black;
-    width: 100%;
+.container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: space-evenly;
-    
+    width: 100%;
+    background-color: #f2f2f2;
 }
-.textWrap {
-    white-space: pre-wrap;
-    text-align: justify;
+
+.leftPanel {
+    margin-top: 1%;
+    width: 55%;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
+    margin-right: 20%;
+    padding: 2% 6%;
+}
+
+.datapoints {
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 2% 6%;
+}
+
+.rightPanel {
+    position: -webkit-sticky;
+    position: fixed;
+    right: 0;
+    top: 13%;
+    width: 30%;
+    text-align: center;
+    height: 80%;
+    padding: 1em;
+}
+
+.textDoc {
+    white-space: pre-wrap;
+    text-align: justify;
 }

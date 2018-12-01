@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Sidebar from '../Sidebar'
-import Typography from '@material-ui/core/Typography';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import "./index.css"
+import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
 
 class RenderDocument extends Component {
 
@@ -16,9 +17,11 @@ class RenderDocument extends Component {
     componentDidMount = () => {
         if (this.props.pdf.pdf === undefined) {
             this.props.history.push('/annotate')
+        } else {
+            this.props.dispatch(fetchKeyPhrasesOfPdf(this.props.pdf.id))
+            document.getElementById('roots').innerHTML = this.props.pdf.text
         }
     }
-
 
     getHTMLOfSelection = () => {
         let range;
@@ -62,39 +65,43 @@ class RenderDocument extends Component {
     }
 
 
-
-    render() {
-
+    render () {
         if (this.props.isDisplayedinDatapoints) {
             return (
-                <div className="container">
-                    <Paper className="datapoints">
-                        <div className="textDoc" onMouseUp={this.onSelectText}>
-                            <Typography variant="body1" gutterBottom>
-                                {this.props.pdf.text}
-                            </Typography>
-                        </div>
-                    </Paper>
-                </div>
+              <div className="container">
+                  <Paper className="datapoints">
+                      <div className="textDoc" onMouseUp={this.onSelectText}>
+                          {/*<Typography variant="body1" gutterBottom>*/}
+                          {/*{*/}
+                          {/*this.props.pdf.text*/}
+                          {/*}*/}
+                          {/*</Typography>*/}
+                          <div id="roots">
+                          </div>
+                      </div>
+                  </Paper>
+              </div>
+
             );
 
         } else {
             return (
-                <div className="container">
-                    <Paper className="leftPanel">
-                        <div className="textDoc" onMouseUp={this.onSelectText}>
-                            <Typography variant="body1" gutterBottom>
-                                {this.props.pdf.text}
-                            </Typography>
-                        </div>
-                    </Paper>
+              <div className="container">
+                  <Paper className="leftPanel">
+                      <div className="textDoc" onMouseUp={this.onSelectText}>
+                          <div id="roots">
+                          </div>
+                      </div>
+                  </Paper>
 
-                    <div className="rightPanel">
-                        <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document}
-                            id={this.props.pdf.id} resetSelection={this.resetSelection} fulltext={this.props.pdf.text} />
-                    </div>
 
-                </div>
+                  <div className="rightPanel">
+                      <Sidebar selected_text={this.state.selected_text} pdf_document={this.state.pdf_document}
+                               id={this.props.pdf.id} resetSelection={this.resetSelection}
+                               fulltext={this.props.pdf.text}/>
+                  </div>
+
+              </div>
             );
 
         }
@@ -103,4 +110,12 @@ class RenderDocument extends Component {
 }
 
 
-export default withRouter(RenderDocument);
+const mapStateToProps = state => {
+    return {
+        tags: state.tags,
+        phrases: state.phrases.pdfPhrases,
+        pdfs: state.pdfs.all_pdfs
+    };
+};
+
+export default withRouter(connect(mapStateToProps)(RenderDocument));

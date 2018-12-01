@@ -24,7 +24,6 @@ function pdfsReducer (state = initialState, action) {
         datapoint_pdfs: new_datapoint_pdfs,
         annotation_pdf: {...state.annotation_pdf}
       };
-        console.log(newState)
       return newState;
     }
     case SET_ANNOTATION_PDF: {
