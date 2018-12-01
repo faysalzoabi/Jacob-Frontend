@@ -10,6 +10,7 @@ class RenderDatapointsDoc extends Component {
     componentDidMount = () => {
         this.props.dispatch(fetchKeyPhrasesOfPdf(this.props.pdf.id))
         document.getElementById('roots').innerHTML = this.props.pdf.text
+
     }
 
     getHTMLOfSelection = () => {
@@ -72,7 +73,7 @@ class RenderDatapointsDoc extends Component {
 
 const mapStateToProps = state => {
     return {
-        pdfs: state.pdfs.all_pdfs
+        pdfs: state.pdfs.all_pdfs,
     };
 };
 
