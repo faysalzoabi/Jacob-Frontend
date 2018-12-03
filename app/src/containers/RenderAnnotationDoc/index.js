@@ -24,11 +24,12 @@ class RenderAnnotationDoc extends Component {
     };
 
     componentWillUnmount = () => {
-         this.props.dispatch(setAnnotationPdf({}))
+        this.props.dispatch(setAnnotationPdf({}))
     }
 
     componentDidUpdate = () => {
         let pdf = this.props.pdfs.filter(pdf => pdf.id === Number(this.props.match.params.pdfId))[0]
+        this.props.dispatch(setAnnotationPdf({...pdf}))
         document.getElementById('roots').innerHTML = this.props.pdf.text
     };
 
