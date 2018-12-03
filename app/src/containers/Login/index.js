@@ -14,18 +14,19 @@ import './index.css'
 
 class Login extends Component {
    state = {
-      username: 'laurent',
-      password: 'laurent123',
+      username: 'user01',
+      password: 'screencast',
       redirect: false,
       error: ''
     };
 
   handleUsernameInput = e => this.setState({username:e.target.value});
   handlePasswordInput = e => this.setState({password: e.target.value});
+  loginError = (error) => this.setState({error});
 
   userLogin = e => {
     e.preventDefault();
-    this.props.login(this.state);
+    this.props.login(this.state, this);
     this.setState({username: '', password: '', redirect: true});
   };
 
@@ -75,9 +76,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps =  (dispatch, ownProps) => ({
-    login: async userData => {
+    login: async (userData, self) => {
+        console.log("the self", self);
         const data = await dispatch(loginUser(userData));
-        data.non_field_errors === undefined ? ownProps.history.push('/') : this.setState({error: data.non_field_errors[0]})
+        data.non_field_errors === undefined ? ownProps.history.push('/') : self.loginError(data.non_field_errors[0])
     }
 });
 
