@@ -109,9 +109,7 @@ class Sidebar extends Component {
               </Button>
                 <Paper>
                     <div className="highlightedText">
-
                         {
-
                             this.state.allText
                                 ?
                                 <Typography variant="subheading" gutterBottom>
@@ -145,7 +143,6 @@ class Sidebar extends Component {
     componentDidMount = () => {
         this.props.dispatch(fetchTagsAndDocRefs())
     }
-
 }
 
 const mapStateToProps = state => {
