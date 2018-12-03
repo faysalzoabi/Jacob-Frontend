@@ -97,7 +97,9 @@ class Dropdown extends Component {
                       <Paper style={{backgroundColor: this.state.currentTag.color}}>
                           {this.state.currentTag.name}
                       </Paper>
+
                   </div>
+
               </div>
             )
         } else {
