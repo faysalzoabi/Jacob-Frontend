@@ -13,6 +13,7 @@
     padding: 4px;
     margin: 1px;
     border-radius: 3px;
+    font-size: 10px;
 }
 
 .dropdown-cell-selected {

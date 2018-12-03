@@ -8,14 +8,21 @@ import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
 
 class RenderDatapointsDoc extends Component {
 
-    componentDidUpdate = () => {
-        document.addEventListener('click', function (e) {
+
+    componentDidMount = () => {
+        this.onHighlichtClick = (e) => {
             e = e || window.event;
             let target = e.target || e.srcElement,
               text = target.textContent || target.innerText;
-            console.log("Teeeext",text)
-        }, false);
+            console.log(e.target.title)
+            // alert(e.srcElement)
+        }
+        document.addEventListener('click', this.onHighlichtClick, false);
+    };
+    componentWillUnmount = () => {
+        document.removeEventListener('click', this.onHighlichtClick)
     }
+
     getHTMLOfSelection = () => {
         let range;
         if (document.selection && document.selection.createRange) {
