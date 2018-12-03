@@ -4,7 +4,9 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 90%;
-    height: 80%;
+    min-height: 100vh;
+    background-color: #f2f2f2;
+
 
 }
 

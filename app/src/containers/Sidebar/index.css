@@ -3,7 +3,7 @@
     padding: 10%;
     text-align: justify;
     background-color: #DCDCDC;
-
+    max-height: 300px
 }
 
 .scrollable {
@@ -15,8 +15,7 @@
 }
 
 .sidebar {
-    overflow: hidden;
-    overflow-y: auto;
+
     max-height: 100%;
 
 }
