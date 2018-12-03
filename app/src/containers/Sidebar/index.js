@@ -101,6 +101,7 @@ class Sidebar extends Component {
 
     render() {
         const { classes } = this.props;
+        const regex = /(<([^>]+)>)/ig
         return (
             <div className="sidebar">
                 <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
@@ -108,19 +109,18 @@ class Sidebar extends Component {
               </Button>
                 <Paper>
                     <div className="highlightedText">
-
                         {
-
                             this.state.allText
                                 ?
                                 <Typography variant="subheading" gutterBottom>
                                     All text selected.
                             </Typography>
                                 :
-                                this.props.selectedText
+                                this.props.selectedText && !this.props.selectedText.match(/^\s*$/)
                                     ?
                                     <Typography variant="body1" gutterBottom>
-                                        {this.props.selectedText}
+                                        {
+                                            this.props.selectedText.replace(regex, "")}
                                     </Typography>
                                     :
                                     <Typography variant="subheading" gutterBottom>
@@ -143,7 +143,6 @@ class Sidebar extends Component {
     componentDidMount = () => {
         this.props.dispatch(fetchTagsAndDocRefs())
     }
-
 }
 
 const mapStateToProps = state => {

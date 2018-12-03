@@ -44,6 +44,7 @@ class Upload extends Component {
           }
           className="filepond"
           oninit={() => this.handleInit()}
+
           onupdatefiles={(fileItems) => {
             // Set current file objects to this.state
             this.setState({
