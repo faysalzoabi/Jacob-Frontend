@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     margin-right: 15%;
-    padding: 2% 6%;
+    padding: 2% 4%;
 }
 
 .rightPanel {
@@ -22,12 +22,15 @@
     right: 0;
     width: 20%;
     text-align: center;
-    height: 65%;
+    height: 100%;
     padding: 1em;
+    overflow-y: auto;
+    margin-bottom: 15%;
 }
 
 .textDoc {
     white-space: pre-wrap;
     text-align: justify;
+    
 }
 

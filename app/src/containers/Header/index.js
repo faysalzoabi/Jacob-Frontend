@@ -27,6 +27,7 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         width: '100%',
+        zIndex: 10
         // position: 'fixed',
         // top: '0px',
 
@@ -51,8 +52,6 @@ class Header extends Component {
     };
 
     render() {
-        console.log(typeof this.props.location.pathname);
-
         const { classes } = this.props;
         const { url } = this.state;
 
