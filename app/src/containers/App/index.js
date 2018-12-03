@@ -39,7 +39,11 @@ class App extends Component {
                       } else {
                           this.props.dispatch(fetchTagsAndDocRefs())
                           this.props.dispatch(fetchAllPdfs())
-                          this.props.history.push('/');
+                          if (plannedRoute.indexOf(plannedRoute.match(/^string:([0-9]+)$/)) !== null) {
+                              this.props.history.push('/annotate');
+                          } else {
+                              this.props.history.push(plannedRoute);
+                          }
                       }
                   });
             } else {
