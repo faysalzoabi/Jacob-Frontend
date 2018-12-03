@@ -55,7 +55,9 @@ class Sidebar extends Component {
     notifySuccess = () => toast.success("Highlight Done Correctly!", {
         position: toast.POSITION.BOTTOM_RIGHT
     });
-
+    notifyAllText = () => toast.success("All text is selected!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
 
 
     dropdownHandleChange = (tag) => {
@@ -92,6 +94,8 @@ class Sidebar extends Component {
         this.setState({
             allText: newAllText
         })
+        this.notifyAllText()
+
     };
 
 
@@ -99,7 +103,7 @@ class Sidebar extends Component {
         const { classes } = this.props;
         return (
             <div className="sidebar">
-                <Button variant="contained" color="primary" onClick={this.saveHandler} className={classes.button}>
+                <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
                     Select All Text
               </Button>
                 <Paper>
