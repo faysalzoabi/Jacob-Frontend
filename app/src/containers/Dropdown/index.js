@@ -48,21 +48,27 @@ class Dropdown extends Component {
             this.props.dispatch(fetchTagsAndDocRefs()).then((res) => {
                 let pdfIndexes = res.data.filter(tag => tag.name === option.name)[0]['pdf_documents']
                 this.props.dispatch(setDatapointsPdfs(pdfIndexes))
-                this.props.dispatch(fetchKeyPhrasesOfTag(option.id))
             })
-
         }
+        this.props.dispatch(fetchKeyPhrasesOfTag(option.id))
     };
 
     onLevel1Selected = (option) => {
         let level2Options = this.props.tags.filter(tag => tag.parent_tag === option.id)
-        this.setState({currentTag: option, level1Selected: option, level2Options: level2Options, level3Options: {}})
+        this.setState({
+            currentTag: option,
+            level1Selected: option,
+            level2Options: level2Options,
+            level3Options: {},
+            level2Selected: {},
+            level3Selected: {}
+        })
         this.handleChange(option)
     }
 
     onLevel2Selected = (option) => {
         let level3Options = this.props.tags.filter(tag => tag.parent_tag === option.id)
-        this.setState({currentTag: option, level2Selected: option, level3Options: level3Options})
+        this.setState({currentTag: option, level2Selected: option, level3Options: level3Options, level3Selected: {}})
         this.handleChange(option)
     }
 

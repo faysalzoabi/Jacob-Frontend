@@ -9,30 +9,17 @@ const initialState = {
 function pdfsReducer (state = initialState, action) {
     switch (action.type) {
         case SET_ALL_PDFS: {
-            const newState = {
-                all_pdfs: [...action.data],
-                datapoint_pdfs: [...state.datapoint_pdfs],
-                annotation_pdf: {...state.annotation_pdf}
-            };
-            return newState;
+            return {...state, all_pdfs: action.data};
         }
         case SET_DATAPOINTS_PDFS: {
             let pdf_indices = action.data
-            let new_datapoint_pdfs = [...state.all_pdfs].filter(pdf => pdf_indices.includes(pdf.id))
-            const newState = {
-                all_pdfs: [...state.all_pdfs],
-                datapoint_pdfs: new_datapoint_pdfs,
-                annotation_pdf: {...state.annotation_pdf}
-            };
-            return newState;
+            let new_datapoint_pdfs = state.all_pdfs.filter(pdf => pdf_indices.includes(pdf.id))
+            console.log(new_datapoint_pdfs.length === state.datapoint_pdfs.length)
+
+            return {...state, datapoint_pdfs: new_datapoint_pdfs};
         }
         case SET_ANNOTATION_PDF: {
-            const newState = {
-                all_pdfs: [...state.all_pdfs],
-                datapoint_pdfs: [...state.datapoint_pdfs],
-                annotation_pdf: {...action.data}
-            };
-            return newState;
+            return {...state, annotation_pdf: action.data};
         }
         default:
             return state;

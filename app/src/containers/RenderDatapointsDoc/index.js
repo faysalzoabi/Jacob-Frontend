@@ -7,10 +7,6 @@ import "./index.css"
 import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
 
 class RenderDatapointsDoc extends Component {
-    componentDidMount = () => {
-        this.props.dispatch(fetchKeyPhrasesOfPdf(this.props.pdf.id))
-        document.getElementById('roots').innerHTML = this.props.pdf.text
-    }
 
     getHTMLOfSelection = () => {
         let range;
@@ -59,7 +55,7 @@ class RenderDatapointsDoc extends Component {
           <div className="container">
               <Paper className="datapoints">
                   <div className="textDoc" onMouseUp={this.onSelectText}>
-                      <div id="roots">
+                      <div dangerouslySetInnerHTML={{__html: this.props.pdf.text}}>
                       </div>
                   </div>
               </Paper>
@@ -69,11 +65,4 @@ class RenderDatapointsDoc extends Component {
     }
 }
 
-
-const mapStateToProps = state => {
-    return {
-        pdfs: state.pdfs.all_pdfs,
-    };
-};
-
-export default withRouter(connect(mapStateToProps)(RenderDatapointsDoc));
+export default RenderDatapointsDoc;

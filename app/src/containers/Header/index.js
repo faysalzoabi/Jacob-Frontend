@@ -51,8 +51,6 @@ class Header extends Component {
     };
 
     render() {
-        console.log(typeof this.props.location.pathname);
-
         const { classes } = this.props;
         const { url } = this.state;
 
