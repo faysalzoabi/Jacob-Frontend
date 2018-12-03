@@ -22,8 +22,10 @@
     right: 0;
     width: 20%;
     text-align: center;
-    height: 65%;
+    height: 100%;
     padding: 1em;
+    overflow-y: auto;
+    margin-bottom: 15%;
 }
 
 .textDoc {

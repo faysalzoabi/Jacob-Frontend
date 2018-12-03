@@ -15,7 +15,7 @@
 }
 
 .sidebar {
-
+    overflow-y: auto;
     max-height: 100%;
 
 }
