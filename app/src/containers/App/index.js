@@ -76,7 +76,7 @@ class App extends Component {
                       <Route exact path="/upload" component={Upload}/>
                       <Route exact path="/datapoints" component={Datapoints}/>
                       <Route exact path="/annotate" component={Annotate}/>
-                      <Route exact path="/annotate/:pdfId" component={RenderAnnotationDoc}/>
+                      <Route exact path="/annotate/:pdfId/" component={RenderAnnotationDoc}/>
                       <Route render={() => <p>404 - Page not found!</p>}/>
                   </Switch>
               </div>

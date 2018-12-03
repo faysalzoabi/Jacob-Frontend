@@ -14,8 +14,6 @@ function pdfsReducer (state = initialState, action) {
         case SET_DATAPOINTS_PDFS: {
             let pdf_indices = action.data
             let new_datapoint_pdfs = state.all_pdfs.filter(pdf => pdf_indices.includes(pdf.id))
-            console.log(new_datapoint_pdfs.length === state.datapoint_pdfs.length)
-
             return {...state, datapoint_pdfs: new_datapoint_pdfs};
         }
         case SET_ANNOTATION_PDF: {

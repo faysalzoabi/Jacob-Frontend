@@ -46,7 +46,9 @@ class Dropdown extends Component {
             this.props.dropdownHandleChange(option)
         } else {
             this.props.dispatch(fetchTagsAndDocRefs()).then((res) => {
+                console.log("res", res, option)
                 let pdfIndexes = res.data.filter(tag => tag.name === option.name)[0]['pdf_documents']
+                console.log(pdfIndexes)
                 this.props.dispatch(setDatapointsPdfs(pdfIndexes))
             })
         }
