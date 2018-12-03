@@ -8,6 +8,14 @@ import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
 
 class RenderDatapointsDoc extends Component {
 
+    componentDidUpdate = () => {
+        document.addEventListener('click', function (e) {
+            e = e || window.event;
+            let target = e.target || e.srcElement,
+              text = target.textContent || target.innerText;
+            console.log("Teeeext",text)
+        }, false);
+    }
     getHTMLOfSelection = () => {
         let range;
         if (document.selection && document.selection.createRange) {
