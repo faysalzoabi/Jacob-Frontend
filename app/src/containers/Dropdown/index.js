@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 import {setDatapointsPdfs} from './../../store/actions/pdfActions';
-import {fetchKeyPhrasesOfTag} from "../../store/actions/tagsActions";
+import {fetchTagsAndDocRefs, fetchKeyPhrasesOfTag} from "../../store/actions/tagsActions";
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -45,11 +45,14 @@ class Dropdown extends Component {
         if (this.props.dropdownHandleChange) {
             this.props.dropdownHandleChange(option)
         } else {
-            let pdfIndexes = this.props.tags.filter(tag => tag.name === option.name)[0]['pdf_documents']
-            this.props.dispatch(setDatapointsPdfs(pdfIndexes))
-            this.props.dispatch(fetchKeyPhrasesOfTag(option.id))
+            this.props.dispatch(fetchTagsAndDocRefs()).then((res) => {
+                let pdfIndexes = res.data.filter(tag => tag.name === option.name)[0]['pdf_documents']
+                this.props.dispatch(setDatapointsPdfs(pdfIndexes))
+                this.props.dispatch(fetchKeyPhrasesOfTag(option.id))
+            })
+
         }
-    }
+    };
 
     onLevel1Selected = (option) => {
         let level2Options = this.props.tags.filter(tag => tag.parent_tag === option.id)

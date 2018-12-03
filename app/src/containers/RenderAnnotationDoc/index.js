@@ -80,7 +80,6 @@ class RenderAnnotationDoc extends Component {
 
 
     render () {
-        console.log("render:", this.props.pdfs)
         return (
           <div className="container">
               <Paper className="leftPanel">
