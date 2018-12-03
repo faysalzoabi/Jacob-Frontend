@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import "./index.css"
-import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
+import { fetchKeyPhrasesOfPdf } from './../../store/actions/tagsActions';
 
 class RenderDatapointsDoc extends Component {
     componentDidMount = () => {
@@ -54,16 +54,16 @@ class RenderDatapointsDoc extends Component {
     }
 
 
-    render () {
+    render() {
         return (
-          <div className="container">
-              <Paper className="datapoints">
-                  <div className="textDoc" onMouseUp={this.onSelectText}>
-                      <div id="roots">
-                      </div>
-                  </div>
-              </Paper>
-          </div>
+            <div className="container">
+                <Paper className="datapoints">
+                    <div className="textDoc" onMouseUp={this.onSelectText}>
+                        <div id="roots">
+                        </div>
+                    </div>
+                </Paper>
+            </div>
 
         );
     }
