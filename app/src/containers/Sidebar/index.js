@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {postAnnotations} from "../../store/actions/annotateActions";
+import { postAnnotations } from "../../store/actions/annotateActions";
 import Paper from '@material-ui/core/Paper';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom'
-import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
-import "./index.css"
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
 import Dropdown from './../../containers/Dropdown'
-import {fetchAllPdfs} from "../../store/actions/pdfActions";
+import { fetchAllPdfs } from "../../store/actions/pdfActions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import "./index.css"
 
 
 const styles = theme => ({
@@ -35,19 +38,35 @@ const styles = theme => ({
 
 class Sidebar extends Component {
 
+
     state = {
         selectedTag: {},
         allText: false,
     }
 
+
+
+    notifyTag = () => toast.error("Please Select a Tag!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+    notifyText = () => toast.error("The Selected Text Is Empty!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+    notifySuccess = () => toast.success("Highlight Done Correctly!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+
+
+
     dropdownHandleChange = (tag) => {
-        this.setState({selectedTag: tag});
+        this.setState({ selectedTag: tag });
     };
 
     saveHandler = () => {
         if (this.state.allText || this.props.selectedText) {
             if (Object.keys(this.state.selectedTag).length < 1) {
-                alert("Please select a tag.")
+                return this.notifyTag()
+
             }
             else {
                 this.props.dispatch(postAnnotations({
@@ -56,12 +75,13 @@ class Sidebar extends Component {
                     pdf_documents: this.props.pdf.id,
                 })).then(() => {
                     this.props.dispatch(fetchAllPdfs())
+                    this.notifySuccess()
                 })
             }
 
         }
         else {
-            alert("The selected text is empty.")
+            return this.notifyText()
         }
 
         this.props.resetSelection()
@@ -75,43 +95,44 @@ class Sidebar extends Component {
     };
 
 
-    render () {
-        const {classes} = this.props;
+    render() {
+        const { classes } = this.props;
         return (
-          <div className="sidebar">
-              <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
-                  Select All Text
+            <div className="sidebar">
+                <Button variant="contained" color="primary" onClick={this.saveHandler} className={classes.button}>
+                    Select All Text
               </Button>
-              <Paper>
-                  <div className="highlightedText">
+                <Paper>
+                    <div className="highlightedText">
 
-                      {
+                        {
 
-                          this.state.allText
-                            ?
-                            <Typography variant="subheading" gutterBottom>
-                                All text selected.
+                            this.state.allText
+                                ?
+                                <Typography variant="subheading" gutterBottom>
+                                    All text selected.
                             </Typography>
-                            :
-                            this.props.selectedText
-                              ?
-                              <Typography variant="body1" gutterBottom>
-                                  {this.props.selectedText}
+                                :
+                                this.props.selectedText
+                                    ?
+                                    <Typography variant="body1" gutterBottom>
+                                        {this.props.selectedText}
+                                    </Typography>
+                                    :
+                                    <Typography variant="subheading" gutterBottom>
+                                        Please select the text to annotate
                               </Typography>
-                              :
-                              <Typography variant="subheading" gutterBottom>
-                                  Please select the text to annotate
-                              </Typography>
-                      }
+                        }
 
-                  </div>
-                  <Dropdown dropdownHandleChange={this.dropdownHandleChange}/>
-                  <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
-                      <SaveIcon/>
-                      Save
+                    </div>
+                    <Dropdown dropdownHandleChange={this.dropdownHandleChange} />
+                    <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
+                        <SaveIcon />
+                        Save
                   </Button>
-              </Paper>
-          </div>
+                </Paper>
+                <ToastContainer />
+            </div>
         );
     }
 
