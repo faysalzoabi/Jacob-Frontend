@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {selectedLevel, renderLevel} from './renderLevels';
 
 import {setDatapointsPdfs} from './../../store/actions/pdfActions';
-import {fetchKeyPhrasesOfTag} from "../../store/actions/tagsActions";
+import {fetchKeyPhrasesOfTag, fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
 import {styles} from "./theme.js";
 import "./index.css";
 
@@ -26,10 +26,12 @@ class Dropdown extends Component {
         if (this.props.dropdownHandleChange) {
             this.props.dropdownHandleChange(option);
         } else {
-            let pdfIndexes = this.props.tags.find(tag => tag.name === option.name).pdf_documents;
-            this.props.setDatapointsPdfs(pdfIndexes);
+            this.props.fetchTagsAndDocRefs().then((res) => {
+                let pdfIndexes = res.data.find(tag => tag.name === option.name).pdf_documents;
+                this.props.setDatapointsPdfs(pdfIndexes);
+            })
         }
-         this.props.fetchKeyPhrasesOfTag(option.id)
+        this.props.fetchKeyPhrasesOfTag(option.id)
 
     };
 
@@ -39,11 +41,11 @@ class Dropdown extends Component {
         this.setState({
             currentTag: option,
             level1Selected: option,
-            level2Options: this.getTag(option) ,
+            level2Options: this.getTag(option),
             level3Options: {},
             level2Selected: {},
             level3Selected: {},
-            });
+        });
         this.handleChange(option)
     };
 
@@ -52,7 +54,7 @@ class Dropdown extends Component {
             currentTag: option,
             level2Selected: option,
             level3Options: this.getTag(option),
-            level3Selected:{}
+            level3Selected: {}
         });
         this.handleChange(option)
     };
@@ -67,11 +69,11 @@ class Dropdown extends Component {
 
     renderLevel1 = () => {
         let level1Tags = this.props.tags.filter(tag => tag.parent_tag === null);
-        return selectedLevel(level1Tags, this.state.level1Selected,  this.onLevel1Selected, 'Tag1')
+        return selectedLevel(level1Tags, this.state.level1Selected, this.onLevel1Selected, 'Tag1')
     };
 
-    renderLevel2 = () => selectedLevel(this.state.level2Options, this.state.level2Selected,  this.onLevel2Selected, 'Tag2');
-    renderLevel3 = () => selectedLevel(this.state.level3Options, this.state.level3Selected,  this.onLevel3Selected, 'Tag3');
+    renderLevel2 = () => selectedLevel(this.state.level2Options, this.state.level2Selected, this.onLevel2Selected, 'Tag2');
+    renderLevel3 = () => selectedLevel(this.state.level3Options, this.state.level3Selected, this.onLevel3Selected, 'Tag3');
 
     render () {
         if (this.props.tags.length > 0) {
@@ -107,9 +109,10 @@ class Dropdown extends Component {
 
 const mapStateToProps = state => ({tags: state.tags});
 
-const mapDispatchToProps =  dispatch => ({
+const mapDispatchToProps = dispatch => ({
     setDatapointsPdfs: pdfIndexes => dispatch(setDatapointsPdfs(pdfIndexes)),
     fetchKeyPhrasesOfTag: id => dispatch(fetchKeyPhrasesOfTag(id)),
+    fetchTagsAndDocRefs: ( ) => dispatch(fetchTagsAndDocRefs())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Dropdown));
