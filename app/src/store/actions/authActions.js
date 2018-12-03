@@ -26,21 +26,15 @@ export const loginUser = credentials => dispatch => {
     password: credentials.password
   };
 
-  return axios.post('auth/token/', data)
+  return  axios.post('auth/token/', data)
     .then(res => {
       if (res.data.non_field_errors === undefined) {
         localStorage.setItem('token', JSON.stringify(res.data.access));
-        const tokenAction = setToken();
-        dispatch(tokenAction);
-        const action = fetchUser();
-        dispatch(action);
-
-        dispatch(fetchTagsAndDocRefs())
-        dispatch(fetchAllPdfs())
+        dispatch( setToken());
+        dispatch(fetchUser());
+        dispatch(fetchTagsAndDocRefs());
+        dispatch(fetchAllPdfs());
       }
       return res.data;
-    }).catch(error => {
-      console.log(error)
-      return error.response.data;
-    });
+    }).catch(error => error.response.data);
 };
