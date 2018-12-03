@@ -12,6 +12,7 @@ import Dropdown from './../../containers/Dropdown'
 import { fetchAllPdfs } from "../../store/actions/pdfActions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Card from '@material-ui/core/Card';
 
 import "./index.css"
 
@@ -34,6 +35,8 @@ const styles = theme => ({
         minWidth: 200,
 
     },
+
+
 });
 
 class Sidebar extends Component {
@@ -47,16 +50,16 @@ class Sidebar extends Component {
 
 
     notifyTag = () => toast.error("Please Select a Tag!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifyText = () => toast.error("The Selected Text Is Empty!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifySuccess = () => toast.success("Highlight Done Correctly!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifyAllText = () => toast.success("All text is selected!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
 
 
@@ -107,7 +110,7 @@ class Sidebar extends Component {
                 <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
                     Select All Text
               </Button>
-                <Paper>
+                <Card className="sidebarCard">
                     <div className="highlightedText">
                         {
                             this.state.allText
@@ -134,7 +137,7 @@ class Sidebar extends Component {
                         <SaveIcon />
                         Save
                   </Button>
-                </Paper>
+                </Card>
                 <ToastContainer />
             </div>
         );

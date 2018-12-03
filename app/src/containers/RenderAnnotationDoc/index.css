@@ -7,25 +7,29 @@
 
 .leftPanel {
     margin-top: 1%;
-    width: 55%;
+    width: auto;
+    min-width: 50%;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    margin-right: 15%;
+    margin-left: 40%;
     padding: 2% 4%;
+
 }
 
 .rightPanel {
     margin-top: 0.2%;
     position: -webkit-sticky;
     position: fixed;
-    right: 0;
+    left: 0;
     width: 20%;
     text-align: center;
     height: 100%;
     padding: 1em;
     overflow-y: auto;
     margin-bottom: 15%;
+    margin-left: 5%;
+ 
 }
 
 .textDoc {
