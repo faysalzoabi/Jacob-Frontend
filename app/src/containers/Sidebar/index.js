@@ -13,7 +13,7 @@ import { fetchAllPdfs } from "../../store/actions/pdfActions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Card from '@material-ui/core/Card';
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import "./index.css"
 
 
@@ -61,7 +61,9 @@ class Sidebar extends Component {
     notifyAllText = () => toast.success("All text is selected!", {
         position: toast.POSITION.BOTTOM_LEFT
     });
-
+    notifyTagRemoved = () => toast.error("Tag Unselected!", {
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
     dropdownHandleChange = (tag) => {
         this.setState({ selectedTag: tag });
@@ -100,6 +102,11 @@ class Sidebar extends Component {
         this.notifyAllText()
 
     };
+    removeTagHandler = () => {
+        this.setState({ selectedTag: {} });
+        console.log(this.state);
+        this.notifyTagRemoved()
+    }
 
 
     render() {
@@ -133,10 +140,20 @@ class Sidebar extends Component {
 
                     </div>
                     <Dropdown dropdownHandleChange={this.dropdownHandleChange} />
+                    {Object.keys(this.state.selectedTag).length > 0
+                        ?
+                        <Button variant="contained" size="small" onClick={this.removeTagHandler}>
+                            <DeleteIcon />
+                            Unselect tag
+                         </Button>
+                        :
+                        null
+                    }
                     <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
                         <SaveIcon />
                         Save
                   </Button>
+
                 </Card>
                 <ToastContainer />
             </div>
