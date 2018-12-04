@@ -32,3 +32,6 @@
     cursor: pointer;
 
 }
+.removeButton {
+    left: 50%;
+}

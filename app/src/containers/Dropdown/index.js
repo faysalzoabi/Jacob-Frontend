@@ -1,16 +1,22 @@
-import React, {Component} from 'react';
-import {withStyles} from "@material-ui/core";
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { withStyles } from "@material-ui/core";
+import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { selectedLevel } from './renderLevels';
 
-import {selectedLevel, renderLevel} from './renderLevels';
-
-import {setDatapointsPdfs} from './../../store/actions/pdfActions';
-import {fetchKeyPhrasesOfTag, fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
-import {styles} from "./theme.js";
+import { setDatapointsPdfs } from './../../store/actions/pdfActions';
+import { fetchKeyPhrasesOfTag, fetchTagsAndDocRefs } from "../../store/actions/tagsActions";
 import "./index.css";
+
+const styles = theme => ({
+    button: {
+        // left: "50%",
+        margin: 10,
+    },
+})
 
 class Dropdown extends Component {
     state = {
@@ -75,32 +81,45 @@ class Dropdown extends Component {
     renderLevel2 = () => selectedLevel(this.state.level2Options, this.state.level2Selected, this.onLevel2Selected, 'Tag2');
     renderLevel3 = () => selectedLevel(this.state.level3Options, this.state.level3Selected, this.onLevel3Selected, 'Tag3');
 
-    render () {
+    removeTag = () => {
+        this.setState({
+            currentTag: {},
+            level1Selected: {},
+            level2Options: [],
+            level2Selected: {},
+            level3Options: [],
+            level3Selected: {},
+        });
+    }
+    render() {
+        const { classes } = this.props;
+
         if (this.props.tags.length > 0) {
             return (
-              <div>
-                  <h3>Tags</h3>
-                  <div className="dropdown">
-                      {this.renderLevel1()}
-                      {this.renderLevel2()}
-                      {this.renderLevel3()}
-                  </div>
-                  <br>
-                  </br>
-                  <Divider variant="middle"/>
-                  <br>
-                  </br>
-                  <Typography variant="subheading" color="inherit">
-                      Selected Tag:
+                <div>
+                    <h3>Tags</h3>
+                    <div className="dropdown">
+                        {this.renderLevel1()}
+                        {this.renderLevel2()}
+                        {this.renderLevel3()}
+                    </div>
+                    <br>
+                    </br>
+                    <Divider variant="middle" />
+                    <br>
+                    </br>
+                    <Typography variant="subheading" color="inherit">
+                        Selected Tag:
                   </Typography>
-                  <div margintop="5px" style={{backgroundColor: this.state.currentTag.color, borderRadius: '4px'}}>
-                      <Paper style={{backgroundColor: this.state.currentTag.color}}>
-                          {this.state.currentTag.name}
-                      </Paper>
+                    <div margintop="5px" style={{ backgroundColor: this.state.currentTag.color, borderRadius: '4px' }}>
+                        <Paper style={{ backgroundColor: this.state.currentTag.color }}>
+                            {this.state.currentTag.name}
+                        </Paper>
 
-                  </div>
+                    </div>
 
-              </div>
+
+                </div>
             )
         } else {
             return <div>Loading...</div>
@@ -109,12 +128,12 @@ class Dropdown extends Component {
 }
 
 
-const mapStateToProps = state => ({tags: state.tags});
+const mapStateToProps = state => ({ tags: state.tags });
 
 const mapDispatchToProps = dispatch => ({
     setDatapointsPdfs: pdfIndexes => dispatch(setDatapointsPdfs(pdfIndexes)),
     fetchKeyPhrasesOfTag: id => dispatch(fetchKeyPhrasesOfTag(id)),
-    fetchTagsAndDocRefs: ( ) => dispatch(fetchTagsAndDocRefs())
+    fetchTagsAndDocRefs: () => dispatch(fetchTagsAndDocRefs())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Dropdown));
