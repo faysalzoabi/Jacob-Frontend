@@ -1,0 +1,22 @@
+.red {
+    color:red
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-content:space-around;
+    background-color: white;
+    margin: 40px;
+
+}
+
+.box {
+    margin-top: 20px;
+    border: solid 1px black;
+    box-shadow: 5px 5px grey;
+    width: 60vw;
+    padding: 15px;
+}

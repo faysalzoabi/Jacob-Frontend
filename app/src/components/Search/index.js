@@ -3,6 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
 import {AwesomeButtonProgress} from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+import {baseAPIUrl} from "../../store/constants";
+import TextResults from "../TextResults"
 
 const styles = theme => ({
   container: {
@@ -23,26 +25,46 @@ const styles = theme => ({
   },
 });
 
+
+
+const myHeaders = new Headers({
+  'Content-Type': 'application/json',
+    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+})
+
+const config = {
+    method: 'GET',
+    headers: myHeaders,
+  };
+
 class Search extends Component {
   state = {
     multiline: '',
+      texts:[]
   }
 
-  render () {
-    this.handleChange = name => event => {
+
+  firstFetch = () => {
+    fetch(`${baseAPIUrl}search/query/?q=${this.state.multiline}`, config)
+           .then(response => response.json())
+           .then(data => {
+               console.log(data.hits)
+               this.setState({texts:data.hits})
+           })
+      }
+
+
+
+  handleChange = name => event => {
       this.setState({
         [name]: event.target.value,
       });
+      console.log(this.state.multiline)
     };
 
-    this.handleDrawerOpen = () => {
-      this.setState({drawerIsOpen: true});
-    };
 
-    this.handleDrawerClose = () => {
-      this.setState({drawerIsOpen: false});
-    };
 
+  render () {
     const {classes} = this.props;
 
     return (
@@ -65,11 +87,18 @@ class Search extends Component {
         <AwesomeButtonProgress
           type="secondary"
           size="large"
-          action={this.submitHandler}
+          onClick={this.firstFetch}
         >
           Search!
         </AwesomeButtonProgress>
-      </div>
+
+        <button onClick={this.firstFetch}>
+          click me
+        </button>
+          <br/>
+
+                 {this.state.texts.length > 0 ? <TextResults texts = {this.state.texts}/> : null}
+          </div>
     );
   }
 }
