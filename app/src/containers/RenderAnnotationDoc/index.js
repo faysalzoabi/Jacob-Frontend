@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Sidebar from '../Sidebar'
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import "./index.css"
-import { fetchAllPdfs, setAnnotationPdf } from "../../store/actions/pdfActions";
+import {fetchAllPdfs, setAnnotationPdf} from "../../store/actions/pdfActions";
 
 class RenderAnnotationDoc extends Component {
 
@@ -15,10 +15,10 @@ class RenderAnnotationDoc extends Component {
 
     componentDidMount = () => {
         this.props.dispatch(fetchAllPdfs())
-            .then(() => {
-                let pdf = this.props.pdfs.filter(pdf => pdf.id === Number(this.props.match.params.pdfId))[0]
-                this.props.dispatch(setAnnotationPdf({ ...pdf }))
-            })
+          .then(() => {
+              let pdf = this.props.pdfs.filter(pdf => pdf.id === Number(this.props.match.params.pdfId))[0]
+              this.props.dispatch(setAnnotationPdf({...pdf}))
+          })
 
 
     };
@@ -29,7 +29,7 @@ class RenderAnnotationDoc extends Component {
 
     componentDidUpdate = () => {
         let pdf = this.props.pdfs.filter(pdf => pdf.id === Number(this.props.match.params.pdfId))[0]
-        this.props.dispatch(setAnnotationPdf({ ...pdf }))
+        this.props.dispatch(setAnnotationPdf({...pdf}))
         document.getElementById('roots').innerHTML = this.props.pdf.text
     };
 
@@ -83,23 +83,23 @@ class RenderAnnotationDoc extends Component {
     };
 
 
-    render() {
+    render () {
         return (
-            <div className="container">
-                <Paper className="leftPanel">
-                    <div className="textDoc" onMouseUp={this.onSelectText}>
-                        <div id="roots">
-                        </div>
-                    </div>
-                </Paper>
+          <div className="container">
+              <Paper className="leftPanel">
+                  <div className="textDoc" onMouseUp={this.onSelectText}>
+                      <div id="roots">
+                      </div>
+                  </div>
+              </Paper>
 
 
-                <div className="rightPanel">
-                    <Sidebar selectedText={this.state.selectedText} pdf={this.props.pdf}
-                        resetSelection={this.resetSelection} />
-                </div>
+              <div className="rightPanel">
+                  <Sidebar selectedText={this.state.selectedText} pdf={this.props.pdf}
+                           resetSelection={this.resetSelection}/>
+              </div>
 
-            </div>
+          </div>
         );
 
     }
