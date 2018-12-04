@@ -16,7 +16,7 @@ const styles = theme => ({
 class TextResults extends Component {
 
     handleClick=() => {
-        this.props.history.push(`/questions/${texts.order}`)
+        // this.props.history.push(`/questions/${texts.order}`)
     }
 
     render() {
