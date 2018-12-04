@@ -71,11 +71,6 @@ class RenderDatapointsDoc extends Component {
     }
 
 
-    onOpenModal = () => {
-        console.log("opening")
-        this.setState({open: true});
-    };
-
     onCloseModal = () => {
         console.log("closing")
         this.setState({open: false});

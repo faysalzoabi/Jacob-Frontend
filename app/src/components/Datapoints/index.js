@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Dropdown from "../../containers/Dropdown";
 import KeyPhrase from "../../containers/Keyphrases"
-import Results from './../../containers/Results';
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
 import DatapointsDocumentPreview from './../DatapointsDocumentPreview';
+import RenderDatapointsDoc from './../../containers/RenderDatapointsDoc';
+
 import "./index.css"
 
 class Datapoints extends Component {
@@ -15,18 +16,24 @@ class Datapoints extends Component {
               <div className="container-datapoints">
                   <Paper className="leftPanel-datapoints">
                       <Dropdown/>
+                      {/*Put below into own component*/}
                       <h3>Documents</h3>
                       {
                           Object.values(this.props.pdfs).reverse().map((pdf, index) => {
                                 return <DatapointsDocumentPreview key={index} pdf={pdf}/>;
                             }
                           )}
+                      {/*Until here*/}
                       <KeyPhrase/>
                   </Paper>
                   <div className="rightPanel-datapoints">
-                      <div className="text">
-                          <Results/>
-                      </div>
+                      {
+                          Object.keys(this.props.pdf).length > 0 ?
+                            <div className="text">
+                                <RenderDatapointsDoc pdf={this.props.pdf}/>
+                            </div>
+                            : null
+                      }
                   </div>
               </div>
           </div>
@@ -38,7 +45,8 @@ class Datapoints extends Component {
 const mapStateToProps = state => {
     return {
         tags: state.tags,
-        pdfs: state.pdfs.datapoint_pdfs
+        pdfs: state.pdfs.datapoint_pdfs,
+        pdf: state.pdfs.datapoint_pdf
     };
 };
 export default connect(mapStateToProps)(Datapoints);
