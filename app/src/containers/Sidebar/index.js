@@ -12,7 +12,8 @@ import Dropdown from './../../containers/Dropdown'
 import { fetchAllPdfs } from "../../store/actions/pdfActions";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Card from '@material-ui/core/Card';
+import DeleteIcon from '@material-ui/icons/Delete';
 import "./index.css"
 
 
@@ -34,6 +35,8 @@ const styles = theme => ({
         minWidth: 200,
 
     },
+
+
 });
 
 class Sidebar extends Component {
@@ -47,18 +50,20 @@ class Sidebar extends Component {
 
 
     notifyTag = () => toast.error("Please Select a Tag!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifyText = () => toast.error("The Selected Text Is Empty!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifySuccess = () => toast.success("Highlight Done Correctly!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
     notifyAllText = () => toast.success("All text is selected!", {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_LEFT
     });
-
+    notifyTagRemoved = () => toast.error("Tag Unselected!", {
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
     dropdownHandleChange = (tag) => {
         this.setState({ selectedTag: tag });
@@ -97,6 +102,11 @@ class Sidebar extends Component {
         this.notifyAllText()
 
     };
+    removeTagHandler = () => {
+        this.setState({ selectedTag: {} });
+        console.log(this.state);
+        this.notifyTagRemoved()
+    }
 
 
     render() {
@@ -107,7 +117,7 @@ class Sidebar extends Component {
                 <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
                     Select All Text
               </Button>
-                <Paper>
+                <Card className="sidebarCard">
                     <div className="highlightedText">
                         {
                             this.state.allText
@@ -130,11 +140,21 @@ class Sidebar extends Component {
 
                     </div>
                     <Dropdown dropdownHandleChange={this.dropdownHandleChange} />
+                    {Object.keys(this.state.selectedTag).length > 0
+                        ?
+                        <Button variant="contained" size="small" onClick={this.removeTagHandler}>
+                            <DeleteIcon />
+                            Unselect tag
+                         </Button>
+                        :
+                        null
+                    }
                     <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
                         <SaveIcon />
                         Save
                   </Button>
-                </Paper>
+
+                </Card>
                 <ToastContainer />
             </div>
         );
