@@ -75,9 +75,18 @@ class Sidebar extends Component {
                 return this.notifyTag()
 
             }
-            else {
+            else if (this.state.allText) {
                 this.props.dispatch(postAnnotations({
-                    selected_text: this.state.allText ? this.props.pdf.text : this.props.selectedText,
+                    selected_text: "",
+                    document_tags: this.state.selectedTag.id,
+                    pdf_documents: this.props.pdf.id,
+                    all_doc_tagged: true,
+                }))
+                this.props.dispatch(fetchAllPdfs())
+                this.notifySuccess()
+            } else {
+                this.props.dispatch(postAnnotations({
+                    selected_text: this.props.selectedText,
                     document_tags: this.state.selectedTag.id,
                     pdf_documents: this.props.pdf.id,
                 })).then(() => {
@@ -85,7 +94,6 @@ class Sidebar extends Component {
                     this.notifySuccess()
                 })
             }
-
         }
         else {
             return this.notifyText()
