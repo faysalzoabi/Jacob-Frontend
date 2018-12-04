@@ -5,16 +5,17 @@ import {AwesomeButtonProgress} from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
 import {baseAPIUrl} from "../../store/constants";
 import TextResults from "../TextResults"
-
+import Button from '@material-ui/core/Button';
+import "./index.css"
 const styles = theme => ({
-  container: {
+  searchcontainer: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: "500px",
+    width: "800px",
     marginTop: "50px",
   },
   dense: {
@@ -69,7 +70,8 @@ class Search extends Component {
 
     return (
       <div>
-        <div className="Container">
+          <div className="wrapper">
+        <div className={classes.searchcontainer}>
           <TextField
             id="outlined-multiline-flexible"
             label="Search:"
@@ -84,17 +86,12 @@ class Search extends Component {
           />
 
         </div>
-        <AwesomeButtonProgress
-          type="secondary"
-          size="large"
-          onClick={this.firstFetch}
-        >
-          Search!
-        </AwesomeButtonProgress>
+              <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={this.firstFetch}>
+                    Search
+              </Button>
 
-        <button onClick={this.firstFetch}>
-          click me
-        </button>
+
+           </div>
           <br/>
 
                  {this.state.texts.length > 0 ? <TextResults texts = {this.state.texts}/> : null}

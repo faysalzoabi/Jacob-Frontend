@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
+import { withRouter } from 'react-router';
+import {baseAPIUrl} from "../../store/constants";
 import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import "./index.css"
+
 const styles = theme => ({
     root: {
     ...theme.mixins.gutters(),
@@ -13,10 +14,17 @@ const styles = theme => ({
   },
 });
 
+const paperStyle = {
+  margin: '50px auto',
+  padding: '20px 20px 20px 20px',
+  width: '70%',
+};
+
+
 class TextResults extends Component {
 
     handleClick=() => {
-        // this.props.history.push(`/questions/${texts.order}`)
+        this.props.history.push(`/annotate/`);
     }
 
     render() {
@@ -28,11 +36,11 @@ class TextResults extends Component {
         let result = [].concat.apply([], textarr);
         if(texts) {
         textListContent = (
-            <div className="container">
+            <div className="result">
                 {result.map(t => (
-                    <div className="box" onClick={this.handleClick}>
+                    <Paper style={ paperStyle } className="box" elevation={10} onClick={this.handleClick}>
                                   {<p dangerouslySetInnerHTML={ { __html: t } } />}
-                    </div>
+                        </Paper>
                 ))}
             </div>
         )
@@ -47,4 +55,4 @@ class TextResults extends Component {
     }
 }
 
-export default withStyles(styles)(TextResults);
+export default withStyles(styles)(withRouter(TextResults));
