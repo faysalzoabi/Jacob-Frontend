@@ -18,17 +18,16 @@
 }
 
 .rightPanel {
-    margin-top: 0.2%;
+    margin-top: 1%;
     position: -webkit-sticky;
     position: fixed;
     left: 0;
-    width: 20%;
+    width: 25%;
+    align-items: center;
     text-align: center;
-    height: 100%;
     padding: 1em;
     overflow-y: auto;
     margin-bottom: 15%;
-    margin-left: 5%;
  
 }
 
