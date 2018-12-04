@@ -5,8 +5,6 @@ export const postAnnotations = (state) => dispatch => {
     if (!isAxiosAuthorized())
         return;
 
-    console.log("state", state)
-
     return axios.post('annotate/', {...state})
       .then(res => {
       })

@@ -3,17 +3,17 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import Header from './../Header'
 import Login from './../Login'
-// import Redirect from '../Redirect';
 import Datapoints from './../../components/Datapoints';
 import Search from './../../components/Search';
 import Upload from "../Upload"
 import './index.css';
-import RenderDocument from '../RenderDocument';
+import RenderAnnotationDoc from '../RenderAnnotationDoc';
 import Annotate from "../Annotate"
 import {setToken, unsetToken} from '../../store/actions/authActions';
 import {fetchUser, unsetUser} from '../../store/actions/userActions';
 import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
 import {fetchAllPdfs} from "../../store/actions/pdfActions";
+import Homepage from '../../components/Homepage';
 
 class App extends Component {
 
@@ -39,7 +39,11 @@ class App extends Component {
                       } else {
                           this.props.dispatch(fetchTagsAndDocRefs())
                           this.props.dispatch(fetchAllPdfs())
-                          this.props.history.push(plannedRoute);
+                          if (plannedRoute.indexOf(plannedRoute.match(/^string:([0-9]+)$/)) !== null) {
+                              this.props.history.push('/annotate');
+                          } else {
+                              this.props.history.push(plannedRoute);
+                          }
                       }
                   });
             } else {
@@ -67,12 +71,12 @@ class App extends Component {
               <div className="App">
                   <Header/>
                   <Switch>
+                      <Route exact path="/" component={Homepage}/>
                       <Route exact path="/search" component={Search}/>
                       <Route exact path="/upload" component={Upload}/>
                       <Route exact path="/datapoints" component={Datapoints}/>
                       <Route exact path="/annotate" component={Annotate}/>
-                      <Route exact path="/annotate/:pdfId"
-                             render={() => <RenderDocument pdf={this.props.annotation_pdf}/>}/>
+                      <Route exact path="/annotate/:pdfId/" component={RenderAnnotationDoc}/>
                       <Route render={() => <p>404 - Page not found!</p>}/>
                   </Switch>
               </div>
@@ -95,7 +99,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         token: state.token,
-        annotation_pdf: state.pdfs.annotation_pdf
     };
 };
 

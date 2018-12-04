@@ -6,25 +6,26 @@ export const SET_TAGS = 'SET_TAGS';
 export const SET_DATAPOINTS_PDFS = 'SET_DATAPOINTS_PDFS';
 export const SET_ANNOTATION_PDF = 'SET_ANNOTATION_PDF';
 export const SET_ALL_PDFS = 'SET_ALL_PDFS';
-export const SET_PHRASES = 'SET_PHRASES';
+export const SET_PHRASES_TAG = 'SET_PHRASES_TAG';
+export const SET_PHRASES_PDF = 'SET_PHRASES_PDF';
 
 let baseUrl;
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://localhost:8875';
+    baseUrl = 'http://localhost:8875';
 } else {
-  baseUrl = 'https://jacob.propulsion-learn.ch';
+    baseUrl = 'https://jacob.propulsion-learn.ch';
 }
 export {
-  baseUrl
+    baseUrl
 };
 
 let baseAPIUrl;
 if (process.env.NODE_ENV === 'development') {
-  baseAPIUrl = 'http://localhost:8875/backend/';
+    baseAPIUrl = 'http://localhost:8875/backend/';
 } else {
-  baseAPIUrl = 'https://jacob.propulsion-learn.ch/backend/';
+    baseAPIUrl = 'https://jacob.propulsion-learn.ch/backend/';
 }
 export {
-  baseAPIUrl
+    baseAPIUrl
 };
 

@@ -16,7 +16,7 @@ class Annotate extends Component {
     return (
       <div className="annotate-container">
         {
-          Object.values(this.props.pdfs).map((pdf, index) => {
+          Object.values(this.props.pdfs).reverse().map((pdf, index) => {
               return <DocumentPreview key={index} pdf={pdf}/>;
             }
           )}

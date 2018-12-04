@@ -11,30 +11,26 @@
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    margin-right: 20%;
-    padding: 2% 6%;
-}
-
-.datapoints {
-    width: 100%;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    padding: 2% 6%;
+    margin-right: 15%;
+    padding: 2% 4%;
 }
 
 .rightPanel {
+    margin-top: 0.2%;
     position: -webkit-sticky;
     position: fixed;
     right: 0;
-    top: 13%;
-    width: 30%;
+    width: 20%;
     text-align: center;
-    height: 80%;
+    height: 100%;
     padding: 1em;
+    overflow-y: auto;
+    margin-bottom: 15%;
 }
 
 .textDoc {
     white-space: pre-wrap;
     text-align: justify;
+    
 }
+

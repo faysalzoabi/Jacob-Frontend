@@ -1,40 +1,70 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
-import CardContent from "@material-ui/core/CardContent/CardContent";
 import Card from "@material-ui/core/Card/Card";
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 const styles = {
-  card: {
-    marginTop: 10,
-  },
+    card: {
+        width: "100%",
+        marginTop: '2%'
+    },
+    paper: {
+        marginTop: "5%",
+        width: "90%",
+        padding: "5% 5% 5% 5%",
+        background: "#DCDCDC"
+
+    },
+    keyphrases: {
+        marginTop: "5%",
+    }
 
 };
 
 class KeyPhrase extends Component {
 
 
-  render () {
-    const {classes} = this.props;
-    return (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textPrimary" gutterBottom>
-              {
-                this.props.phrases.map((phrase, index) => <li key={index}>{phrase.selected_text}</li>)
-              }
-            </Typography>
-          </CardContent>
-        </Card>
-    );
-  }
+    render() {
+        const { classes } = this.props;
+        const regex = /(<([^>]+)>)/ig
+
+        if (this.props.phrases && this.props.phrases.length !== 0) {
+            return (
+                <div>
+                    <Divider variant="middle" />
+
+                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
+                        Keyphrases:
+                  </Typography>
+
+                    {
+                        this.props.phrases.map((phrase, index) =>
+
+                            <Paper className={classes.paper} key={index}>
+                                {phrase.selected_text.replace(regex, "")}
+                            </Paper>
+
+                        )
+                    }
+
+                    <br></br>
+                </div>
+            )
+        }
+        else {
+            return null
+        }
+    }
 }
 
 const mapStateToProps = state => {
-  return {
-    tags: state.tags,
-    phrases: state.phrases
-  };
+    return {
+        tags: state.tags,
+        phrases: state.phrases.tagPhrases
+    };
 };
 export default connect(mapStateToProps)(withStyles(styles)(KeyPhrase));

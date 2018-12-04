@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
-import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Select from "@material-ui/core/Select/Select";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {postAnnotations} from "../../store/actions/annotateActions";
+import { postAnnotations } from "../../store/actions/annotateActions";
 import Paper from '@material-ui/core/Paper';
-import {withStyles} from '@material-ui/core/styles';
-import {connect} from 'react-redux';
-import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
+import Dropdown from './../../containers/Dropdown'
+import { fetchAllPdfs } from "../../store/actions/pdfActions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import "./index.css"
 
 
@@ -36,75 +38,105 @@ const styles = theme => ({
 
 class Sidebar extends Component {
 
+
     state = {
-        document_tags: "",
-        pdf_document: "",
+        selectedTag: {},
+        allText: false,
     }
 
-    dropdownHandleChange = (event) => {
-        let tag_id = this.props.tags.filter(tag => tag.name === event.target.value)[0].id
-        this.setState({document_tags: tag_id});
+
+
+    notifyTag = () => toast.error("Please Select a Tag!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+    notifyText = () => toast.error("The Selected Text Is Empty!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+    notifySuccess = () => toast.success("Highlight Done Correctly!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+    notifyAllText = () => toast.success("All text is selected!", {
+        position: toast.POSITION.BOTTOM_RIGHT
+    });
+
+
+    dropdownHandleChange = (tag) => {
+        this.setState({ selectedTag: tag });
     };
 
     saveHandler = () => {
-        this.props.dispatch(postAnnotations({
-            selected_text: this.props.selected_text,
-            document_tags: this.state.document_tags,
-            pdf_documents: this.props.id,
-        }))
+        if (this.state.allText || this.props.selectedText) {
+            if (Object.keys(this.state.selectedTag).length < 1) {
+                return this.notifyTag()
 
+            }
+            else {
+                this.props.dispatch(postAnnotations({
+                    selected_text: this.state.allText ? this.props.pdf.text : this.props.selectedText,
+                    document_tags: this.state.selectedTag.id,
+                    pdf_documents: this.props.pdf.id,
+                })).then(() => {
+                    this.props.dispatch(fetchAllPdfs())
+                    this.notifySuccess()
+                })
+            }
 
-        this.setState({
-            pdf_document: this.props.pdf
-        });
+        }
+        else {
+            return this.notifyText()
+        }
 
         this.props.resetSelection()
     };
 
     allDocumentHandler = () => {
-        //  console.log(document.getElementById("text").focus())
+        let newAllText = !this.state.allText
+        this.setState({
+            allText: newAllText
+        })
+        this.notifyAllText()
+
     };
 
 
-    render () {
-        const {classes} = this.props;
+    render() {
+        const { classes } = this.props;
+        const regex = /(<([^>]+)>)/ig
         return (
-          <div>
-              <Paper>
-                  <Button variant="outlined" color="secondary" className={classes.button}
-                          onClick={this.allDocumentHandler}>
-                      Select all text of the Document
+            <div className="sidebar">
+                <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
+                    Select All Text
+              </Button>
+                <Paper>
+                    <div className="highlightedText">
+                        {
+                            this.state.allText
+                                ?
+                                <Typography variant="subheading" gutterBottom>
+                                    All text selected.
+                            </Typography>
+                                :
+                                this.props.selectedText && !this.props.selectedText.match(/^\s*$/)
+                                    ?
+                                    <Typography variant="body1" gutterBottom>
+                                        {
+                                            this.props.selectedText.replace(regex, "")}
+                                    </Typography>
+                                    :
+                                    <Typography variant="subheading" gutterBottom>
+                                        Please select the text to annotate
+                              </Typography>
+                        }
+
+                    </div>
+                    <Dropdown dropdownHandleChange={this.dropdownHandleChange} />
+                    <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
+                        <SaveIcon />
+                        Save
                   </Button>
-                  <Typography variant="subheading" gutterBottom>
-                      or
-                  </Typography>
-                  <Typography variant="display1" gutterBottom>
-                      Selected Text:
-                  </Typography>
-                  <div className="highlightedText" onChange={this.textHandler}>
-                      <Typography variant="body1" gutterBottom>{this.props.selected_text}</Typography>
-                  </div>
-                  <form className={classes.root} autoComplete="off">
-                      <FormControl className={classes.formControl}>
-                          <InputLabel htmlFor="tag_dropdown">Tags</InputLabel>
-                          <Select
-                            value={this.props.tags.filter(tag => tag.id === this.state.document_tags).length === 0 ? 'Select' : this.props.tags.filter(tag => tag.id === this.state.document_tags)[0].name}
-                            onChange={this.dropdownHandleChange}
-                            inputProps={{name: 'tag'}}>
-                              {
-                                  this.props.tags.map((tag, index) => {
-                                      return <MenuItem key={index} value={tag.name}>{tag.name}</MenuItem>
-                                  })
-                              }
-                          </Select>
-                      </FormControl>
-                  </form>
-                  <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
-                      <SaveIcon/>
-                      Save
-                  </Button>
-              </Paper>
-          </div>
+                </Paper>
+                <ToastContainer />
+            </div>
         );
     }
 
@@ -116,7 +148,8 @@ class Sidebar extends Component {
 const mapStateToProps = state => {
     return {
         tags: state.tags,
+        pdfs: state.pdfs.all_pdfs
     };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Sidebar));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Sidebar)));

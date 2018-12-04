@@ -1,94 +1,58 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import {loginUser} from '../../store/actions/authActions';
-import Error from '../Error/';
-import {AwesomeButton} from 'react-awesome-button';
+import PropTypes from 'prop-types';
 import 'react-awesome-button/dist/styles.css';
+import {withStyles} from '@material-ui/core/styles';
+import {AwesomeButton} from 'react-awesome-button';
+
+import Error from '../Error/';
+import {loginUser} from '../../store/actions/authActions';
+import {styles} from "./theme";
 import './index.css'
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-});
-
 class Login extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
+   state = {
       username: 'user01',
       password: 'screencast',
       redirect: false,
       error: ''
     };
-    this.classes = props.classes;
-  }
 
-  handleUsernameInput = e => {
-    const username = e.target.value;
-    this.setState({username});
-  }
-
-  handlePasswordInput = e => {
-    const password = e.target.value;
-    this.setState({password});
-  }
+  handleUsernameInput = e => this.setState({username:e.target.value});
+  handlePasswordInput = e => this.setState({password: e.target.value});
+  loginError = (error) => this.setState({error});
 
   userLogin = e => {
     e.preventDefault();
-    const action = loginUser(this.state);
-    this.props.dispatch(action).then((data) => {
-      if (data.non_field_errors === undefined) {
-        this.props.history.push('/search');
-      } else {
-        this.setState({error: data.non_field_errors[0]});
-      }
-    });
-
-    this.setState({
-      username: '',
-      password: '',
-      redirect: true
-    });
-  }
-
-  handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      this.userLogin(e);
-    }
-  }
+    this.props.login(this.state, this);
+    this.setState({username: '', password: '', redirect: true});
+  };
 
   render () {
-    return (
+      const classes = this.props.classes;
+      const {error, username, password} = this.state;
 
+      return (
       <form className="Login-Form" onSubmit={this.userLogin}>
-        <Error error={this.state.error}/>
+        <Error error={error}/>
         <TextField
           id="username"
           label="Username"
-          className={this.classes.textField}
+          className={classes.textField}
           placeholder="Enter your Username"
-          value={this.state.username}
+          value={username}
           onChange={this.handleUsernameInput}
-          onKeyPress={this.handleKeyPress}
         /><br/>
         <TextField
           id="password"
           label="Password"
-          className={this.classes.textField}
+          className={classes.textField}
           type="password"
           placeholder="Enter your Password"
-          value={this.state.password}
+          value={password}
           onChange={this.handlePasswordInput}
-          onKeyPress={this.handleKeyPress}
         /><br/>
         <AwesomeButton
           type="secondary"
@@ -97,22 +61,26 @@ class Login extends Component {
           Login
         </AwesomeButton>
       </form>
-
     );
   }
 }
 
 Login.propTypes = {
-  classes: PropTypes.object,
-  history: PropTypes.object,
-  dispatch: PropTypes.func,
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     currentUser: state.currentUser,
     token: state.token,
-  };
-};
+});
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Login)));
+const mapDispatchToProps =  (dispatch, ownProps) => ({
+    login: async (userData, self) => {
+        console.log("the self", self);
+        const data = await dispatch(loginUser(userData));
+        data.non_field_errors === undefined ? ownProps.history.push('/') : self.loginError(data.non_field_errors[0])
+    }
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login)));

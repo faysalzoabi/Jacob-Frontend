@@ -1,6 +1,21 @@
 .highlightedText {
     overflow-y: auto;
-    max-height: 250px;
     padding: 10%;
     text-align: justify;
+    background-color: #DCDCDC;
+    max-height: 300px
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 100%;
+    border: 1px solid #DCDCDC;
+    border-radius: 4px;
+
+}
+
+.sidebar {
+    overflow-y: auto;
+    max-height: 100%;
+
 }
