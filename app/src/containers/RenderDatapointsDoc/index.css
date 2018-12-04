@@ -38,3 +38,7 @@
     white-space: pre-wrap;
     text-align: justify;
 }
+
+.span-hover{
+    cursor: pointer;
+}

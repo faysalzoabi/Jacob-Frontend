@@ -4,6 +4,7 @@ export const SET_USER = 'SET_USER';
 export const UNSET_USER = 'UNSET_USER';
 export const SET_TAGS = 'SET_TAGS';
 export const SET_DATAPOINTS_PDFS = 'SET_DATAPOINTS_PDFS';
+export const SET_DATAPOINTS_PDF = 'SET_DATAPOINTS_PDF';
 export const SET_ANNOTATION_PDF = 'SET_ANNOTATION_PDF';
 export const SET_ALL_PDFS = 'SET_ALL_PDFS';
 export const SET_PHRASES_TAG = 'SET_PHRASES_TAG';
