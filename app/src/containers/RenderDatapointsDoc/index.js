@@ -1,23 +1,29 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
-import {withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
-
+import Modal from 'react-responsive-modal';
 import "./index.css"
-import {fetchKeyPhrasesOfPdf} from './../../store/actions/tagsActions';
 
 class RenderDatapointsDoc extends Component {
+    state = {
+        open: false,
+        modalText: '',
+    };
 
 
     componentDidMount = () => {
-        this.onHighlichtClick = (e) => {
-            e = e || window.event;
-            let target = e.target || e.srcElement,
-              text = target.textContent || target.innerText;
-            console.log(e.target.title)
-            // alert(e.srcElement)
-        }
-        document.addEventListener('click', this.onHighlichtClick, false);
+        let els = Array.prototype.slice.call(document.getElementsByTagName("span"), 1);
+        let self = this;
+        els.forEach(el => {
+            if (el.classList)
+                el.classList.add("span-hover");
+            else
+                el.className += ' ' + "span-hover";
+        })
+        els.forEach(el => {
+            el.addEventListener('click', (e) => {
+                self.setState({open: true, modalText: e.target.title})
+            })
+        })
     };
     componentWillUnmount = () => {
         document.removeEventListener('click', this.onHighlichtClick)
@@ -65,11 +71,25 @@ class RenderDatapointsDoc extends Component {
     }
 
 
+    onOpenModal = () => {
+        console.log("opening")
+        this.setState({open: true});
+    };
+
+    onCloseModal = () => {
+        console.log("closing")
+        this.setState({open: false});
+    };
+
+
     render () {
         return (
           <div className="container">
               <Paper className="datapoints">
                   <div className="textDoc" onMouseUp={this.onSelectText}>
+                      <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                          <h2>{this.state.modalText}</h2>
+                      </Modal>
                       <div dangerouslySetInnerHTML={{__html: this.props.pdf.text}}>
                       </div>
                   </div>
