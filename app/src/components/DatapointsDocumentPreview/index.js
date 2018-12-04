@@ -5,17 +5,18 @@ import classNames from 'classnames';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import { withRouter } from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
 import { connect } from "react-redux"
 import { fetchHighlights } from "../../store/actions/highlightsActions"
 import { setDatapointsPdf } from './../../store/actions/pdfActions';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 
 const styles = {
     card: {
         width: "100%",
-        marginTop: '2%'
+
     }
 };
 
@@ -27,32 +28,29 @@ class DatapointsDocumentPreview extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.props.highlights);
-
         return (
             <Card onClick={this.clickHandler} className={classes.card}>
                 <CardContent>
                     <Typography variant="body1" gutterBottom>
-
                         {this.props.pdf.pdf.split('/').reverse()[0]}
-                        {
-                            this.props.highlights.map((pdf, index) => {
-                                console.log(pdf.id, this.props.pdf.id);
-
-                                return (pdf.id === this.props.pdf.id)
-                                    ?
-                                    pdf.all_doc_tagged ?
-                                        <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
+                        <div className="icon">
+                            {
+                                this.props.highlights.map((pdf, index) => {
+                                    console.log(pdf.id, this.props.pdf.id);
+                                    return (pdf.id === this.props.pdf.id)
+                                        ?
+                                        pdf.all_doc_tagged
+                                            ?
+                                            <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
+                                            :
+                                            <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
                                         :
-                                        <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
-                                    :
-                                    null
-                            })}
+                                        null
+                                })}
+                        </div>
                     </Typography>
                 </CardContent>
-                <CardActions>
-                </CardActions>
-            </Card>
+            </Card >
 
         );
     }

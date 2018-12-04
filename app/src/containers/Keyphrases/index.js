@@ -45,7 +45,14 @@ class KeyPhrase extends Component {
                         this.props.phrases.map((phrase, index) =>
 
                             <Paper className={classes.paper} key={index}>
-                                {phrase.selected_text.replace(regex, "")}
+                                {
+                                    phrase.selected
+                                        ?
+                                        phrase.selected_text.replace(regex, "")
+                                        :
+                                        console.log("lalal")
+
+                                }
                             </Paper>
 
                         )
