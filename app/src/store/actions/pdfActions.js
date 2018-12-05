@@ -8,7 +8,6 @@ export const fetchAllPdfs = () => dispatch => {
         return;
     }
 
-
     return axios.get(`file/get/all`)
       .then(res => {
           dispatch(setAllPdfs(res.data))

@@ -1,3 +1,6 @@
-.Container {
-    justify-content: center,
+.wrapper {
+    display: block;
+    width: 1000px;
+    margin: auto;
+
 }
