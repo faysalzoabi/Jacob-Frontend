@@ -37,23 +37,25 @@ class KeyPhrase extends Component {
                 <div>
                     <Divider variant="middle" />
 
-                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
-                        Keyphrases:
-                  </Typography>
+
 
                     {
-                        this.props.phrases.map((phrase, index) =>
+                        this.props.phrases.map((phrase, index) => {
+                            return phrase.selected_text
+                                ?
+                                <div>
+                                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
+                                        Keyphrases:
+                                </Typography>
+                                    <Paper className={classes.paper} key={index}>
+                                        {phrase.selected_text.replace(regex, "")}
+                                    </Paper>
+                                </div>
+                                :
+                                null
 
-                            <Paper className={classes.paper} key={index}>
-                                {
-                                    phrase.selected
-                                        ?
-                                        phrase.selected_text.replace(regex, "")
-                                        :
-                                        console.log("lalal")
 
-                                }
-                            </Paper>
+                        }
 
                         )
                     }

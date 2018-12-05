@@ -10,8 +10,7 @@ import Icon from '@material-ui/core/Icon';
 import { connect } from "react-redux"
 import { fetchHighlights } from "../../store/actions/highlightsActions"
 import { setDatapointsPdf } from './../../store/actions/pdfActions';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
+import "./index.css"
 
 const styles = {
     card: {
@@ -29,29 +28,31 @@ class DatapointsDocumentPreview extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Card onClick={this.clickHandler} className={classes.card}>
-                <CardContent>
-                    <Typography variant="body1" gutterBottom>
-                        {this.props.pdf.pdf.split('/').reverse()[0]}
-                        <div className="icon">
-                            {
-                                this.props.highlights.map((pdf, index) => {
-                                    console.log(pdf.id, this.props.pdf.id);
-                                    return (pdf.id === this.props.pdf.id)
-                                        ?
-                                        pdf.all_doc_tagged
+            <div>
+                <Card className="card" onClick={this.clickHandler} >
+                    <CardContent>
+                        <Typography variant="body1" gutterBottom>
+                            {this.props.pdf.pdf.split('/').reverse()[0]}
+                            <div className="icon">
+                                {
+                                    this.props.highlights.map((pdf, index) => {
+                                        console.log(pdf.id, this.props.pdf.id);
+                                        return (pdf.id === this.props.pdf.id)
                                             ?
-                                            <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
+                                            pdf.all_doc_tagged
+                                                ?
+                                                <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
+                                                :
+                                                <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
                                             :
-                                            <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
-                                        :
-                                        null
-                                })}
-                        </div>
-                    </Typography>
-                </CardContent>
-            </Card >
-
+                                            null
+                                    })}
+                            </div>
+                        </Typography>
+                    </CardContent>
+                </Card >
+                <br></br>
+            </div>
         );
     }
     componentDidMount() {
