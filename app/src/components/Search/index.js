@@ -9,95 +9,94 @@ import Button from '@material-ui/core/Button';
 import "./index.css"
 
 const styles = theme => ({
-  searchcontainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: "800px",
-    marginTop: "50px",
-  },
-  dense: {
-    marginTop: 16,
-  },
-  menu: {
-    width: 200,
-  },
+    searchcontainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: "800px",
+        marginTop: "50px",
+    },
+    dense: {
+        marginTop: 16,
+    },
+    menu: {
+        width: 200,
+    },
 });
 
 
-
-const myHeaders = new Headers({
-  'Content-Type': 'application/json',
-    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-})
-
-const config = {
-    method: 'GET',
-    headers: myHeaders,
-  };
-
 class Search extends Component {
-  state = {
-    multiline: '',
-      texts:[]
-  }
+    state = {
+        multiline: '',
+        texts: []
+    }
 
 
-  firstFetch = () => {
-    fetch(`${baseAPIUrl}search/query/?q=${this.state.multiline}`, config)
-           .then(response => response.json())
-           .then(data => {
-               this.setState({texts:data.hits})
-           })
-      }
+    firstFetch = () => {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        })
+
+        const config = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+
+        fetch(`${baseAPIUrl}search/query/?q=${this.state.multiline}`, config)
+          .then(response => response.json())
+          .then(data => {
+              console.log("data", data)
+              this.setState({texts: data.hits})
+          })
+    }
 
 
-
-  handleChange = name => event => {
-      this.setState({
-        [name]: event.target.value,
-      });
-      console.log(this.state.multiline)
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+        console.log(this.state.multiline)
     };
 
 
+    render () {
+        const {classes} = this.props;
 
-  render () {
-    const {classes} = this.props;
+        return (
+          <div>
+              <div className="wrapper">
+                  <div className={classes.searchcontainer}>
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        label="Search:"
+                        multiline
+                        rowsMax="4"
+                        value={this.state.multiline}
+                        onChange={this.handleChange('multiline')}
+                        className={classes.textField}
+                        margin="normal"
+                        helperText="Please write what you want to search."
+                        variant="outlined"
+                      />
 
-    return (
-      <div>
-          <div className="wrapper">
-        <div className={classes.searchcontainer}>
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Search:"
-            multiline
-            rowsMax="4"
-            value={this.state.multiline}
-            onChange={this.handleChange('multiline')}
-            className={classes.textField}
-            margin="normal"
-            helperText="Please write what you want to search."
-            variant="outlined"
-          />
-
-        </div>
-              <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={this.firstFetch}>
-                    Search
-              </Button>
+                  </div>
+                  <Button variant="contained" size="large" color="primary" className={classes.margin}
+                          onClick={this.firstFetch}>
+                      Search
+                  </Button>
 
 
-           </div>
-          <br/>
+              </div>
+              <br/>
 
-                 {this.state.texts.length > 0 ? <TextResults texts = {this.state.texts}/> : null}
+              {this.state.texts.length > 0 ? <TextResults texts={this.state.texts}/> : null}
           </div>
-    );
-  }
+        );
+    }
 }
 
 export default withStyles(styles)(Search);
