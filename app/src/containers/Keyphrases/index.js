@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-
+import "./index.css"
 const styles = {
     card: {
         width: "100%",
@@ -16,7 +16,7 @@ const styles = {
         marginTop: "5%",
         width: "90%",
         padding: "5% 5% 5% 5%",
-        background: "#DCDCDC"
+        background: "#DCDCDC",
 
     },
     keyphrases: {
@@ -36,29 +36,29 @@ class KeyPhrase extends Component {
             return (
                 <div>
                     <Divider variant="middle" />
-
-
-
-                    {
-                        this.props.phrases.map((phrase, index) => {
-                            return phrase.selected_text
-                                ?
-                                <div>
-                                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
-                                        Keyphrases:
+                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
+                        Keyphrases:
                                 </Typography>
-                                    <Paper className={classes.paper} key={index}>
-                                        {phrase.selected_text.replace(regex, "")}
-                                    </Paper>
-                                </div>
-                                :
-                                null
+                    <div className="keyphraseWrapper">
+                        {
+                            this.props.phrases.map((phrase, index) => {
+                                return phrase.selected_text
+                                    ?
+                                    <div >
+
+                                        <Paper className={classes.paper} key={index}>
+                                            {phrase.selected_text.replace(regex, "")}
+                                        </Paper>
+                                    </div>
+                                    :
+                                    null
 
 
+                            }
+
+                            )
                         }
-
-                        )
-                    }
+                    </div>
 
                     <br></br>
                 </div>
