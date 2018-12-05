@@ -7,6 +7,7 @@ import {baseAPIUrl} from "../../store/constants";
 import TextResults from "../TextResults"
 import Button from '@material-ui/core/Button';
 import "./index.css"
+
 const styles = theme => ({
   searchcontainer: {
     display: 'flex',
@@ -49,7 +50,6 @@ class Search extends Component {
     fetch(`${baseAPIUrl}search/query/?q=${this.state.multiline}`, config)
            .then(response => response.json())
            .then(data => {
-               console.log(data.hits)
                this.setState({texts:data.hits})
            })
       }
