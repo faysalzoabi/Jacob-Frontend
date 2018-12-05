@@ -22,7 +22,11 @@ class Datapoints extends Component {
                         <div className="documents">
                             {
                                 Object.values(this.props.pdfs).reverse().map((pdf, index) => {
-                                    return <DatapointsDocumentPreview key={index} pdf={pdf} />;
+                                    this.props.highlights.map((highlight, index) => {
+
+                                    })
+                                    let flag = this.props.highlights.filter((highlight) => highlight.pdf_documnets === pdf.id)[0]
+                                    return <DatapointsDocumentPreview key={index} pdf={pdf} is_doc={flag} />;
                                 }
                                 )}
                         </div>
@@ -50,7 +54,10 @@ const mapStateToProps = state => {
     return {
         tags: state.tags,
         pdfs: state.pdfs.datapoint_pdfs,
-        pdf: state.pdfs.datapoint_pdf
+        pdf: state.pdfs.datapoint_pdf,
+        highlights: state.highlights
+
     };
 };
+
 export default connect(mapStateToProps)(Datapoints);

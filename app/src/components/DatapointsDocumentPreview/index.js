@@ -36,23 +36,20 @@ class DatapointsDocumentPreview extends Component {
                         {this.props.pdf.pdf.split('/').reverse()[0]}
                         <div className="icon">
                             {
-                                this.props.highlights.map((pdf, index) => {
-                                    return (pdf.id === this.props.pdf.id)
-                                        ?
-                                        pdf.all_doc_tagged
-                                            ?
-                                            <div>
-                                                <br></br>
-                                                <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
-                                            </div>
-                                            :
-                                            <div>
-                                                <br></br>
-                                                <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
-                                            </div>
-                                        :
-                                        null
-                                })}
+
+                                this.props.is_doc
+                                    ?
+                                    <div>
+                                        <br></br>
+                                        <Icon className={classNames(classes.icon, "far fa-file-pdf")} />
+                                    </div>
+                                    :
+                                    <div>
+                                        <br></br>
+                                        <Icon className={classNames(classes.icon, 'fas fa-quote-right')} />
+                                    </div>
+
+                            }
                         </div>
                     </Typography>
                 </Paper >

@@ -118,6 +118,8 @@ class Sidebar extends Component {
 
 
     render() {
+        console.log(this.props.pdf)
+
         const { classes } = this.props;
         const regex = /(<([^>]+)>)/ig
         return (
