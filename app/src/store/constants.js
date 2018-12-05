@@ -9,6 +9,7 @@ export const SET_ANNOTATION_PDF = 'SET_ANNOTATION_PDF';
 export const SET_ALL_PDFS = 'SET_ALL_PDFS';
 export const SET_PHRASES_TAG = 'SET_PHRASES_TAG';
 export const SET_PHRASES_PDF = 'SET_PHRASES_PDF';
+export const SET_HL = 'SET_HL';
 
 let baseUrl;
 if (process.env.NODE_ENV === 'development') {
