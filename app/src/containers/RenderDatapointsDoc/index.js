@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Modal from 'react-responsive-modal';
 import "./index.css"
@@ -22,7 +22,7 @@ class RenderDatapointsDoc extends Component {
 
         els.forEach(el => {
             el.addEventListener('click', (e) => {
-                self.setState({open: true, modalText: e.target.title})
+                self.setState({ open: true, modalText: e.target.title })
             })
         })
     };
@@ -74,23 +74,23 @@ class RenderDatapointsDoc extends Component {
 
     onCloseModal = () => {
         console.log("closing")
-        this.setState({open: false});
+        this.setState({ open: false });
     };
 
 
-    render () {
+    render() {
         return (
-          <div className="container">
-              <Paper className="datapoints">
-                  <div className="textDoc" onMouseUp={this.onSelectText}>
-                      <Modal open={this.state.open} onClose={this.onCloseModal} center>
-                          <h2>{this.state.modalText}</h2>
-                      </Modal>
-                      <div dangerouslySetInnerHTML={{__html: this.props.pdf.text}}>
-                      </div>
-                  </div>
-              </Paper>
-          </div>
+            <div className="container">
+                <Paper className="datapoints">
+                    <div className="textDoc" onMouseUp={this.onSelectText}>
+                        <Modal open={this.state.open} onClose={this.onCloseModal} center>
+                            <h2>{this.state.modalText}</h2>
+                        </Modal>
+                        <div dangerouslySetInnerHTML={{ __html: this.props.pdf.text }}>
+                        </div>
+                    </div>
+                </Paper>
+            </div>
 
         );
     }
