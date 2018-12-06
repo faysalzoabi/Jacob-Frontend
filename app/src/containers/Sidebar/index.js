@@ -114,14 +114,11 @@ class Sidebar extends Component {
     };
     removeTagHandler = () => {
         this.setState({selectedTag: {}});
-        console.log(this.state);
         this.notifyTagRemoved()
     }
 
 
     render () {
-        console.log(this.props.pdf)
-
         const {classes} = this.props;
         const regex = /(<([^>]+)>)/ig
         return (

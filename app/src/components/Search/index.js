@@ -48,7 +48,6 @@ class Search extends Component {
         fetch(`${baseAPIUrl}search/query/?q=${this.state.multiline}`, config)
           .then(response => response.json())
           .then(data => {
-              console.log("data", data)
               this.setState({texts: data.hits})
           })
     }
@@ -58,7 +57,6 @@ class Search extends Component {
         this.setState({
             [name]: event.target.value,
         });
-        console.log(this.state.multiline)
     };
 
 
