@@ -4,7 +4,7 @@
 
 .result {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content:center;
     align-content:space-around;
@@ -14,10 +14,10 @@
 }
 
 .box {
-    background-color: grey;
+    /* background-color: grey; */
 }
 
 .box:hover{
     cursor: pointer;
-    box-shadow: 5px 5px lightgrey;
+    /* box-shadow: 5px 5px lightgrey; */
 }
