@@ -46,6 +46,13 @@ export const setPhrasesofTag = (payload) => {
     }
 }
 
+export const unsetPhrasesofTag = () => {
+    return {
+        type: SET_PHRASES_TAG,
+        data: []
+    }
+}
+
 export const fetchKeyPhrasesOfPdf = (pdf_id) => dispatch => {
     if (!isAxiosAuthorized())
         return;

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Typography from '@material-ui/core/Typography';
-import Card from "@material-ui/core/Card/Card";
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import "./index.css"
+
 const styles = {
     card: {
         width: "100%",
@@ -28,40 +27,38 @@ const styles = {
 class KeyPhrase extends Component {
 
 
-    render() {
-        const { classes } = this.props;
+    render () {
+        const {classes} = this.props;
         const regex = /(<([^>]+)>)/ig
 
         if (this.props.phrases && this.props.phrases.length !== 0) {
             return (
-                <div>
-                    <Divider variant="middle" />
-                    <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
-                        Keyphrases:
-                                </Typography>
-                    <div className="keyphraseWrapper">
-                        {
-                            this.props.phrases.map((phrase, index) => {
+              <div>
+                  <Divider variant="middle"/>
+                  <Typography className={classes.keyphrases} variant="subheading" gutterBottom>
+                      Keyphrases:
+                  </Typography>
+                  <div className="keyphraseWrapper">
+                      {
+                          this.props.phrases.map((phrase, index) => {
                                 return phrase.selected_text
-                                    ?
-                                    <div >
-
-                                        <Paper className={classes.paper} key={index}>
-                                            {phrase.selected_text.replace(regex, "")}
-                                        </Paper>
-                                    </div>
-                                    :
-                                    null
+                                  ?
+                                  <div key={index}>
+                                      <Paper className={classes.paper} key={index}>
+                                          {phrase.selected_text.replace(regex, "")}
+                                      </Paper>
+                                  </div>
+                                  :
+                                  null
 
 
                             }
+                          )
+                      }
+                  </div>
 
-                            )
-                        }
-                    </div>
-
-                    <br></br>
-                </div>
+                  <br></br>
+              </div>
             )
         }
         else {
