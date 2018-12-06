@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { postAnnotations } from "../../store/actions/annotateActions";
+import {postAnnotations} from "../../store/actions/annotateActions";
 import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import { fetchTagsAndDocRefs } from "../../store/actions/tagsActions"
+import {withStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom'
+import {fetchTagsAndDocRefs} from "../../store/actions/tagsActions"
 import Dropdown from './../../containers/Dropdown'
-import { fetchAllPdfs } from "../../store/actions/pdfActions";
-import { ToastContainer, toast } from 'react-toastify';
+import {fetchAllPdfs} from "../../store/actions/pdfActions";
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Card from '@material-ui/core/Card';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -48,7 +48,6 @@ class Sidebar extends Component {
     }
 
 
-
     notifyTag = () => toast.error("Please Select a Tag!", {
         position: toast.POSITION.BOTTOM_LEFT
     });
@@ -66,7 +65,7 @@ class Sidebar extends Component {
     });
 
     dropdownHandleChange = (tag) => {
-        this.setState({ selectedTag: tag });
+        this.setState({selectedTag: tag});
     };
 
     saveHandler = () => {
@@ -83,6 +82,8 @@ class Sidebar extends Component {
                     all_doc_tagged: true,
                 }))
                 this.props.dispatch(fetchAllPdfs())
+                this.props.dispatch(fetchTagsAndDocRefs())
+
                 this.notifySuccess()
             } else {
                 this.props.dispatch(postAnnotations({
@@ -91,6 +92,8 @@ class Sidebar extends Component {
                     pdf_documents: this.props.pdf.id,
                 })).then(() => {
                     this.props.dispatch(fetchAllPdfs())
+                    this.props.dispatch(fetchTagsAndDocRefs())
+
                     this.notifySuccess()
                 })
             }
@@ -111,62 +114,62 @@ class Sidebar extends Component {
 
     };
     removeTagHandler = () => {
-        this.setState({ selectedTag: {} });
+        this.setState({selectedTag: {}});
         console.log(this.state);
         this.notifyTagRemoved()
     }
 
 
-    render() {
+    render () {
         console.log(this.props.pdf)
 
-        const { classes } = this.props;
+        const {classes} = this.props;
         const regex = /(<([^>]+)>)/ig
         return (
-            <div className="sidebar">
-                <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
-                    Select All Text
+          <div className="sidebar">
+              <Button variant="contained" color="primary" onClick={this.allDocumentHandler} className={classes.button}>
+                  Select All Text
               </Button>
-                <Card className="sidebarCard">
-                    <div className="highlightedText">
-                        {
-                            this.state.allText
-                                ?
-                                <Typography variant="subheading" gutterBottom>
-                                    All text selected.
+              <Card className="sidebarCard">
+                  <div className="highlightedText">
+                      {
+                          this.state.allText
+                            ?
+                            <Typography variant="subheading" gutterBottom>
+                                All text selected.
                             </Typography>
-                                :
-                                this.props.selectedText && !this.props.selectedText.match(/^\s*$/)
-                                    ?
-                                    <Typography variant="body1" gutterBottom>
-                                        {
-                                            this.props.selectedText.replace(regex, "")}
-                                    </Typography>
-                                    :
-                                    <Typography variant="subheading" gutterBottom>
-                                        Please select the text to annotate
+                            :
+                            this.props.selectedText && !this.props.selectedText.match(/^\s*$/)
+                              ?
+                              <Typography variant="body1" gutterBottom>
+                                  {
+                                      this.props.selectedText.replace(regex, "")}
                               </Typography>
-                        }
+                              :
+                              <Typography variant="subheading" gutterBottom>
+                                  Please select the text to annotate
+                              </Typography>
+                      }
 
-                    </div>
-                    <Dropdown dropdownHandleChange={this.dropdownHandleChange} />
-                    {Object.keys(this.state.selectedTag).length > 0
-                        ?
-                        <Button variant="contained" size="small" onClick={this.removeTagHandler}>
-                            <DeleteIcon />
-                            Unselect tag
-                         </Button>
-                        :
-                        null
-                    }
-                    <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
-                        <SaveIcon />
-                        Save
+                  </div>
+                  <Dropdown dropdownHandleChange={this.dropdownHandleChange}/>
+                  {Object.keys(this.state.selectedTag).length > 0
+                    ?
+                    <Button variant="contained" size="small" onClick={this.removeTagHandler}>
+                        <DeleteIcon/>
+                        Unselect tag
+                    </Button>
+                    :
+                    null
+                  }
+                  <Button variant="contained" size="small" className={classes.button} onClick={this.saveHandler}>
+                      <SaveIcon/>
+                      Save
                   </Button>
 
-                </Card>
-                <ToastContainer />
-            </div>
+              </Card>
+              <ToastContainer/>
+          </div>
         );
     }
 
