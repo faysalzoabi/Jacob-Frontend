@@ -1,6 +1,12 @@
 .wrapper {
-    display: block;
+    display: flex;
     width: 1000px;
     margin: auto;
+    justify-content: center;
+}
+.buttonSearch {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 
 }

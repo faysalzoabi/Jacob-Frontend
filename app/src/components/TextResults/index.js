@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {withStyles} from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
-import {withRouter} from 'react-router';
+import { withRouter } from 'react-router';
 import "./index.css"
 
 const styles = theme => ({
@@ -13,9 +13,10 @@ const styles = theme => ({
 });
 
 const paperStyle = {
-    margin: '50px auto',
-    padding: '20px 20px 20px 20px',
-    width: '70%',
+    marginTop: "2%",
+    width: "60%",
+    padding: "1% 1% 1% 1%",
+    background: "#d8d6d6",
 };
 
 
@@ -25,8 +26,8 @@ class TextResults extends Component {
         this.props.history.push(`/annotate/`);
     }
 
-    render () {
-        const {texts} = this.props;
+    render() {
+        const { texts } = this.props;
         console.log('props', texts);
         let textListContent;
         let textarr = [];
@@ -34,21 +35,21 @@ class TextResults extends Component {
         let result = [].concat.apply([], textarr);
         if (texts) {
             textListContent = (
-              <div className="result">
-                  {result.map(t => (
-                    <Paper style={paperStyle} className="box" elevation={10} onClick={this.handleClick}>
-                        {<p dangerouslySetInnerHTML={{__html: t}}/>}
-                    </Paper>
-                  ))}
-              </div>
+                <div className="result">
+                    {result.map(t => (
+                        <Paper style={paperStyle} className="box" elevation={10} onClick={this.handleClick}>
+                            {<p dangerouslySetInnerHTML={{ __html: t }} />}
+                        </Paper>
+                    ))}
+                </div>
             )
         } else {
             textListContent = null;
         }
         return (
-          <div>
-              {textListContent}
-          </div>
+            <div>
+                {textListContent}
+            </div>
         );
     }
 }
