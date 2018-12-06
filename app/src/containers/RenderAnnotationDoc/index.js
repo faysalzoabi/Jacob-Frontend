@@ -11,6 +11,7 @@ class RenderAnnotationDoc extends Component {
 
     state = {
         selectedText: "",
+        startOfSelection: -2
     };
 
     componentDidMount = () => {
@@ -41,6 +42,33 @@ class RenderAnnotationDoc extends Component {
         return nextPdf.text !== this.props.pdf.text;
     }
 
+    getStartofSelection = () => {
+        if (window.getSelection) {
+            let sel = window.getSelection();
+            let div = document.getElementById("roots");
+
+            if (sel.rangeCount) {
+                // Get the selected range
+                let range = sel.getRangeAt(0);
+
+
+                    // Create a range that spans the content from the start of the div
+                    // to the start of the selection
+                    let precedingRange = document.createRange();
+                    precedingRange.setStartBefore(div.firstChild);
+                    precedingRange.setEnd(range.startContainer, range.startOffset);
+
+                    // Get the text preceding the selection and do a crude estimate
+                    // of the number of words by splitting on white space
+                    let textPrecedingSelection = precedingRange.toString();
+                    let wordIndex = textPrecedingSelection.split('').length//.split(/\s+/).length;
+                    console.log("wordIndex", wordIndex)
+                    // alert(wordIndex)
+                    return wordIndex;
+            }
+        }
+        return -2
+    }
 
     getHTMLOfSelection = () => {
         let range;
@@ -68,22 +96,26 @@ class RenderAnnotationDoc extends Component {
 
 
     onSelectText = () => {
+        let startOfSelection = this.getStartofSelection()
         let html = this.getHTMLOfSelection();
         this.setState({
             selectedText: html,
+            startOfSelection: startOfSelection,
         })
     };
 
 
     resetSelection = () => {
         this.setState({
-            selectedText: ""
+            selectedText: "",
+            startOfSelection: -2
         });
         window.getSelection().empty()
     };
 
 
     render () {
+        console.log("djhsfjshdlf", this.state.startOfSelection)
         return (
           <div className="container">
               <Paper className="leftPanel">
@@ -95,8 +127,8 @@ class RenderAnnotationDoc extends Component {
 
 
               <div className="rightPanel">
-                  <Sidebar selectedText={this.state.selectedText} pdf={this.props.pdf}
-                           resetSelection={this.resetSelection}/>
+                  <Sidebar selectedText={this.state.selectedText} startOfSelection={this.state.startOfSelection}
+                           pdf={this.props.pdf} resetSelection={this.resetSelection}/>
               </div>
 
           </div>

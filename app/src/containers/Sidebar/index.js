@@ -85,7 +85,9 @@ class Sidebar extends Component {
 
                 this.notifySuccess()
             } else {
+                console.log("dhsfdhf", this.props.startOfSelection)
                 this.props.dispatch(postAnnotations({
+                    start_of_selection: this.props.startOfSelection,
                     selected_text: this.props.selectedText,
                     document_tags: this.state.selectedTag.id,
                     pdf_documents: this.props.pdf.id,
