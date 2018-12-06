@@ -17,8 +17,9 @@ class RenderDatapointsDoc extends Component {
             if (el.classList)
                 el.classList.add("span-hover");
             else
-                el.className += ' ' + "span-hover";
-        })
+                el.className += " span-hover";
+        });
+
         els.forEach(el => {
             el.addEventListener('click', (e) => {
                 self.setState({open: true, modalText: e.target.title})

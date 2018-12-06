@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import {selectedLevel} from './renderLevels';
 
 import {setDatapointsPdfs} from './../../store/actions/pdfActions';
-import {fetchKeyPhrasesOfTag, fetchTagsAndDocRefs, unsetPhrasesofTag} from "../../store/actions/tagsActions";
+import {fetchKeyPhrasesOfTag, fetchTagsAndDocRefs} from "../../store/actions/tagsActions";
 import "./index.css";
 
 const styles = theme => ({
@@ -93,7 +93,6 @@ class Dropdown extends Component {
     }
 
     render () {
-        const {classes} = this.props;
 
         if (this.props.tags.length > 0) {
             return (

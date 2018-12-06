@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {loadCSS} from 'fg-loadcss/src/loadCSS';
-import Typography from '@material-ui/core/Typography';
 import {withRouter} from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
 import {connect} from "react-redux"

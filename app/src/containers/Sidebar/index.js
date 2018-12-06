@@ -3,7 +3,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {postAnnotations} from "../../store/actions/annotateActions";
-import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom'
