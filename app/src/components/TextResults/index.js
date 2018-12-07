@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { withStyles } from "@material-ui/core/styles";
+import React, {Component} from 'react';
+import {withStyles} from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
-import { withRouter } from 'react-router';
+import {withRouter} from 'react-router';
+import {connect} from 'react-redux';
+
 import "./index.css"
 
 const styles = theme => ({
@@ -13,45 +15,71 @@ const styles = theme => ({
 });
 
 const paperStyle = {
-    marginTop: "2%",
-    width: "60%",
-    padding: "1% 1% 1% 1%",
-    background: "#d8d6d6",
+    margin: '50px auto',
+    padding: '20px 20px 20px 20px',
+    width: '70%',
 };
 
 
 class TextResults extends Component {
 
-    handleClick = () => {
-        this.props.history.push(`/annotate/`);
+    handleClick = (pdfName) => {
+        let pdfNameEnd = pdfName.split('/').reverse()[0]
+        let pdfsNames = this.props.pdfs.map(pdf => {
+            return {
+                ...pdf,
+                pdf: pdf.pdf.split('/').reverse()[0]
+            }
+        })
+        let matchArr = pdfsNames.filter(pdf => pdf.pdf === pdfNameEnd)
+        if (matchArr.length === 1) {
+            let pdfId = matchArr[0].id
+            this.props.history.push(`/annotate/${pdfId}`);
+
+        } else {
+            this.props.history.push(`/annotate/`);
+        }
     }
 
-    render() {
-        const { texts } = this.props;
-        console.log('props', texts);
+    render () {
+        const {texts} = this.props;
         let textListContent;
         let textarr = [];
-        texts.forEach(ele => textarr.push(ele.highlight.text))
-        let result = [].concat.apply([], textarr);
+        texts.forEach(ele => {
+            ele.highlight.text.forEach(text => {
+                textarr.push({pdf: ele._source.pdf, text: text})
+            })
+        })
+        console.log('textarr', textarr);
+
+
         if (texts) {
             textListContent = (
-                <div className="result">
-                    {result.map(t => (
-                        <Paper style={paperStyle} className="box" elevation={10} onClick={this.handleClick}>
-                            {<p dangerouslySetInnerHTML={{ __html: t }} />}
+              <div className="result">
+                  {
+                      textarr.map(t => (
+                        <Paper style={paperStyle} className="box" elevation={10}
+                               onClick={() => this.handleClick(t.pdf)}>
+                            <h6>{t.pdf}</h6>
+                            {<p dangerouslySetInnerHTML={{__html: t.text}}/>}
                         </Paper>
-                    ))}
-                </div>
+                      ))
+                  }
+              </div>
             )
         } else {
             textListContent = null;
         }
         return (
-            <div>
-                {textListContent}
-            </div>
+          <div>
+              {textListContent}
+          </div>
         );
     }
 }
 
-export default withStyles(styles)(withRouter(TextResults));
+const mapStateToProps = state => ({
+    pdfs: state.pdfs.all_pdfs,
+});
+
+export default withStyles(styles)(withRouter(connect(mapStateToProps)(TextResults)));
