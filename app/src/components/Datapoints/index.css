@@ -2,7 +2,7 @@
     margin-top: 1%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 90%;
     min-height: 100vh;
     background-color: #f2f2f2;
@@ -11,18 +11,22 @@
 }
 
 .leftPanel-datapoints {
+    position: fixed;
+    left: 3%;
     max-height: 500%;
-    width: 30%;
+    width: 25%;
     border: 1px solid aliceblue;
     padding: 1em;
     box-sizing: border-box;
     overflow: hidden;
     height: 80%;
+    overflow-y: auto;
 
 }
 
+
 .rightPanel-datapoints {
-    width: 70%;
+    width: 65%;
     box-sizing: border-box;
     padding-left: 1%;
     height: 80%;

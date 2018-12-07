@@ -52,19 +52,19 @@ class RenderAnnotationDoc extends Component {
                 let range = sel.getRangeAt(0);
 
 
-                    // Create a range that spans the content from the start of the div
-                    // to the start of the selection
-                    let precedingRange = document.createRange();
-                    precedingRange.setStartBefore(div.firstChild);
-                    precedingRange.setEnd(range.startContainer, range.startOffset);
+                // Create a range that spans the content from the start of the div
+                // to the start of the selection
+                let precedingRange = document.createRange();
+                precedingRange.setStartBefore(div.firstChild);
+                precedingRange.setEnd(range.startContainer, range.startOffset);
 
-                    // Get the text preceding the selection and do a crude estimate
-                    // of the number of words by splitting on white space
-                    let textPrecedingSelection = precedingRange.toString();
-                    let wordIndex = textPrecedingSelection.split('').length//.split(/\s+/).length;
-                    console.log("wordIndex", wordIndex)
-                    // alert(wordIndex)
-                    return wordIndex;
+                // Get the text preceding the selection and do a crude estimate
+                // of the number of words by splitting on white space
+                let textPrecedingSelection = precedingRange.toString();
+                let wordIndex = textPrecedingSelection.split('').length//.split(/\s+/).length;
+                console.log("wordIndex", wordIndex)
+                // alert(wordIndex)
+                return wordIndex;
             }
         }
         return -2
@@ -118,13 +118,14 @@ class RenderAnnotationDoc extends Component {
         console.log("djhsfjshdlf", this.state.startOfSelection)
         return (
           <div className="container">
-              <Paper className="leftPanel">
-                  <div className="textDoc" onMouseUp={this.onSelectText}>
-                      <div id="roots">
+              <div>
+                  <Paper className="leftPanel">
+                      <div className="textDoc" onMouseUp={this.onSelectText}>
+                          <div id="roots">
+                          </div>
                       </div>
-                  </div>
-              </Paper>
-
+                  </Paper>
+              </div>
 
               <div className="rightPanel">
                   <Sidebar selectedText={this.state.selectedText} startOfSelection={this.state.startOfSelection}
